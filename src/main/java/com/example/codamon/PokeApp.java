@@ -10,7 +10,7 @@ import java.io.IOException;
 public class PokeApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(PokeApp.class.getResource("Poke-View.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(PokeApp.class.getResource("views/Poke-View.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("Codamon");
         stage.setScene(scene);
