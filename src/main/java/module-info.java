@@ -10,6 +10,7 @@ module com.example.codamon {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires com.fasterxml.jackson.databind;
 
     opens com.example.codamon to javafx.fxml;
     exports com.example.codamon;

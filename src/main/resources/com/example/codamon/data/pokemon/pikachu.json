@@ -1,0 +1,15 @@
+{
+  "name":"Pikachu",
+  "types": ["Electric"],
+  "stats": {
+    "HP":35,
+    "ATK": 55,
+    "DEF": 40,
+    "SPA": 50,
+    "SPD": 50,
+    "SPE": 90
+  },
+  "Ability": [],
+  "move": []
+
+}
