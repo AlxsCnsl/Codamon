@@ -36,7 +36,7 @@
                     <HBox alignment="CENTER" spacing="10.0">
                         <ImageView fitWidth="100"
                                    pickOnBounds="true" preserveRatio="true">
-                            <Image url="@../sprites/togekiss_front.png"/>
+                            <Image url="@../sprites/Pokemon/psykokwak/psykokwak_back.png"/>
                         </ImageView>
 
                         <ImageView fitWidth="50"

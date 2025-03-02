@@ -8,17 +8,13 @@ import com.example.codamon.core.*;
 
 import com.example.codamon.core.TurnManager.ConsoleTurnManager;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Scanner;
 
 public class PokeApp extends Application {
 
@@ -35,17 +31,11 @@ public class PokeApp extends Application {
 
         stage.setScene(scenes.get(SceneName.TEAMBUILDER));
         stage.setTitle("MENU");
-        scenes.put(
-                SceneName.MENU, new MenuView(stage).getScene());
-        scenes.put(
-                SceneName.BATTLE, new BattleView(stage).getScene());
-        scenes.put(
-                SceneName.TEAMBUILDER, new TeamBuilderView(stage).getScene());
-
-        stage.setScene(scenes.get(SceneName.TEAMBUILDER));
-        stage.setTitle("MENU");
         stage.show();
 
+
+        //ALEXIS________________________________________________________________
+        Scanner scanner = new Scanner(System.in); // Création du scanner
 
         Pokemon pikachu = new Pokemon("Pikachu");
         Pokemon psykokwak = new Pokemon("Psykokwak");
@@ -58,9 +48,12 @@ public class PokeApp extends Application {
         PokemonTeam team2 = new PokemonTeam("Ethan");
         team2.addPokemon(togekiss);
 
-        ClassicBattle battle = new ClassicBattle(team1, team2, new ConsoleTurnManager());
+        Battle battle = new Battle(team1, team2, new ConsoleTurnManager());
         //System.out.println(team1);System.out.println(team2);
+        battle.run();
         System.out.println(battle.activesPokeomToString());
+        //______________________________________________________________________
+
 
     }
 
