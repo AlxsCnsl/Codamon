@@ -28,6 +28,6 @@ public class TeamBuilderView implements ViewMaker {
         TeamBuilderController controller = fxmlLoader.getController();
         controller.setStage(stage);
 
-        return new Scene(root, 1080, 720);
+        return new Scene(root, 1500, 800);
     }
 }
