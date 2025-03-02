@@ -35,18 +35,8 @@ public class PokeApp extends Application {
 
         stage.setScene(scenes.get(SceneName.TEAMBUILDER));
         stage.setTitle("MENU");
-        scenes.put(
-                SceneName.MENU, new MenuView(stage).getScene());
-        scenes.put(
-                SceneName.BATTLE, new BattleView(stage).getScene());
-        scenes.put(
-                SceneName.TEAMBUILDER, new TeamBuilderView(stage).getScene());
-
-        stage.setScene(scenes.get(SceneName.TEAMBUILDER));
-        stage.setTitle("MENU");
         stage.show();
-
-
+        
         Pokemon pikachu = new Pokemon("Pikachu");
         Pokemon psykokwak = new Pokemon("Psykokwak");
         Pokemon togekiss = new Pokemon("Togekiss");
