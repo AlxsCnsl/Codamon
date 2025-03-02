@@ -2,6 +2,7 @@ package com.example.codamon;
 
 import com.example.codamon.core.*;
 
+import com.example.codamon.core.TurnManager.ConsoleTurnManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,15 +20,6 @@ public class PokeApp extends Application {
         stage.show();
 
 
-        /*
-        Pokemon pikachu = new Pokemon("Pikachu",
-                TypeTools.typeList(Type.ELECTRIC),
-                35, 55, 40, 50, 50,90);
-
-        Pokemon togekiss = new Pokemon("Togekiss",
-                TypeTools.typeList(Type.FLYING, Type.FAIRY),
-                85, 50, 95, 120, 115, 80);
-         */
         Pokemon pikachu = new Pokemon("Pikachu");
         Pokemon psykokwak = new Pokemon("Psykokwak");
         Pokemon togekiss = new Pokemon("Togekiss");
@@ -39,8 +31,9 @@ public class PokeApp extends Application {
         PokemonTeam team2 = new PokemonTeam("Ethan");
         team2.addPokemon(togekiss);
 
-        ClassicBattle battle = new ClassicBattle(team1, team2);
+        ClassicBattle battle = new ClassicBattle(team1, team2, new ConsoleTurnManager());
         //System.out.println(team1);System.out.println(team2);
+        System.out.println(battle.activesPokeomToString());
 
     }
 

@@ -10,13 +10,14 @@ import java.util.ArrayList;
 
 public class Pokemon {
 
+    private Boolean isAlive = true;
     private final String name;
     private final HashMap<String, Integer> baseStats = new HashMap<>();
     private HashMap<String, Integer> modifierStats = new HashMap<>();
     private int accurateHP;
     private ArrayList<Type> types = new ArrayList<>();
 
-    //CONSTRUCTOR_______________________________________________________________
+    //CONSTRUCTOR______________________________________________________________
     public Pokemon(String name, ArrayList<Type> types,
                    int HP, int ATK, int DEF, int SPA, int SPD, int SPE){
         this.name = name;
@@ -88,10 +89,18 @@ public class Pokemon {
         return  this.baseStats.get(key);
     }
 
+    public Boolean getIsAlive(){
+        return this.isAlive;
+    }
+
     public int getCurrentState(String key){
         if(!key.equals("HP")){
             return 2*this.getBaseState(key)+5;
         } return 2*this.getBaseState("HP")+110;
+    }
+
+    public ArrayList<Type> getTypes() {
+        return this.types;
     }
 
     public int getAccurateHP() {
