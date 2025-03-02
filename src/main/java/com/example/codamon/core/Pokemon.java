@@ -3,11 +3,10 @@ package com.example.codamon.core;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.JsonNode;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class Pokemon {
 
@@ -17,6 +16,7 @@ public class Pokemon {
     private int accurateHP;
     private ArrayList<Type> types = new ArrayList<>();
 
+    //CONSTRUCTOR_______________________________________________________________
     public Pokemon(String name, ArrayList<Type> types,
                    int HP, int ATK, int DEF, int SPA, int SPD, int SPE){
         this.name = name;
@@ -34,18 +34,24 @@ public class Pokemon {
     public Pokemon(String name){
         this.name = name;
         ObjectMapper objectMapper = new ObjectMapper();
-        String pathFile =
-                "resources/com/example/codamon/data/pokemon/"+name.toLowerCase()+".json";
+        String pathName =
+                "/com/example/codamon/data/pokemon/"+
+                        name.toLowerCase()+".json";
+        InputStream inputStream =
+                getClass().getResourceAsStream(pathName);
+        if (inputStream == null) {
+            System.err.println("File not found : " + pathName);
+        }
         try {
-            JsonNode rootNode = objectMapper.readTree(new File(pathFile));
-            setBasStatesWithJson(rootNode);
+            JsonNode rootNode = objectMapper.readTree(inputStream);
+            initBasStatesWithJson(rootNode);
         }catch (IOException e){
-            System.out.println(pathFile + " could not be opened");
+            System.out.println(pathName + " could not be opened");
             e.printStackTrace();
         }
     }
 
-    private void setBasStatesWithJson(JsonNode rootNode){
+    private void initBasStatesWithJson(JsonNode rootNode){
         for(int i = 0; i <rootNode.get("types").size()  ; i++ ){
             this.types.add(TypeTools.stringToType(
                     rootNode.get("types").get(i).asText()));
@@ -60,9 +66,6 @@ public class Pokemon {
         this.resetPokemon();
         System.out.println("#POKEMON#"+name+" is Construct");
     }
-
-
-
 
     //STRINGIFIER______________________________________________________________
     public String toString(){
@@ -80,12 +83,12 @@ public class Pokemon {
     }
 
     //GETTER___________________________________________________________________
-    private int getBaseState(String key){
+    public int getBaseState(String key){
         //Error à faire
         return  this.baseStats.get(key);
     }
 
-    private int getCurrentState(String key){
+    public int getCurrentState(String key){
         if(!key.equals("HP")){
             return 2*this.getBaseState(key)+5;
         } return 2*this.getBaseState("HP")+110;

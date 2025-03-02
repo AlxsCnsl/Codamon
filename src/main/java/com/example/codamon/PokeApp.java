@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class PokeApp extends Application {
     @Override
@@ -30,12 +29,14 @@ public class PokeApp extends Application {
                 85, 50, 95, 120, 115, 80);
          */
         Pokemon pikachu = new Pokemon("Pikachu");
+        Pokemon psykokwak = new Pokemon("Psykokwak");
         Pokemon togekiss = new Pokemon("Togekiss");
 
         PokemonTeam team1 = new PokemonTeam("Alexis");
         team1.addPokemon(pikachu);
+        team1.addPokemon(psykokwak);
 
-        PokemonTeam team2 = new PokemonTeam("Bot");
+        PokemonTeam team2 = new PokemonTeam("Ethan");
         team2.addPokemon(togekiss);
 
         ClassicBattle battle = new ClassicBattle(team1, team2);
