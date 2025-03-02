@@ -27,4 +27,9 @@ public class TeamBuilderController {
     public void onExitButtonClick() {
         stage.setScene(PokeApp.getScenes().get(SceneName.MENU));
     }
+
+    @FXML
+    public void onAddPokemonButtonClick() {
+
+    }
 }
