@@ -24,9 +24,6 @@ public class PokeApp extends Application {
 
     private static Map<SceneName, Scene> scenes = new HashMap<>();
 
-
-    private static Map<SceneName, Scene> scenes = new HashMap<>();
-
     @Override
     public void start(Stage stage) throws IOException {
         scenes.put(
