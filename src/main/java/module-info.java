@@ -16,4 +16,5 @@ module com.example.codamon {
     exports com.example.codamon;
     exports com.example.codamon.controllers;
     opens com.example.codamon.controllers to javafx.fxml;
+    opens com.example.codamon.views to javafx.fxml;
 }
