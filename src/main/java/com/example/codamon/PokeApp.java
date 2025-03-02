@@ -1,5 +1,8 @@
 package com.example.codamon;
 
+import com.example.codamon.core.*;
+
+import com.example.codamon.core.TurnManager.ConsoleTurnManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,6 +18,23 @@ public class PokeApp extends Application {
         stage.setTitle("Codamon");
         stage.setScene(scene);
         stage.show();
+
+
+        Pokemon pikachu = new Pokemon("Pikachu");
+        Pokemon psykokwak = new Pokemon("Psykokwak");
+        Pokemon togekiss = new Pokemon("Togekiss");
+
+        PokemonTeam team1 = new PokemonTeam("Alexis");
+        team1.addPokemon(pikachu);
+        team1.addPokemon(psykokwak);
+
+        PokemonTeam team2 = new PokemonTeam("Ethan");
+        team2.addPokemon(togekiss);
+
+        ClassicBattle battle = new ClassicBattle(team1, team2, new ConsoleTurnManager());
+        //System.out.println(team1);System.out.println(team2);
+        System.out.println(battle.activesPokeomToString());
+
     }
 
     public static void main(String[] args) {

@@ -1,0 +1,15 @@
+{
+  "name":"Togekiss",
+  "types": ["Flying","Fairy"],
+  "stats": {
+    "HP":85,
+    "ATK": 50,
+    "DEF": 95,
+    "SPA": 120,
+    "SPD": 115,
+    "SPE": 80
+  },
+  "Ability": [],
+  "move": []
+
+}
