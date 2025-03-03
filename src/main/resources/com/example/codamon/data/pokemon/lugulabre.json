@@ -1,0 +1,15 @@
+{
+  "name": "Lugulabre",
+  "types": ["Fire","Ghost"],
+  "stats": {
+    "HP": 60,
+    "ATK": 55,
+    "DEF": 90,
+    "SPA": 145,
+    "SPD": 90,
+    "SPE": 80
+  },
+  "Ability": [],
+  "move": []
+
+}

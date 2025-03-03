@@ -40,6 +40,7 @@ public class PokeApp extends Application {
         Pokemon pikachu = new Pokemon("Pikachu");
         Pokemon psykokwak = new Pokemon("Psykokwak");
         Pokemon togekiss = new Pokemon("Togekiss");
+        Pokemon lugulabre = new Pokemon("Lugulabre");
 
         PokemonTeam team1 = new PokemonTeam("Alexis");
         team1.addPokemon(pikachu);
@@ -47,6 +48,10 @@ public class PokeApp extends Application {
 
         PokemonTeam team2 = new PokemonTeam("Ethan");
         team2.addPokemon(togekiss);
+        team2.addPokemon(lugulabre);
+
+        System.out.println(togekiss.getTypes());
+        System.out.println(togekiss.getName());
 
         ClassicBattle battle = new ClassicBattle(team1, team2, new ConsoleTurnManager());
         //System.out.println(team1);System.out.println(team2);
