@@ -1,8 +1,6 @@
-package com.example.codamon.core.TurnManager;
+package com.example.codamon.core.turn_manager;
 
 import com.example.codamon.core.Battle;
-
-import java.util.Scanner;
 
 import static com.example.codamon.core.GlobalTools.waitPressEnter;
 

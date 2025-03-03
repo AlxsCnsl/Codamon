@@ -1,4 +1,4 @@
-package com.example.codamon.core.TurnManager;
+package com.example.codamon.core.turn_manager;
 
 import com.example.codamon.core.Battle;
 

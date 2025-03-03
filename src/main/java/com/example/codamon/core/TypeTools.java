@@ -43,6 +43,19 @@ public class TypeTools {
         return list;
     }
 
+    public static String getEfficiencyAttackLog(
+            Type attackerType, ArrayList<Type> defenderTypes){
+        String log ;
+        switch ((int)(getTypesEfficiency(attackerType, defenderTypes) * 100 )){
+            case 400 -> log = "VERY SUPPER EFIC";
+            case 200 -> log = "SUPPER EFIC";
+            case 50 -> log = "NOT VERY EFIC";
+            case 25 -> log = "VERY NOT EFIC";
+            default -> log = "";
+        }
+        return log;
+    }
+
     public static ArrayList<Type> typeList(Type type1, Type type2){
         ArrayList<Type> list =  new ArrayList<>();
         list.add(type1);list.add(type2);

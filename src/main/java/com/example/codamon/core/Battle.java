@@ -1,7 +1,7 @@
 package com.example.codamon.core;
 
-import com.example.codamon.core.TurnManager.BattlePhase;
-import com.example.codamon.core.TurnManager.Turn;
+import com.example.codamon.core.turn_manager.BattlePhase;
+import com.example.codamon.core.turn_manager.Turn;
 
 import java.util.ArrayList;
 
@@ -26,19 +26,20 @@ public class Battle {
     }
 
     //STRINGIFIER______________________________________________________________
-    public String activesPokeomToString() {
+    public String activePokemonsToString() {
         String string = "";
-        string += "Active POKEMONS : \n";
+        string += "Active POKEMONS :";
         int teamsNumber = this.activePokemonsIndex.size();
         for (int i = 0; i < teamsNumber ; i++) {
             int activePokemonsNumber = this.activePokemonsIndex.get(i).size();
-            string += "==== "+this.teams.get(i).getName()+" ====\n";
+            string += "\n==== "+this.teams.get(i).getName()+" ====\n";
             for (int j = 0; j < activePokemonsNumber; j++) {
                 if (activePokemonsNumber != 0 &&
                         teams.get(i).getTeam().get(j).getIsAlive()){
                     string += teams.get(i).getTeam().get(j).toString();
                 }
             }
+            string += "\n";
         }
         return string;
     }
