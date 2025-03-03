@@ -53,12 +53,14 @@ public class TeamBuilderController {
         pokemonSpriteImageView.setFitWidth(100);
         pokemonSpriteImageView.setPickOnBounds(true);
         pokemonSpriteImageView.setPreserveRatio(true);
-        pokemonSpriteImageView.setId("pokemonSprite");
 
         ArrayList<ImageView> pokemonSprites = new ArrayList<>();
         pokemonSprites.add(pokemonSpriteImageView);
 
-        stage.setUserData(pokemonSprites);
+        ArrayList<Object> userData = new ArrayList<>();
+        userData.add(pokemonSprites);
+
+        stage.setUserData(userData);
 
         return pokemonSpriteImageView;
     }
@@ -74,9 +76,10 @@ public class TeamBuilderController {
         typeImageView.setPickOnBounds(true);
         typeImageView.setPreserveRatio(true);
 
-        ArrayList<ImageView> pokemonSprites = (ArrayList<ImageView>) stage.getUserData();
+        ArrayList<Object> userData = (ArrayList<Object>) stage.getUserData();
+        ArrayList<ImageView> pokemonSprites = (ArrayList<ImageView>) userData.get(0);
         pokemonSprites.add(typeImageView);
-        stage.setUserData(pokemonSprites);
+        stage.setUserData(userData);
 
         return typeImageView;
     }
@@ -135,6 +138,31 @@ public class TeamBuilderController {
         }
     }
 
+    private void pokemonStatsJSONReader(ArrayList<String> pokemonStats,
+                                        String pokemonName) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String pathName = "/com/example/codamon/data/pokemon/" +
+                pokemonName.toLowerCase()+".json";
+
+        InputStream inputStream = getClass().getResourceAsStream(pathName);
+
+        if (inputStream == null) {
+            System.err.println("File not found : " + pathName);
+        }
+        try {
+            JsonNode rootNode = objectMapper.readTree(inputStream);
+            pokemonStats.add(rootNode.get("stats").get("HP").asText());
+            pokemonStats.add(rootNode.get("stats").get("ATK").asText());
+            pokemonStats.add(rootNode.get("stats").get("DEF").asText());
+            pokemonStats.add(rootNode.get("stats").get("SPA").asText());
+            pokemonStats.add(rootNode.get("stats").get("SPE").asText());
+            pokemonStats.add(rootNode.get("stats").get("SPE").asText());
+
+        } catch (IOException e){
+            System.out.println(pathName + " could not be opened");
+        }
+    }
+
     private ArrayList<String> createPokemonNamesList() {
         ArrayList<String> pokemonNames = new ArrayList<>();
         pokemonListJSONReader(pokemonNames);
@@ -185,8 +213,9 @@ public class TeamBuilderController {
 
     private void setPokemonSprites(Image pokemonSprite, Image firstTypeSprite,
                                    Image secondTypeSprite) {
+        ArrayList<Object> userData = (ArrayList<Object>) stage.getUserData();
         ArrayList<ImageView> pokemonSpritesImageView =
-                (ArrayList<ImageView>) stage.getUserData();
+                (ArrayList<ImageView>) userData.get(0);
         pokemonSpritesImageView.get(0).setImage(pokemonSprite);
         pokemonSpritesImageView.get(1).setImage(firstTypeSprite);
         pokemonSpritesImageView.get(2).setImage(secondTypeSprite);
@@ -215,6 +244,18 @@ public class TeamBuilderController {
                     getTypeSprite(pokemonTypes.get(1)) : getNullTypeSprite();
 
             setPokemonSprites(pokemonSprite, firstTypeSprite, secondTypeSprite);
+
+            ArrayList<Object> userData = (ArrayList<Object>) stage.getUserData();
+            ArrayList<ProgressBar> StatBars =
+                    (ArrayList<ProgressBar>) userData.get(1);
+            StatBars.get(0).setProgress(0.90);
+
+            ArrayList<String> pokemonStats = new ArrayList<>();
+            pokemonStatsJSONReader(pokemonStats, pokemonChoice.getValue());
+
+            for (int i = 0 ; i < StatBars.size() ; i++) {
+                StatBars.get(i).setProgress(Double.parseDouble(pokemonStats.get(i)) / 200);
+            }
         }));
 
         return createPokemonVBox(pokemonLabel, pokemonChoice);
@@ -325,6 +366,12 @@ public class TeamBuilderController {
         HPDisplay.getChildren().add(HPLabel);
         HPDisplay.getChildren().add(HPBar);
 
+        ArrayList<Object> userData = (ArrayList<Object>) stage.getUserData();
+        ArrayList<ProgressBar> StatBars = new ArrayList<>();
+        StatBars.add(HPBar);
+        userData.add(StatBars);
+        stage.setUserData(userData);
+
         return HPDisplay;
     }
 
@@ -335,6 +382,12 @@ public class TeamBuilderController {
         ATKDisplay.setAlignment(Pos.CENTER_RIGHT);
         ATKDisplay.getChildren().add(ATKLabel);
         ATKDisplay.getChildren().add(ATKBar);
+
+        ArrayList<Object> userData = (ArrayList<Object>) stage.getUserData();
+        ArrayList<ProgressBar> StatBars =
+                (ArrayList<ProgressBar>) userData.get(1);
+        StatBars.add(ATKBar);
+        stage.setUserData(userData);
 
         return ATKDisplay;
     }
@@ -347,6 +400,12 @@ public class TeamBuilderController {
         DEFDisplay.getChildren().add(DEFLabel);
         DEFDisplay.getChildren().add(DEFBar);
 
+        ArrayList<Object> userData = (ArrayList<Object>) stage.getUserData();
+        ArrayList<ProgressBar> StatBars =
+                (ArrayList<ProgressBar>) userData.get(1);
+        StatBars.add(DEFBar);
+        stage.setUserData(userData);
+
         return DEFDisplay;
     }
 
@@ -357,6 +416,12 @@ public class TeamBuilderController {
         SPADisplay.setAlignment(Pos.CENTER_RIGHT);
         SPADisplay.getChildren().add(SPALabel);
         SPADisplay.getChildren().add(SPABar);
+
+        ArrayList<Object> userData = (ArrayList<Object>) stage.getUserData();
+        ArrayList<ProgressBar> StatBars =
+                (ArrayList<ProgressBar>) userData.get(1);
+        StatBars.add(SPABar);
+        stage.setUserData(userData);
 
         return SPADisplay;
     }
@@ -369,6 +434,12 @@ public class TeamBuilderController {
         SPDDisplay.getChildren().add(SPDLabel);
         SPDDisplay.getChildren().add(SPDBar);
 
+        ArrayList<Object> userData = (ArrayList<Object>) stage.getUserData();
+        ArrayList<ProgressBar> StatBars =
+                (ArrayList<ProgressBar>) userData.get(1);
+        StatBars.add(SPDBar);
+        stage.setUserData(userData);
+
         return SPDDisplay;
     }
 
@@ -379,6 +450,12 @@ public class TeamBuilderController {
         SPEDisplay.setAlignment(Pos.CENTER_RIGHT);
         SPEDisplay.getChildren().add(SPELabel);
         SPEDisplay.getChildren().add(SPEBar);
+
+        ArrayList<Object> userData = (ArrayList<Object>) stage.getUserData();
+        ArrayList<ProgressBar> StatBars =
+                (ArrayList<ProgressBar>) userData.get(1);
+        StatBars.add(SPEBar);
+        stage.setUserData(userData);
 
         return SPEDisplay;
     }

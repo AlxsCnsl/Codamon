@@ -1,0 +1,14 @@
+{
+  "name":"Ramoloss",
+  "types": ["Water"],
+  "stats": {
+    "HP":50,
+    "ATK": 52,
+    "DEF": 48,
+    "SPA": 65,
+    "SPD": 50,
+    "SPE": 55
+  },
+  "Ability": [],
+  "move": []
+}
