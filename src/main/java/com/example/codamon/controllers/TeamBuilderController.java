@@ -184,8 +184,8 @@ public class TeamBuilderController {
     private Image getPokemonSprite(String pokemonName) {
         URL pokemonSpriteURL = getClass().getResource(
                 "/com/example/codamon/sprites/Pokemon/" +
-                        pokemonName + "/" +
-                        pokemonName + "_face.png");
+                        pokemonName.toLowerCase() + "/" +
+                        pokemonName.toLowerCase() + "_face.png");
 
         return new Image(
                 pokemonSpriteURL.toExternalForm());
@@ -194,7 +194,7 @@ public class TeamBuilderController {
     private Image getTypeSprite(String pokemonFirstType) {
         URL firstTypeSpriteURL = getClass().getResource(
                 "/com/example/codamon/types/" +
-                        pokemonFirstType + ".png");
+                        pokemonFirstType.toLowerCase() + ".png");
 
         return new Image(
                 firstTypeSpriteURL.toExternalForm());

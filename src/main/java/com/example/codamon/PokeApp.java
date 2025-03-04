@@ -37,6 +37,7 @@ public class PokeApp extends Application {
         stage.show();
 
 
+        /*
         //ALEXIS________________________________________________________________
         Scanner scanner = new Scanner(System.in); // Création du scanner
 
@@ -88,6 +89,7 @@ public class PokeApp extends Application {
 
         //______________________________________________________________________
 
+         */
 
     }
 
