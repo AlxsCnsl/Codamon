@@ -37,6 +37,8 @@ public class Pokemon {
         this.baseStats.put("ESC", 1);
         this.resetPokemon();//for define modifierStats and other stats
         System.out.println("#POKEMON#"+name+" is Construct");
+        this.resetPokemon();
+        System.out.println("#POKEMON# " + name + " is built");
     }
 
     public Pokemon(String name){
@@ -60,7 +62,7 @@ public class Pokemon {
     }
 
     private void initBasStatesWithJson(JsonNode rootNode){
-        for(int i = 0; i <rootNode.get("types").size()  ; i++ ){
+        for(int i = 0 ; i < rootNode.get("types").size() ; i++){
             this.types.add(TypeTools.stringToType(
                     rootNode.get("types").get(i).asText()));
         }
@@ -74,7 +76,8 @@ public class Pokemon {
         this.baseStats.put("ACC", 1);
         this.baseStats.put("ESC", 1);
         this.resetPokemon();//for define modifierStats and other stats
-        System.out.println("#POKEMON#"+name+" is Construct");
+        System.out.println("#POKEMON# " + name + " is built");
+
     }
 
     //STRINGIFIER______________________________________________________________

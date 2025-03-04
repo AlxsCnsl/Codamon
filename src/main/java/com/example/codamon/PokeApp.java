@@ -40,6 +40,7 @@ public class PokeApp extends Application {
         //ALEXIS________________________________________________________________
         Scanner scanner = new Scanner(System.in); // Création du scanner
 
+
         Pokemon pikachu = new Pokemon("Pikachu");
         pikachu.addMove(MoveTools.newMove("Charge"));
         pikachu.addMove(MoveTools.newMove("Eclair"));
@@ -55,6 +56,8 @@ public class PokeApp extends Application {
 
         Pokemon togekiss = new Pokemon("Togekiss");
         togekiss.addMove(MoveTools.newMove("Charge"));
+        
+        Pokemon lugulabre = new Pokemon("Lugulabre");
 
         PokemonTeam team1 = new PokemonTeam("Alexis");
         team1.addPokemon(pikachu);
@@ -62,6 +65,10 @@ public class PokeApp extends Application {
 
         PokemonTeam team2 = new PokemonTeam("Ethan");
         team2.addPokemon(togekiss);
+        team2.addPokemon(lugulabre);
+
+        System.out.println(togekiss.getTypes());
+        System.out.println(togekiss.getName());
 
         Battle battle = new Battle(team1, team2, new ConsoleTurnManager());
 

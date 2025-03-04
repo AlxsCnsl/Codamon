@@ -21,7 +21,7 @@ public class PokemonTeam {
 
     private void constructorAlert(){
         System.out.println("#TEAM# Team : "+this.getName()+
-                " is is instantiated");
+                " is instantiated");
     }
 
     //STRINGIFIER______________________________________________________________
@@ -57,7 +57,7 @@ public class PokemonTeam {
     public void addPokemon(Pokemon pokemon){
         this.team.add(pokemon);
         System.out.println("#TEAM# " +this.getName()+"'s team add "+
-                "Pokemon : " + pokemon.getName() +" in team" );
+                "Pokemon : " + pokemon.getName());
     }
 
 }
