@@ -1,6 +1,6 @@
-package com.example.codamon.core.Effect.Status;
+package com.example.codamon.core.effect.status;
 
-import com.example.codamon.core.action.Move.Move;
+import com.example.codamon.core.action.move.Move;
 
 public abstract class AbstractStatus {
     protected   String name;

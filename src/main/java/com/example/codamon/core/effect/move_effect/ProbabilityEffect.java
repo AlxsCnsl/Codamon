@@ -1,8 +1,8 @@
-package com.example.codamon.core.Effect.MoveEffect;
+package com.example.codamon.core.effect.move_effect;
 
-import com.example.codamon.core.Battle;
-import com.example.codamon.core.Pokemon;
-import com.example.codamon.core.action.Move.MoveTools;
+import com.example.codamon.core.batlle.Battle;
+import com.example.codamon.core.pokemon.Pokemon;
+import com.example.codamon.core.action.move.MoveTools;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.ArrayList;

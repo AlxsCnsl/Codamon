@@ -1,6 +1,8 @@
-package com.example.codamon.core.turn_manager;
+package com.example.codamon.core.batlle.turn_manager;
 
-import com.example.codamon.core.Battle;
+import com.example.codamon.core.batlle.Battle;
+import com.example.codamon.core.batlle.Terrain;
+import com.example.codamon.core.pokemon.Team;
 
 import static com.example.codamon.core.GlobalTools.waitPressEnter;
 
@@ -32,17 +34,27 @@ public class ConsoleTurnManager implements Turn {
     public void startPhaseRule(Battle battle) {
         waitPressEnter();
     }
+
     public void selectMovePhaseRule(Battle battle) {
         waitPressEnter();
     }
+
     public void applyMovePhaseRule(Battle battle) {
         waitPressEnter();
     }
+
     public void endPhaseRule(Battle battle) {
         waitPressEnter();
     }
 
-    //Tools____________________________________________________________________
+    public void startBattleRule(Battle battle){
+        for(Terrain terrain : battle.getTerrains()){
+            for(Team team : terrain.getPlayersTeam()){
+                // =========================================================================< logique de debut de combat
+            }
+        }
+    }
 
+    //Tools____________________________________________________________________
 
 }

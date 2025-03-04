@@ -1,4 +1,4 @@
-package com.example.codamon.core.action.Category;
+package com.example.codamon.core.action.category;
 
 public class CathegoryTools {
     public CathegoryTools(){}
