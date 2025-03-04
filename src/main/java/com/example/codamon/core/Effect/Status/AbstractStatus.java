@@ -1,20 +1,18 @@
-package com.example.codamon.core.action.Effect.Status;
+package com.example.codamon.core.Effect.Status;
 
-import com.example.codamon.core.action.Move;
+import com.example.codamon.core.action.Move.Move;
 
-public abstract class Status {
+public abstract class AbstractStatus {
     protected   String name;
     protected int durationTurns = -1;
     protected int activeTurn = 0;
-    public Status(){}
+    public AbstractStatus(){}
 
     public void applyExecuteMovePhaseEffect(){}
     public void applyEndPhaseEffect(){
         this.activeTurn += 1;
     }
-    public boolean testIfNexMoveAccept(){
-        return true;
-    }
+    public boolean testIfNexMoveAccept(){return true;}
     public void applyEffectAfterReceiveAttack(Move move){}
 
     public double selfStatModifier(String stat){

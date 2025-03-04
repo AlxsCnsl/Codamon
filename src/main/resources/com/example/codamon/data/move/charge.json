@@ -1,0 +1,12 @@
+{
+  "name" : "Charge",
+  "type" : "Normal",
+  "category" : "Physical",
+  "description" : "Le lanceur charge l'ennemi et le percute de tout son poids.",
+  "power": 40,
+  "accurate": 100,
+  "pp": 30,
+  "priority": 0,
+  "targetMode": "AdjacentTarget",
+  "effects" : []
+}

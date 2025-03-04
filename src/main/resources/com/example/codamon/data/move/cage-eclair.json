@@ -1,0 +1,17 @@
+{
+  "name" : "Cage-Eclair",
+  "type" : "Electric",
+  "category" : "Status",
+  "description" : "Un faible choc électrique paralyse la cible.",
+  "power": 0,
+  "accurate": 90,
+  "pp": 10,
+  "priority": 0,
+  "targetMode": "AdjacentTarget",
+  "effects" : [
+                {
+                  "type_effect": "StatusGiverEffect",
+                  "status": "Paralysis"
+                }
+              ]
+}

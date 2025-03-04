@@ -1,8 +1,8 @@
-package com.example.codamon.core.action.Effect.Status;
+package com.example.codamon.core.Effect.Status;
 
 import java.util.Random;
 
-public class Paralysis extends Status{
+public class Paralysis extends AbstractStatus {
     public Paralysis(){
         this.name = "Paralysis";
         this.durationTurns = -1;

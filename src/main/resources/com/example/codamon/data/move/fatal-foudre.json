@@ -1,0 +1,24 @@
+{
+  "name" : "Fatal-Foudre",
+  "type" : "Electric",
+  "category" : "Special",
+  "description" : "La foudre tombe violemment sur l'ennemi. Peut aussi le paralyser.",
+  "power": 110,
+  "accurate": 90,
+  "pp": 10,
+  "priority": 0,
+  "targetMode": "AdjacentTarget",
+  "effects" :
+  [
+      {
+      "type_effect" : "ProbabilityEffect",
+      "probability" : 0.3,
+      "effects" : [
+                      {
+                      "type_effect": "StatusGiverEffect",
+                      "status": "Paralysis"
+                      }
+                  ]
+      }
+  ]
+}

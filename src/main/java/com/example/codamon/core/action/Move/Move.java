@@ -1,11 +1,12 @@
-package com.example.codamon.core.action;
+package com.example.codamon.core.action.Move;
 
 import com.example.codamon.core.Battle;
 import com.example.codamon.core.Pokemon;
 import com.example.codamon.core.Type;
 import com.example.codamon.core.TypeTools;
-import com.example.codamon.core.action.Effect.MoveEffect;
-import kotlin.contracts.Effect;
+import com.example.codamon.core.action.Action;
+import com.example.codamon.core.action.Category.Category;
+import com.example.codamon.core.Effect.MoveEffect.MoveEffect;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -77,16 +78,20 @@ public class Move extends Action {
         return pp;
     }
 
-    public int getCurrentPpPp() {
+    public int getCurrentPp() {
         return currentPp;
     }
+
+    public ArrayList<MoveEffect> getEffects(){return this.effects; }
 
     //EXECUTOR_________________________________________________________________
     public void execute(Pokemon user, Pokemon target, Battle battle){
         this.executeLog(user);
         if(this.currentPp > 0 ){
             this.currentPp -= 1;
-            this.applyDamage(user, target, battle);
+            if(this.power != 0) {
+                this.applyDamage(user, target, battle);
+            }
             if (this.effects != null){
                 for(MoveEffect effect : this.effects){
                     effect.applyEffect(user,target, battle);
@@ -122,8 +127,6 @@ public class Move extends Action {
                         * getCritical()
                         * getRng());
         target.getDamage(damage);
-        System.out.println("#MOVE#"+
-                getEfficiencyAttackLog(this.getType(), target.getTypes()));
     }
 
     private int getCritical(){
@@ -151,13 +154,14 @@ public class Move extends Action {
         return  0.8 + (1.0 - 0.8) *  random.nextDouble();
     }
 
-    private Boolean accurateTest(Pokemon user){
+    private Boolean accurateTest(Pokemon user, Pokemon target){
         Random random = new Random();
         if(this.getAccurate() == 101){
             return true;
         }
-        int accurate = (int) (this.getAccurate()
-                * user.getFactorModifiedState("ACC"));
+        int accurate = (int) ((this.getAccurate()
+                * user.getFactorModifiedState("ACC"))
+                /target.getFactorModifiedState("ESC"));
         int test = random.nextInt( 100 )+1;
         if (test < accurate){
             return true;

@@ -1,0 +1,23 @@
+{
+  "name" : "Eclair",
+  "type" : "Electric",
+  "category" : "Special",
+  "description" : "Une décharge électrique tombe sur l'ennemi. Peut aussi le paralyser.",
+  "power": 40,
+  "accurate": 100,
+  "pp": 35,
+  "priority": 0,
+  "targetMode": "AdjacentTarget",
+  "effects" : [
+                {
+                  "type_effect" : "ProbabilityEffect",
+                  "probability" : 0.1,
+                  "effects" : [
+                                {
+                                  "type_effect": "StatusGiverEffect",
+                                  "status": "Paralysis"
+                                }
+                              ]
+                }
+              ]
+}

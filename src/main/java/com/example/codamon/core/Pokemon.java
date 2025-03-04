@@ -1,7 +1,7 @@
 package com.example.codamon.core;
 
-import com.example.codamon.core.action.Effect.Status.Status;
-import com.example.codamon.core.action.Move;
+import com.example.codamon.core.Effect.Status.AbstractStatus;
+import com.example.codamon.core.action.Move.Move;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -20,7 +20,7 @@ public class Pokemon {
     private int currentHP;
     private ArrayList<Type> types = new ArrayList<>();
     private ArrayList<Move> moves = new ArrayList<>();
-    private Status status;
+    private AbstractStatus status;
 
     //CONSTRUCTOR______________________________________________________________
     public Pokemon(String name, ArrayList<Type> types,
@@ -110,7 +110,7 @@ public class Pokemon {
         return this.baseStats.get(key);
     }
 
-    private int getModifierState(String key){
+    public int getModifierState(String key){
         return  this.modifierStats.get(key);
     }
 
@@ -186,18 +186,36 @@ public class Pokemon {
         return moves.get(index);
     }
 
+    public Move getMoveByName(String moveSearched){
+        for(Move move : this.moves){
+            System.out.println("Move name : "+move.getName());
+            if(move.getName().equalsIgnoreCase(moveSearched)){
+                return move;
+            }
+        }
+        System.out.println("#POKEMON#GETMOVE# "+
+                        this.name+" no content move > "+
+                        moveSearched);
+        return null;
+    }
+
     public int getLvl(){
         return this.lvl;
     }
 
-    public Status getStatus() {
+    public AbstractStatus getStatus() {
         return status;
     }
 
     //SETTER___________________________________________________________________
 
-    public void setStatus(Status status){
+    public void setStatus(AbstractStatus status){
         this.status = status;
+    }
+
+    public void addModifierStat(String stat, int modifier){
+        int pastStats = this.modifierStats.get(stat);
+        this.modifierStats.put(stat, pastStats+modifier);
     }
 
     //REST POKEMON STATS_______________________________________________________

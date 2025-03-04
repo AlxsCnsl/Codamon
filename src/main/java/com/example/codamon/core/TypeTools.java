@@ -5,35 +5,40 @@ import java.util.ArrayList;
 public class TypeTools {
     private static final double[][] typeTable = {
             //        NOR  FIR  WAT  GRA  ELE  ICE  FIG  POI  GRO  FLY  PSY  BUG  ROC  GHO  DRA  DAR  STE  FAI
-            /*NOR*/ { 1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,  0.5,   0,   1,   1,  0.5,   1 },
-            /*FIR*/ { 1,  0.5, 0.5,  2,   1,   2,   1,   1,   1,   1,   1,   2,   0.5,  1,   0.5,  1,   2,   1 },
-            /*WAT*/ { 1,   2,  0.5,  0.5,  1,   1,   1,   1,   2,   1,   1,   1,   2,   1,   0.5,  1,   1,   1 },
-            /*GRA*/ { 1,  0.5,  2,  0.5,  1,   1,   1,  0.5,  2,  0.5,  1,  0.5,   2,   1,  0.5,  1,  0.5,   1 },
-            /*ELE*/ { 1,   1,   2,  0.5,  0.5,  1,   1,   1,   0,   2,   1,   1,   1,   1,  0.5,  1,   1,   1 },
-            /*ICE*/ { 1,  0.5,  0.5,  2,   1,  0.5,   1,   1,   2,   2,   1,   1,   1,   1,   2,   1,  0.5,   1 },
-            /*FIG*/ { 2,   1,   1,   1,   1,   2,   1,  0.5,   1,   0.5,  0.5,  0.5,   2,   0,   1,   2,   2,  0.5 },
-            /*POI*/ { 1,   1,   1,   2,   1,   1,   1,  0.5,  0.5,   1,   1,   1,   0.5,  0.5,  1,   1,   0,   2 },
-            /*GRO*/ { 1,   2,   1,  0.5,   2,   1,   1,   2,   1,   0,   1,   0.5,   2,   1,   1,   1,   2,   1 },
-            /*FLY*/ { 1,   1,   1,   2,  0.5,   1,   2,   1,   1,   1,   1,   2,   0.5,   1,   1,   1,   0.5,   1 },
-            /*PSY*/ { 1,   1,   1,   1,   1,   1,   2,   2,   1,   1,  0.5,   1,   1,   1,   1,   0,   0.5,   1 },
-            /*BUG*/ { 1,  0.5,  1,   2,   1,   1,  0.5,  0.5,   1,   0.5,   2,   1,   1,   0.5,   1,   2,   0.5,  0.5 },
-            /*ROC*/ { 1,   2,   1,   1,   1,   2,  0.5,   1,   0.5,   2,   1,   2,   1,   1,   1,   1,   0.5,   1 },
-            /*GHO*/ { 0,   1,   1,   1,   1,   1,   1,   1,   1,   1,   2,   1,   1,   2,   1,   0.5,   1,   1 },
-            /*DRA*/ { 1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   2,   1,   0.5,   0 },
-            /*DAR*/ { 1,   1,   1,   1,   1,   1,  0.5,   1,   1,   1,   2,   1,   1,   2,   1,  0.5,   1,  0.5 },
-            /*STE*/ { 1,  0.5,  0.5,   1,   1,   2,   1,   1,   1,   1,   1,   1,   2,   1,   1,   1,  0.5,   2 },
-            /*FAI*/ { 1,  0.5,  1,   1,   1,   1,   2,  0.5,   1,   1,   1,   1,   1,   1,   2,   2,  0.5,   1 }
+            /*NOR*/ {  1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,  0.5,   0,  1,   1,  0.5,  1 },
+            /*FIR*/ {  1,  0.5, 0.5,  2,   1,   2,   1,   1,   1,   1,   1,   2,  0.5,  1,  0.5,  1,   2,   1 },
+            /*WAT*/ {  1,   2,  0.5, 0.5,  1,   1,   1,   1,   2,   1,   1,   1,   2,   1,  0.5,  1,   1,   1 },
+            /*GRA*/ {  1,  0.5,  2,  0.5,  1,   1,   1,  0.5,  2,  0.5,  1,  0.5,  2,   1,  0.5,  1,  0.5,  1 },
+            /*ELE*/ {  1,   1,   2,  0.5, 0.5,  1,   1,   1,   0,   2,   1,   1,   1,   1,  0.5,  1,   1,   1 },
+            /*ICE*/ {  1,  0.5, 0.5,  2,   1,  0.5,  1,   1,   2,   2,   1,   1,   1,   1,   2,   1,  0.5,  1 },
+            /*FIG*/ {  2,   1,   1,   1,   1,   2,   1,  0.5,  1,  0.5, 0.5,  0.5, 2,   0,   1,   2,   2,  0.5 },
+            /*POI*/ {  1,   1,   1,   2,   1,   1,   1,  0.5, 0.5,  1,   1,   1,  0.5,  0.5, 1,   1,   0,   2 },
+            /*GRO*/ {  1,   2,   1,  0.5,  2,   1,   1,   2,   1,   0,   1,   0.5, 2,   1,   1,   1,   2,   1 },
+            /*FLY*/ {  1,   1,   1,   2,  0.5,  1,   2,   1,   1,   1,   1,   2,  0.5,  1,   1,   1,  0.5,  1 },
+            /*PSY*/ {  1,   1,   1,   1,   1,   1,   2,   2,   1,   1,  0.5,   1,  1,   1,   1,   0,  0.5,  1 },
+            /*BUG*/ {  1,  0.5,  1,   2,   1,   1,  0.5, 0.5,  1,  0.5,  2,   1,   1,  0.5,  1,   2,  0.5, 0.5 },
+            /*ROC*/ {  1,   2,   1,   1,   1,   2,  0.5,  1,  0.5,  2,   1,   2,   1,   1,   1,   1,  0.5,  1 },
+            /*GHO*/ {  0,   1,   1,   1,   1,   1,   1,   1,   1,   1,   2,   1,   1,   2,   1,  0.5,  1,   1 },
+            /*DRA*/ {  1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   2,   1,  0.5,  0 },
+            /*DAR*/ {   1,   1,   1,   1,   1,   1,  0.5,  1,   1,   1,   2,   1,   1,   2,   1,  0.5,  1,  0.5 },
+            /*STE*/ {  1,  0.5, 0.5,  1,   1,   2,   1,   1,   1,   1,   1,   1,   2,   1,   1,   1,  0.5,  2 },
+            /*FAI*/ {  1,  0.5,  1,   1,   1,   1,   2,  0.5,  1,   1,   1,   1,   1,   1,   2,   2,  0.5,  1 }
         };
 
     public static double getTypeEfficiency(Type attacker, Type defender){
-        return typeTable[attacker.ordinal()][defender.ordinal()];
+        double coef = typeTable[attacker.ordinal()][defender.ordinal()];
+        System.out.println("#TYPE# test "+ attacker.toString()+
+                ">"+ defender.toString()+" : "+coef);
+        return coef;
     }
 
     public static double getTypesEfficiency(Type attackerType, ArrayList<Type> defenderTypes){
-        double coef = 0;
+        double coef = 1;
         for (Type defenderType : defenderTypes) {
-            coef += getTypeEfficiency(attackerType, defenderType);
+            coef *= getTypeEfficiency(attackerType, defenderType);
         }
+        System.out.println("#TYPE#GETCOEFS# >"+coef+"> "+
+                getEfficiencyAttackLog(coef));
         return coef;
     }
 
@@ -43,10 +48,10 @@ public class TypeTools {
         return list;
     }
 
-    public static String getEfficiencyAttackLog(
-            Type attackerType, ArrayList<Type> defenderTypes){
+    public static String getEfficiencyAttackLog( double coef){
         String log ;
-        switch ((int)(getTypesEfficiency(attackerType, defenderTypes) * 100 )){
+        int percentage = (int) coef*100;
+        switch ((int)(percentage)){
             case 400 -> log = "VERY SUPPER EFIC";
             case 200 -> log = "SUPPER EFIC";
             case 50 -> log = "NOT VERY EFIC";
