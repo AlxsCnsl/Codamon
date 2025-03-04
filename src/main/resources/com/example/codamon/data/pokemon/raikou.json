@@ -10,5 +10,8 @@
     "SPE": 115
   },
   "Ability": [],
-  "move": []
+  "move": [
+    "Eclair",
+    "Fatal-Foudre"
+  ]
 }
