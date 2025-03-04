@@ -1,0 +1,15 @@
+{
+  "name": "Lançargot",
+  "types": ["Steel","Bug"],
+  "stats": {
+    "HP": 70,
+    "ATK": 135,
+    "DEF": 105,
+    "SPA": 60,
+    "SPD": 105,
+    "SPE": 20
+  },
+  "Ability": [],
+  "move": []
+
+}

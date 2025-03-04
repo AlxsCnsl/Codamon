@@ -143,9 +143,7 @@ public class TeamBuilderController {
         ObjectMapper objectMapper = new ObjectMapper();
         String pathName = "/com/example/codamon/data/pokemon/" +
                 pokemonName.toLowerCase()+".json";
-
         InputStream inputStream = getClass().getResourceAsStream(pathName);
-
         if (inputStream == null) {
             System.err.println("File not found : " + pathName);
         }
@@ -155,9 +153,8 @@ public class TeamBuilderController {
             pokemonStats.add(rootNode.get("stats").get("ATK").asText());
             pokemonStats.add(rootNode.get("stats").get("DEF").asText());
             pokemonStats.add(rootNode.get("stats").get("SPA").asText());
+            pokemonStats.add(rootNode.get("stats").get("SPD").asText());
             pokemonStats.add(rootNode.get("stats").get("SPE").asText());
-            pokemonStats.add(rootNode.get("stats").get("SPE").asText());
-
         } catch (IOException e){
             System.out.println(pathName + " could not be opened");
         }
@@ -230,6 +227,20 @@ public class TeamBuilderController {
         return PokemonVBox;
     }
 
+    private void setStatsProgressBars(String pokemonName) {
+        ArrayList<Object> userData = (ArrayList<Object>) stage.getUserData();
+        ArrayList<ProgressBar> StatBars =
+                (ArrayList<ProgressBar>) userData.get(1);
+
+        ArrayList<String> pokemonStats = new ArrayList<>();
+        pokemonStatsJSONReader(pokemonStats, pokemonName);
+
+        for (int i = 0 ; i < StatBars.size() ; i++) {
+            StatBars.get(i).setProgress(
+                    Double.parseDouble(pokemonStats.get(i)) / 200);
+        }
+    }
+
     private VBox createPokemonChoiceBox() {
         Label pokemonLabel = new Label("Pokémon");
         ArrayList<String> pokemonNames = createPokemonNamesList();
@@ -244,18 +255,7 @@ public class TeamBuilderController {
                     getTypeSprite(pokemonTypes.get(1)) : getNullTypeSprite();
 
             setPokemonSprites(pokemonSprite, firstTypeSprite, secondTypeSprite);
-
-            ArrayList<Object> userData = (ArrayList<Object>) stage.getUserData();
-            ArrayList<ProgressBar> StatBars =
-                    (ArrayList<ProgressBar>) userData.get(1);
-            StatBars.get(0).setProgress(0.90);
-
-            ArrayList<String> pokemonStats = new ArrayList<>();
-            pokemonStatsJSONReader(pokemonStats, pokemonChoice.getValue());
-
-            for (int i = 0 ; i < StatBars.size() ; i++) {
-                StatBars.get(i).setProgress(Double.parseDouble(pokemonStats.get(i)) / 200);
-            }
+            setStatsProgressBars(pokemonChoice.getValue());
         }));
 
         return createPokemonVBox(pokemonLabel, pokemonChoice);
