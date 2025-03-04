@@ -29,7 +29,7 @@ public class Pokemon {
         this.baseStats.put("SPD", SPD);
         this.baseStats.put("SPE", SPE);
         this.resetPokemon();
-        System.out.println("#POKEMON#"+name+" is Construct");
+        System.out.println("#POKEMON# " + name + " is built");
     }
 
     public Pokemon(String name){
@@ -53,7 +53,7 @@ public class Pokemon {
     }
 
     private void initBasStatesWithJson(JsonNode rootNode){
-        for(int i = 0; i <rootNode.get("types").size()  ; i++ ){
+        for(int i = 0 ; i < rootNode.get("types").size() ; i++){
             this.types.add(TypeTools.stringToType(
                     rootNode.get("types").get(i).asText()));
         }
@@ -65,7 +65,7 @@ public class Pokemon {
         this.baseStats.put("SPD", stats.get("SPD").asInt());
         this.baseStats.put("SPE", stats.get("SPE").asInt());
         this.resetPokemon();
-        System.out.println("#POKEMON#"+name+" is Construct");
+        System.out.println("#POKEMON# " + name + " is built");
     }
 
     //STRINGIFIER______________________________________________________________
