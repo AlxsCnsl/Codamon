@@ -2,6 +2,7 @@ package com.example.codamon.controllers;
 
 import com.example.codamon.PokeApp;
 import com.example.codamon.core.TypeTools;
+import com.example.codamon.core.action.Move.Move;
 import com.example.codamon.models.SceneName;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.controlsfx.control.PropertySheet;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -230,7 +232,7 @@ public class TeamBuilderController {
     private void setStatsProgressBars(String pokemonName) {
         ArrayList<Object> userData = (ArrayList<Object>) stage.getUserData();
         ArrayList<ProgressBar> StatBars =
-                (ArrayList<ProgressBar>) userData.get(1);
+                (ArrayList<ProgressBar>) userData.get(2);
 
         ArrayList<String> pokemonStats = new ArrayList<>();
         pokemonStatsJSONReader(pokemonStats, pokemonName);
@@ -247,6 +249,8 @@ public class TeamBuilderController {
         ComboBox<String> pokemonChoice = setPokemonChoices(pokemonNames);
 
         pokemonChoice.setOnAction((actionEvent -> {
+            setPokemonInfosVBoxVisible();
+
             ArrayList<String> pokemonTypes = readPokemonTypes(
                     pokemonChoice.getValue());
             Image pokemonSprite = getPokemonSprite(pokemonChoice.getValue());
@@ -261,6 +265,21 @@ public class TeamBuilderController {
         return createPokemonVBox(pokemonLabel, pokemonChoice);
     }
 
+    private void setPokemonInfosVBoxInUserData(VBox pokemonInfoVBox) {
+        ArrayList<VBox> pokemonInfosVBox = (ArrayList<VBox>)
+                ((ArrayList<Object>) stage.getUserData()).get(1);
+        pokemonInfosVBox.add(pokemonInfoVBox);
+        stage.setUserData(stage.getUserData());
+    }
+
+    private void setPokemonInfosVBoxVisible() {
+        ArrayList<VBox> pokemonInfosVBox = (ArrayList<VBox>)
+                ((ArrayList<Object>) stage.getUserData()).get(1);
+        for (VBox pokemonInfoVBox : pokemonInfosVBox) {
+            pokemonInfoVBox.setVisible(true);
+        }
+    }
+
     private VBox createItemChoiceBox() {
         Label itemLabel = new Label("Item");
 
@@ -271,9 +290,14 @@ public class TeamBuilderController {
 
         VBox ItemVBox = new VBox(5.0);
         ItemVBox.setAlignment(Pos.BOTTOM_CENTER);
-
         ItemVBox.getChildren().add(itemLabel);
         ItemVBox.getChildren().add(itemChoice);
+        ItemVBox.setVisible(false);
+
+        ArrayList<VBox> pokemonInfosVBox = new ArrayList<>();
+        ((ArrayList<Object>) stage.getUserData()).add(pokemonInfosVBox);
+        stage.setUserData(stage.getUserData());
+        setPokemonInfosVBoxInUserData(ItemVBox);
 
         return ItemVBox;
     }
@@ -288,9 +312,11 @@ public class TeamBuilderController {
 
         VBox TalentVBox = new VBox(5.0);
         TalentVBox.setAlignment(Pos.BOTTOM_CENTER);
-
         TalentVBox.getChildren().add(talentLabel);
         TalentVBox.getChildren().add(talentChoice);
+        TalentVBox.setVisible(false);
+
+        setPokemonInfosVBoxInUserData(TalentVBox);
 
         return TalentVBox;
     }
@@ -330,10 +356,10 @@ public class TeamBuilderController {
 
     private ChoiceBox<String> createMoveChoiceBox() {
         ChoiceBox<String> moveChoice = new ChoiceBox<>();
-        moveChoice.getItems().add("Lame d'Air");
-        moveChoice.getItems().add("Aurasphère");
-        moveChoice.getItems().add("Lance-Flammes");
-        moveChoice.getItems().add("Pouvoir Lunaire");
+        moveChoice.getItems().add("");
+        moveChoice.getItems().add("");
+        moveChoice.getItems().add("");
+        moveChoice.getItems().add("");
 
         return moveChoice;
     }
@@ -348,19 +374,20 @@ public class TeamBuilderController {
 
         VBox MovesVBox = new VBox();
         MovesVBox.setAlignment(Pos.CENTER);
-
         MovesVBox.getChildren().add(movesLabel);
         MovesVBox.getChildren().add(moveChoice1);
         MovesVBox.getChildren().add(moveChoice2);
         MovesVBox.getChildren().add(moveChoice3);
         MovesVBox.getChildren().add(moveChoice4);
+        MovesVBox.setVisible(false);
 
+        setPokemonInfosVBoxInUserData(MovesVBox);
         return MovesVBox;
     }
 
     private HBox createHPDisplay() {
         Label HPLabel = new Label("HP");
-        ProgressBar HPBar = new ProgressBar(0.45);
+        ProgressBar HPBar = new ProgressBar(0);
         HBox HPDisplay = new HBox(5.0);
         HPDisplay.setAlignment(Pos.CENTER_RIGHT);
         HPDisplay.getChildren().add(HPLabel);
@@ -377,7 +404,7 @@ public class TeamBuilderController {
 
     private HBox createATKDisplay() {
         Label ATKLabel = new Label("ATK");
-        ProgressBar ATKBar = new ProgressBar(0.28);
+        ProgressBar ATKBar = new ProgressBar(0);
         HBox ATKDisplay = new HBox(5.0);
         ATKDisplay.setAlignment(Pos.CENTER_RIGHT);
         ATKDisplay.getChildren().add(ATKLabel);
@@ -385,7 +412,7 @@ public class TeamBuilderController {
 
         ArrayList<Object> userData = (ArrayList<Object>) stage.getUserData();
         ArrayList<ProgressBar> StatBars =
-                (ArrayList<ProgressBar>) userData.get(1);
+                (ArrayList<ProgressBar>) userData.get(2);
         StatBars.add(ATKBar);
         stage.setUserData(userData);
 
@@ -394,7 +421,7 @@ public class TeamBuilderController {
 
     private HBox createDEFDisplay() {
         Label DEFLabel = new Label("DEF");
-        ProgressBar DEFBar = new ProgressBar(0.50);
+        ProgressBar DEFBar = new ProgressBar(0);
         HBox DEFDisplay = new HBox(5.0);
         DEFDisplay.setAlignment(Pos.CENTER_RIGHT);
         DEFDisplay.getChildren().add(DEFLabel);
@@ -402,7 +429,7 @@ public class TeamBuilderController {
 
         ArrayList<Object> userData = (ArrayList<Object>) stage.getUserData();
         ArrayList<ProgressBar> StatBars =
-                (ArrayList<ProgressBar>) userData.get(1);
+                (ArrayList<ProgressBar>) userData.get(2);
         StatBars.add(DEFBar);
         stage.setUserData(userData);
 
@@ -411,7 +438,7 @@ public class TeamBuilderController {
 
     private HBox createSPADisplay() {
         Label SPALabel = new Label("SPA");
-        ProgressBar SPABar = new ProgressBar(0.62);
+        ProgressBar SPABar = new ProgressBar(0);
         HBox SPADisplay = new HBox(5.0);
         SPADisplay.setAlignment(Pos.CENTER_RIGHT);
         SPADisplay.getChildren().add(SPALabel);
@@ -419,7 +446,7 @@ public class TeamBuilderController {
 
         ArrayList<Object> userData = (ArrayList<Object>) stage.getUserData();
         ArrayList<ProgressBar> StatBars =
-                (ArrayList<ProgressBar>) userData.get(1);
+                (ArrayList<ProgressBar>) userData.get(2);
         StatBars.add(SPABar);
         stage.setUserData(userData);
 
@@ -428,7 +455,7 @@ public class TeamBuilderController {
 
     private HBox createSPDDisplay() {
         Label SPDLabel = new Label("SPD");
-        ProgressBar SPDBar = new ProgressBar(0.59);
+        ProgressBar SPDBar = new ProgressBar(0);
         HBox SPDDisplay = new HBox(5.0);
         SPDDisplay.setAlignment(Pos.CENTER_RIGHT);
         SPDDisplay.getChildren().add(SPDLabel);
@@ -436,7 +463,7 @@ public class TeamBuilderController {
 
         ArrayList<Object> userData = (ArrayList<Object>) stage.getUserData();
         ArrayList<ProgressBar> StatBars =
-                (ArrayList<ProgressBar>) userData.get(1);
+                (ArrayList<ProgressBar>) userData.get(2);
         StatBars.add(SPDBar);
         stage.setUserData(userData);
 
@@ -445,7 +472,7 @@ public class TeamBuilderController {
 
     private HBox createSPEDisplay() {
         Label SPELabel = new Label("SPE");
-        ProgressBar SPEBar = new ProgressBar(0.43);
+        ProgressBar SPEBar = new ProgressBar(0);
         HBox SPEDisplay = new HBox(5.0);
         SPEDisplay.setAlignment(Pos.CENTER_RIGHT);
         SPEDisplay.getChildren().add(SPELabel);
@@ -453,7 +480,7 @@ public class TeamBuilderController {
 
         ArrayList<Object> userData = (ArrayList<Object>) stage.getUserData();
         ArrayList<ProgressBar> StatBars =
-                (ArrayList<ProgressBar>) userData.get(1);
+                (ArrayList<ProgressBar>) userData.get(2);
         StatBars.add(SPEBar);
         stage.setUserData(userData);
 
@@ -472,6 +499,9 @@ public class TeamBuilderController {
         StatsVBox.getChildren().add(createSPADisplay());
         StatsVBox.getChildren().add(createSPDDisplay());
         StatsVBox.getChildren().add(createSPEDisplay());
+        StatsVBox.setVisible(false);
+
+        setPokemonInfosVBoxInUserData(StatsVBox);
 
         return StatsVBox;
     }

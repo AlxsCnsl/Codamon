@@ -10,5 +10,10 @@
     "SPE": 80
   },
   "Ability": [],
-  "move": []
+  "move": [
+    "Eclair",
+    "Mimi-Queue",
+    "Cage-Eclair",
+    "Fatal-Foudre"
+  ]
 }
