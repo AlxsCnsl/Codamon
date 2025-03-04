@@ -1,0 +1,16 @@
+{
+  "name":"Metalosse",
+  "types": ["Steel", "Psychic"],
+  "stats": {
+    "HP":80,
+    "ATK": 135,
+    "DEF": 130,
+    "SPA": 95,
+    "SPD": 90,
+    "SPE": 70
+  },
+  "Ability": [],
+  "move": [
+    "Charge"
+  ]
+}

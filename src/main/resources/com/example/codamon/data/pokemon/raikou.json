@@ -1,0 +1,17 @@
+{
+  "name":"Raikou",
+  "types": ["Electric"],
+  "stats": {
+    "HP":90,
+    "ATK": 85,
+    "DEF": 75,
+    "SPA": 115,
+    "SPD": 100,
+    "SPE": 115
+  },
+  "Ability": [],
+  "move": [
+    "Eclair",
+    "Fatal-Foudre"
+  ]
+}

@@ -26,11 +26,12 @@ public class PokemonTeam {
 
     //STRINGIFIER______________________________________________________________
     public String toString(){
-        String string = "|"+this.name+"'s team :";
+        String string = "|"+this.name+"'s team :============";
         for(int i = 0; i < team.size(); i++){
             string += "\n==========\n"+
-                    "N°"+(i+1)+"\n"+team.get(i).toString();
+                    "[N°"+(i+1)+"] "+team.get(i).toString();
         }
+        string += "\n======================";
         return string;
     }
 

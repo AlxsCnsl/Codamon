@@ -1,0 +1,19 @@
+{
+  "name" : "mimi-queue",
+  "type" : "Grass",
+  "category" : "Status",
+  "description" : "Le lanceur remue son adorable queue pour tromper la vigilance de la cible et baisser sa Défense.",
+  "power": 0,
+  "accurate": 100,
+  "pp": 30,
+  "priority": 0,
+  "targetMode": "AdjacentEnemyTarget",
+  "effects" :
+  [
+    {
+      "type_effect": "ModifierStatisticEffect",
+      "statistic": "DEF",
+      "modifier": 1
+    }
+  ]
+}

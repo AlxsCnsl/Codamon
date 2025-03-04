@@ -27,7 +27,7 @@
                 onAction="#onExitButtonClick"/>
 
         <VBox fx:id="Pokemons" spacing="10.0"/>
-
+        
         <Button fx:id="addPokemonButton"
                 text="+ Add Pokémon"
                 onAction="#onAddPokemonButtonClick"/>
