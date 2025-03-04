@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class TeamBuilderController {
 
@@ -59,8 +60,8 @@ public class TeamBuilderController {
         ArrayList<ImageView> pokemonSprites = new ArrayList<>();
         pokemonSprites.add(pokemonSpriteImageView);
 
-        ArrayList<Object> userData = new ArrayList<>();
-        userData.add(pokemonSprites);
+        HashMap<String, Object> userData = new HashMap<>();
+        userData.put("pokemonSpritesImageView" , pokemonSprites);
 
         stage.setUserData(userData);
 
@@ -78,8 +79,10 @@ public class TeamBuilderController {
         typeImageView.setPickOnBounds(true);
         typeImageView.setPreserveRatio(true);
 
-        ArrayList<Object> userData = (ArrayList<Object>) stage.getUserData();
-        ArrayList<ImageView> pokemonSprites = (ArrayList<ImageView>) userData.get(0);
+        HashMap<String, Object> userData =
+                (HashMap<String, Object>) stage.getUserData();
+        ArrayList<ImageView> pokemonSprites =
+                (ArrayList<ImageView>) userData.get("pokemonSpritesImageView");
         pokemonSprites.add(typeImageView);
         stage.setUserData(userData);
 
@@ -239,9 +242,9 @@ public class TeamBuilderController {
 
     private void setPokemonSprites(Image pokemonSprite, Image firstTypeSprite,
                                    Image secondTypeSprite) {
-        ArrayList<Object> userData = (ArrayList<Object>) stage.getUserData();
+        HashMap<String, Object> userData = (HashMap<String, Object>) stage.getUserData();
         ArrayList<ImageView> pokemonSpritesImageView =
-                (ArrayList<ImageView>) userData.get(0);
+                (ArrayList<ImageView>) userData.get("pokemonSpritesImageView");
         pokemonSpritesImageView.get(0).setImage(pokemonSprite);
         pokemonSpritesImageView.get(1).setImage(firstTypeSprite);
         pokemonSpritesImageView.get(2).setImage(secondTypeSprite);
@@ -257,9 +260,10 @@ public class TeamBuilderController {
     }
 
     private void setStatsProgressBars(String pokemonName) {
-        ArrayList<Object> userData = (ArrayList<Object>) stage.getUserData();
+        HashMap<String, Object> userData =
+                (HashMap<String, Object>) stage.getUserData();
         ArrayList<ProgressBar> StatBars =
-                (ArrayList<ProgressBar>) userData.get(3);
+                (ArrayList<ProgressBar>) userData.get("pokemonStatsProgressBar");
 
         ArrayList<String> pokemonStats = new ArrayList<>();
         pokemonStatsJSONReader(pokemonStats, pokemonName);
@@ -273,7 +277,9 @@ public class TeamBuilderController {
     private void setPokemonMovesComboBoxes(String pokemonName) {
         ArrayList<ComboBox<String>> pokemonMovesComboBoxes =
                 (ArrayList<ComboBox<String>>)
-                        ((ArrayList<?>) stage.getUserData()).get(2);
+                        ((HashMap<String, Object>)
+                                stage.getUserData()).get(
+                                        "pokemonMovesComboBox");
 
         ArrayList<String> pokemonMoves = new ArrayList<>();
         pokemonMovesJSONReader(pokemonMoves, pokemonName);
@@ -313,15 +319,19 @@ public class TeamBuilderController {
     }
 
     private void setPokemonInfosVBoxInUserData(VBox pokemonInfoVBox) {
-        ArrayList<VBox> pokemonInfosVBox = (ArrayList<VBox>)
-                ((ArrayList<Object>) stage.getUserData()).get(1);
+        ArrayList<VBox> pokemonInfosVBox =
+                (ArrayList<VBox>)
+                        ((HashMap<String, Object>)
+                                stage.getUserData()).get("pokemonInfosVBox");
         pokemonInfosVBox.add(pokemonInfoVBox);
         stage.setUserData(stage.getUserData());
     }
 
     private void setPokemonInfosVBoxVisible() {
-        ArrayList<VBox> pokemonInfosVBox = (ArrayList<VBox>)
-                ((ArrayList<Object>) stage.getUserData()).get(1);
+        ArrayList<VBox> pokemonInfosVBox =
+                (ArrayList<VBox>)
+                        ((HashMap<String, Object>)
+                                stage.getUserData()).get("pokemonInfosVBox");
         for (VBox pokemonInfoVBox : pokemonInfosVBox) {
             pokemonInfoVBox.setVisible(true);
         }
@@ -342,7 +352,7 @@ public class TeamBuilderController {
         ItemVBox.setVisible(false);
 
         ArrayList<VBox> pokemonInfosVBox = new ArrayList<>();
-        ((ArrayList<Object>) stage.getUserData()).add(pokemonInfosVBox);
+        ((HashMap<String, Object>) stage.getUserData()).put("pokemonInfosVBox", pokemonInfosVBox);
         stage.setUserData(stage.getUserData());
         setPokemonInfosVBoxInUserData(ItemVBox);
 
@@ -408,7 +418,9 @@ public class TeamBuilderController {
         moveChoice.setOnAction((actionEvent -> {
             ArrayList<ComboBox<String>> pokemonMovesComboBoxes =
                     (ArrayList<ComboBox<String>>)
-                            ((ArrayList<?>) stage.getUserData()).get(2);
+                            ((HashMap<String, Object>)
+                                    stage.getUserData()).get(
+                                            "pokemonMovesComboBox");
 
             for (ComboBox<String> pokemonMoveComboBox : pokemonMovesComboBoxes) {
                 if (moveChoice.getValue() == null) {
@@ -426,7 +438,8 @@ public class TeamBuilderController {
 
         VBox MovesVBox = new VBox();
         MovesVBox.getChildren().add(movesLabel);
-        ArrayList<Object> userData = (ArrayList<Object>) stage.getUserData();
+        HashMap<String, Object> userData =
+                (HashMap<String, Object>) stage.getUserData();
         ArrayList<ComboBox<String>> pokemonMovesComboBoxes = new ArrayList<>();
 
         for (int i = 0 ; i < 4 ; i++) {
@@ -435,7 +448,7 @@ public class TeamBuilderController {
             pokemonMovesComboBoxes.add(moveChoice);
             MovesVBox.getChildren().add(moveChoice);
         }
-        userData.add(pokemonMovesComboBoxes);
+        userData.put("pokemonMovesComboBox", pokemonMovesComboBoxes);
         stage.setUserData(userData);
 
         MovesVBox.setAlignment(Pos.CENTER);
@@ -453,10 +466,11 @@ public class TeamBuilderController {
         HPDisplay.getChildren().add(HPLabel);
         HPDisplay.getChildren().add(HPBar);
 
-        ArrayList<Object> userData = (ArrayList<Object>) stage.getUserData();
+        HashMap<String, Object> userData =
+                (HashMap<String, Object>) stage.getUserData();
         ArrayList<ProgressBar> StatBars = new ArrayList<>();
         StatBars.add(HPBar);
-        userData.add(StatBars);
+        userData.put("pokemonStatsProgressBar", StatBars);
         stage.setUserData(userData);
 
         return HPDisplay;
@@ -470,9 +484,10 @@ public class TeamBuilderController {
         ATKDisplay.getChildren().add(ATKLabel);
         ATKDisplay.getChildren().add(ATKBar);
 
-        ArrayList<Object> userData = (ArrayList<Object>) stage.getUserData();
+        HashMap<String, Object> userData =
+                (HashMap<String, Object>) stage.getUserData();
         ArrayList<ProgressBar> StatBars =
-                (ArrayList<ProgressBar>) userData.get(3);
+                (ArrayList<ProgressBar>) userData.get("pokemonStatsProgressBar");
         StatBars.add(ATKBar);
         stage.setUserData(userData);
 
@@ -487,9 +502,10 @@ public class TeamBuilderController {
         DEFDisplay.getChildren().add(DEFLabel);
         DEFDisplay.getChildren().add(DEFBar);
 
-        ArrayList<Object> userData = (ArrayList<Object>) stage.getUserData();
+        HashMap<String, Object> userData =
+                (HashMap<String, Object>) stage.getUserData();
         ArrayList<ProgressBar> StatBars =
-                (ArrayList<ProgressBar>) userData.get(3);
+                (ArrayList<ProgressBar>) userData.get("pokemonStatsProgressBar");
         StatBars.add(DEFBar);
         stage.setUserData(userData);
 
@@ -504,9 +520,10 @@ public class TeamBuilderController {
         SPADisplay.getChildren().add(SPALabel);
         SPADisplay.getChildren().add(SPABar);
 
-        ArrayList<Object> userData = (ArrayList<Object>) stage.getUserData();
+        HashMap<String, Object> userData =
+                (HashMap<String, Object>) stage.getUserData();
         ArrayList<ProgressBar> StatBars =
-                (ArrayList<ProgressBar>) userData.get(3);
+                (ArrayList<ProgressBar>) userData.get("pokemonStatsProgressBar");
         StatBars.add(SPABar);
         stage.setUserData(userData);
 
@@ -521,9 +538,10 @@ public class TeamBuilderController {
         SPDDisplay.getChildren().add(SPDLabel);
         SPDDisplay.getChildren().add(SPDBar);
 
-        ArrayList<Object> userData = (ArrayList<Object>) stage.getUserData();
+        HashMap<String, Object> userData =
+                (HashMap<String, Object>) stage.getUserData();
         ArrayList<ProgressBar> StatBars =
-                (ArrayList<ProgressBar>) userData.get(3);
+                (ArrayList<ProgressBar>) userData.get("pokemonStatsProgressBar");
         StatBars.add(SPDBar);
         stage.setUserData(userData);
 
@@ -538,9 +556,10 @@ public class TeamBuilderController {
         SPEDisplay.getChildren().add(SPELabel);
         SPEDisplay.getChildren().add(SPEBar);
 
-        ArrayList<Object> userData = (ArrayList<Object>) stage.getUserData();
+        HashMap<String, Object> userData =
+                (HashMap<String, Object>) stage.getUserData();
         ArrayList<ProgressBar> StatBars =
-                (ArrayList<ProgressBar>) userData.get(3);
+                (ArrayList<ProgressBar>) userData.get("pokemonStatsProgressBar");
         StatBars.add(SPEBar);
         stage.setUserData(userData);
 
