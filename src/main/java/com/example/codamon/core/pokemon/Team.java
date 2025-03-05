@@ -7,14 +7,14 @@ import java.util.ArrayList;
 
 public class Team {
 
-    private ArrayList<Pokemon> team = new ArrayList<>();
+    private ArrayList<Pokemon> pokemons = new ArrayList<>();
     private Trainer trainer;//Owner
     private Terrain terrain = null;
     private ArrayList<Pokemon> activePokemons;
 
     //CONSTRUCTOR_______________________________________________________________
     public Team(Trainer trainer, ArrayList<Pokemon> team){
-        this.team = team;
+        this.pokemons = team;
         this.trainer = trainer;
         this.constructorAlert();
     }
@@ -31,10 +31,10 @@ public class Team {
 
     //STRINGIFIER______________________________________________________________
     public String toString(){
-        String string = "|"+this.trainer.getName()+"'s team :============";
-        for(int i = 0; i < team.size(); i++){
+        String string = "|"+this.trainer.getName()+"'s pokemons :============";
+        for(int i = 0; i < pokemons.size(); i++){
             string += "\n==========\n"+
-                    "[N°"+(i+1)+"] "+team.get(i).toString();
+                    "[N°"+(i+1)+"] "+ pokemons.get(i).toString();
         }
         string += "\n======================";
         return string;
@@ -45,8 +45,8 @@ public class Team {
         return this.trainer;
     }
 
-    public ArrayList<Pokemon> getTeam() {
-        return this.team;
+    public ArrayList<Pokemon> getPokemons() {
+        return this.pokemons;
     }
 
     public Terrain getTerrain() {
@@ -61,8 +61,8 @@ public class Team {
 
     //MODIFIER_________________________________________________________________
     public void addPokemon(Pokemon pokemon){
-        this.team.add(pokemon);
-        System.out.println("#TEAM# " +this.trainer.getName()+"'s team add "+
+        this.pokemons.add(pokemon);
+        System.out.println("#TEAM# " +this.trainer.getName()+"'s pokemons add "+
                 "Pokemon : " + pokemon.getName());
     }
 

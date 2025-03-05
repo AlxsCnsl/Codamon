@@ -1,5 +1,6 @@
 package com.example.codamon;
 
+import com.example.codamon.core.Trainer;
 import com.example.codamon.core.action.category.Category;
 import com.example.codamon.core.action.move.Move;
 import com.example.codamon.core.action.move.MoveTools;
@@ -29,7 +30,9 @@ public class PokeApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        Trainer pokemonTrainer = new Trainer("Alexis");
         HashMap<String, Object> userData = new HashMap<>();
+        userData.put("pokemonTrainer", pokemonTrainer);
         stage.setUserData(userData);
 
         scenes.put(
@@ -43,7 +46,7 @@ public class PokeApp extends Application {
         stage.setTitle("MENU");
         stage.show();
 
-
+        /*
         //ALEXIS________________________________________________________________
         Scanner scanner = new Scanner(System.in); // Création du scanner
 
@@ -63,7 +66,7 @@ public class PokeApp extends Application {
 
         Pokemon togekiss = new Pokemon("Togekiss");
         togekiss.addMove("Charge");
-        
+
         Pokemon lugulabre = new Pokemon("Lugulabre");
 
         Trainer alexis = new Trainer("Alexis");
@@ -94,6 +97,8 @@ public class PokeApp extends Application {
         System.out.println(team1);System.out.println(team2);
         //System.out.println(battle.activePokemonsToString());
         battle.run();
+
+        */
 
         //______________________________________________________________________
 

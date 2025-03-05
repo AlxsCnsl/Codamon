@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 public class BattleController {
 
     public BattleController() {
-
     }
 
     private Stage stage;
