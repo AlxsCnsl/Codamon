@@ -22,9 +22,15 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
         </padding>
 
-        <Button fx:id="exitButton"
-                text="Exit"
-                onAction="#onExitButtonClick"/>
+        <HBox fx:id="scenesButtonsContainer" spacing="20.0">
+            <Button fx:id="exitButton"
+                    text="Exit"
+                    onAction="#onExitButtonClick"/>
+
+            <Button fx:id="battleButton"
+                    text="Battle !"
+                    onAction="#onBattleButtonClick"/>
+        </HBox>
 
         <VBox fx:id="Pokemons" spacing="10.0"/>
         

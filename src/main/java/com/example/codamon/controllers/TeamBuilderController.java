@@ -1,8 +1,8 @@
 package com.example.codamon.controllers;
 
 import com.example.codamon.PokeApp;
-import com.example.codamon.core.type.TypeTools;
-import com.example.codamon.core.action.move.Move;
+import com.example.codamon.core.Trainer;
+import com.example.codamon.core.pokemon.Pokemon;
 import com.example.codamon.models.SceneName;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,7 +15,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.controlsfx.control.PropertySheet;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,6 +45,11 @@ public class TeamBuilderController {
         stage.setScene(PokeApp.getScenes().get(SceneName.MENU));
     }
 
+    @FXML
+    public void onBattleButtonClick() {
+        stage.setScene(PokeApp.getScenes().get(SceneName.BATTLE));
+    }
+
     private ImageView createPokemonImageView(String pokemonName) {
         URL pokemonSpriteURL = getClass().getResource(
                 "/com/example/codamon/sprites/Pokemon/" +
@@ -60,9 +64,9 @@ public class TeamBuilderController {
         ArrayList<ImageView> pokemonSprites = new ArrayList<>();
         pokemonSprites.add(pokemonSpriteImageView);
 
-        HashMap<String, Object> userData = new HashMap<>();
+        HashMap<String, Object> userData =
+                (HashMap<String, Object>) stage.getUserData();
         userData.put("pokemonSpritesImageView" , pokemonSprites);
-
         stage.setUserData(userData);
 
         return pokemonSpriteImageView;
@@ -242,7 +246,8 @@ public class TeamBuilderController {
 
     private void setPokemonSprites(Image pokemonSprite, Image firstTypeSprite,
                                    Image secondTypeSprite) {
-        HashMap<String, Object> userData = (HashMap<String, Object>) stage.getUserData();
+        HashMap<String, Object> userData =
+                (HashMap<String, Object>) stage.getUserData();
         ArrayList<ImageView> pokemonSpritesImageView =
                 (ArrayList<ImageView>) userData.get("pokemonSpritesImageView");
         pokemonSpritesImageView.get(0).setImage(pokemonSprite);
@@ -299,6 +304,17 @@ public class TeamBuilderController {
 
         pokemonChoice.setOnAction((actionEvent -> {
             System.out.println(stage.getUserData());
+            HashMap<String, Object> userData =
+                    (HashMap<String, Object>) stage.getUserData();
+            Trainer pokemonTrainer = (Trainer) userData.get("pokemonTrainer");
+            Pokemon pokemon = new Pokemon(pokemonChoice.getValue());
+
+            if (pokemonTrainer.getTeam().getPokemons().size() == 0) {
+                pokemonTrainer.getTeam().getPokemons().add(pokemon);
+            } else {
+                pokemonTrainer.getTeam().getPokemons().set(0, pokemon);
+            }
+            System.out.println(pokemonTrainer.getTeam());
 
             setPokemonInfosVBoxVisible();
 
@@ -416,15 +432,18 @@ public class TeamBuilderController {
         moveChoice.setMinWidth(125);
 
         moveChoice.setOnAction((actionEvent -> {
+            HashMap<String, Object> userData =
+                    (HashMap<String, Object>) stage.getUserData();
+
             ArrayList<ComboBox<String>> pokemonMovesComboBoxes =
                     (ArrayList<ComboBox<String>>)
-                            ((HashMap<String, Object>)
-                                    stage.getUserData()).get(
-                                            "pokemonMovesComboBox");
+                            userData.get("pokemonMovesComboBox");
+            Trainer pokemonTrainer = (Trainer) userData.get("pokemonTrainer");
 
             for (ComboBox<String> pokemonMoveComboBox : pokemonMovesComboBoxes) {
                 if (moveChoice.getValue() == null) {
                 } else if (moveChoice.getValue().equals(pokemonMoveComboBox.getValue()) && moveChoice != pokemonMoveComboBox) {
+//                    pokemonTrainer.getTeam().getPokemons().get(0).addMove(moveChoice.getValue());
                     pokemonMoveComboBox.setValue("");
                 }
             }

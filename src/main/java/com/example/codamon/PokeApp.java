@@ -1,9 +1,9 @@
 package com.example.codamon;
 
+import com.example.codamon.core.Trainer;
 import com.example.codamon.core.batlle.Battle;
 import com.example.codamon.core.pokemon.Pokemon;
 import com.example.codamon.core.pokemon.Team;
-import com.example.codamon.core.action.move.MoveTools;
 import com.example.codamon.models.SceneName;
 import com.example.codamon.views.BattleView;
 import com.example.codamon.views.MenuView;
@@ -26,8 +26,9 @@ public class PokeApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-
+        Trainer pokemonTrainer = new Trainer("Alexis");
         HashMap<String, Object> userData = new HashMap<>();
+        userData.put("pokemonTrainer", pokemonTrainer);
         stage.setUserData(userData);
 
         scenes.put(
@@ -40,8 +41,6 @@ public class PokeApp extends Application {
         stage.setScene(scenes.get(SceneName.TEAMBUILDER));
         stage.setTitle("MENU");
         stage.show();
-
-        Scanner scanner = new Scanner(System.in);
 
     }
 
