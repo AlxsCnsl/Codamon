@@ -1,4 +1,4 @@
-package com.example.codamon.core.Effect.Status;
+package com.example.codamon.core.effect.status;
 
 public enum Status {
     PARALYSIS,

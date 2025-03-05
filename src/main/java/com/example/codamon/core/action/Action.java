@@ -1,7 +1,7 @@
 package com.example.codamon.core.action;
 
-import com.example.codamon.core.Battle;
-import com.example.codamon.core.Pokemon;
+import com.example.codamon.core.batlle.Battle;
+import com.example.codamon.core.pokemon.Pokemon;
 
 public abstract class Action {
     protected Boolean allowed = true;

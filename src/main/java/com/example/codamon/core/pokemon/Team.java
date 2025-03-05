@@ -1,32 +1,37 @@
-package com.example.codamon.core;
+package com.example.codamon.core.pokemon;
+
+import com.example.codamon.core.Trainer;
+import com.example.codamon.core.batlle.Terrain;
 
 import java.util.ArrayList;
 
-public class PokemonTeam {
+public class Team {
 
     private ArrayList<Pokemon> team = new ArrayList<>();
-    private final String name;
-    private int firstPokemonIndex = 0;
+    private Trainer trainer;//Owner
+    private Terrain terrain = null;
+    private ArrayList<Pokemon> activePokemons;
 
     //CONSTRUCTOR_______________________________________________________________
-    public PokemonTeam(String name, ArrayList<Pokemon> team){
+    public Team(Trainer trainer, ArrayList<Pokemon> team){
         this.team = team;
-        this.name = name;
+        this.trainer = trainer;
         this.constructorAlert();
     }
-    public PokemonTeam(String name){
-        this.name = name;
+
+    public Team(Trainer trainer){
+        this.trainer = trainer;
         this.constructorAlert();
     }
 
     private void constructorAlert(){
-        System.out.println("#TEAM# Team : "+this.getName()+
+        System.out.println("#TEAM# Team : "+this.trainer.getName()+
                 " is instantiated");
     }
 
     //STRINGIFIER______________________________________________________________
     public String toString(){
-        String string = "|"+this.name+"'s team :============";
+        String string = "|"+this.trainer.getName()+"'s team :============";
         for(int i = 0; i < team.size(); i++){
             string += "\n==========\n"+
                     "[N°"+(i+1)+"] "+team.get(i).toString();
@@ -36,27 +41,28 @@ public class PokemonTeam {
     }
 
     //GETTER___________________________________________________________________
-    public String getName() {
-        return name;
+    public Trainer getTrainer() {
+        return this.trainer;
     }
 
     public ArrayList<Pokemon> getTeam() {
-        return team;
+        return this.team;
     }
 
-    public int getFirstPokemonIndex(){
-        return this.firstPokemonIndex;
+    public Terrain getTerrain() {
+        return this.terrain;
+    }
+
+    public ArrayList<Pokemon> getActivePokemons(){
+        return activePokemons;
     }
 
     //SETTER___________________________________________________________________
-    public void setFistPokemonIndex(int index){
-        this.firstPokemonIndex = index;
-    }
 
     //MODIFIER_________________________________________________________________
     public void addPokemon(Pokemon pokemon){
         this.team.add(pokemon);
-        System.out.println("#TEAM# " +this.getName()+"'s team add "+
+        System.out.println("#TEAM# " +this.trainer.getName()+"'s team add "+
                 "Pokemon : " + pokemon.getName());
     }
 

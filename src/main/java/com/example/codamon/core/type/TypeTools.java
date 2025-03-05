@@ -1,4 +1,4 @@
-package com.example.codamon.core;
+package com.example.codamon.core.type;
 
 import java.util.ArrayList;
 
