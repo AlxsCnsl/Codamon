@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -25,6 +26,9 @@ public class PokeApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+
+        HashMap<String, Object> userData = new HashMap<>();
+        stage.setUserData(userData);
 
         scenes.put(
                 SceneName.MENU, new MenuView(stage).getScene());
@@ -37,7 +41,7 @@ public class PokeApp extends Application {
         stage.setTitle("MENU");
         stage.show();
 
-        Scanner scanner = new Scanner(System.in); // Création du scanner
+        Scanner scanner = new Scanner(System.in);
 
     }
 
