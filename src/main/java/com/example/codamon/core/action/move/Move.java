@@ -20,6 +20,7 @@ public class Move extends Action {
     private int pp;
     private int currentPp;
     private ArrayList<MoveEffect> effects;
+    private Pokemon owner = null;
 
     public Move(String name, Type type, Category category,
                 int power, int accurate, int pp, int priority) {
@@ -81,6 +82,18 @@ public class Move extends Action {
     }
 
     public ArrayList<MoveEffect> getEffects(){return this.effects; }
+
+    public Pokemon getOwner(){
+        return this.owner;
+    }
+    //SETTER___________________________________________________________________
+    public void setOwner(Pokemon owner){
+        this.owner = owner;
+    }
+
+    public void unsetOwner(){
+        this.owner = null;
+    }
 
     //EXECUTOR_________________________________________________________________
     public void execute(Pokemon user, Pokemon target, Battle battle){
