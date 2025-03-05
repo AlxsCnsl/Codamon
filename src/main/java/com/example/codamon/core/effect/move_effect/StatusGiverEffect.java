@@ -2,33 +2,33 @@ package com.example.codamon.core.effect.move_effect;
 
 import com.example.codamon.core.batlle.Battle;
 import com.example.codamon.core.pokemon.Pokemon;
-import com.example.codamon.core.effect.status.Status;
-import com.example.codamon.core.effect.status.StatusTools;
+import com.example.codamon.core.effect.batlle_effect.status.StatusTools;
 import com.fasterxml.jackson.databind.JsonNode;
 
 public class StatusGiverEffect implements MoveEffect {
-    private Status status;
-    public StatusGiverEffect(Status status){
-        this.status = status;
+    private String statusName;
+
+    public StatusGiverEffect(String status){
+        this.statusName = status;
     }
+
     public void applyEffect(Pokemon user, Pokemon target, Battle battle){
-        target.setStatus(StatusTools.newStatus(status));
+        target.setMajorStatus(StatusTools.newStatus(this.statusName));
         System.out.println("#MOVE#STATUS_GIVER# "+target.getName()+" is "+
-                this.getStatus());
+                this.getStatusName());
     }
 
     public String toString(){
         return "+Status/"
-                +getStatus().toString();
+                + getStatusName().toString();
     }
 
-    public Status getStatus(){
-        return status;
+    public String getStatusName(){
+        return statusName;
     }
 
     public static StatusGiverEffect newMoveEffect(JsonNode effectsNode){
-        Status status = StatusTools.
-                stringToStatusEnum(effectsNode.get("status").asText());
+        String status = effectsNode.get("status").asText();
         return new StatusGiverEffect(status);
     }
 }
