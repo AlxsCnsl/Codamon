@@ -1,8 +1,8 @@
 package com.example.codamon.controllers;
 
 import com.example.codamon.PokeApp;
-import com.example.codamon.core.TypeTools;
-import com.example.codamon.core.action.Move.Move;
+import com.example.codamon.core.type.TypeTools;
+import com.example.codamon.core.action.move.Move;
 import com.example.codamon.models.SceneName;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
