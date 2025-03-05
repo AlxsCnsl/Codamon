@@ -6,6 +6,7 @@ import com.example.codamon.core.pokemon.Pokemon;
 import com.example.codamon.models.SceneName;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -449,6 +450,14 @@ public class TeamBuilderController {
         ComboBox<String> moveChoice = new ComboBox<>();
         moveChoice.setMinWidth(125);
 
+        final String[] previousValue = {null};
+        moveChoice.valueProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            // 'oldValue' is the previous selection before the change
+            System.out.println("Changed from: " + oldValue + " to: " + newValue);
+            // Update our previous value storage if needed
+            previousValue[0] = oldValue;
+        });
+
         moveChoice.setOnAction((actionEvent -> {
             HashMap<String, Object> userData =
                     (HashMap<String, Object>) stage.getUserData();
@@ -461,10 +470,23 @@ public class TeamBuilderController {
                             userData.get("pokemonMovesComboBox" + pokemonID);
             Trainer pokemonTrainer = (Trainer) userData.get("pokemonTrainer");
 
+            if (moveChoice.getValue() != null && pokemonTrainer.getTeam().getPokemons().get(pokemonID).getMoves().size() < 4) {
+                pokemonTrainer.getTeam().getPokemons().get(pokemonID).switchMove(previousValue[0], moveChoice.getValue());
+            } else if (pokemonTrainer.getTeam().getPokemons().get(pokemonID).getMoves().size() < 4) {
+                System.out.println("test if");
+                pokemonTrainer.getTeam().getPokemons().get(pokemonID).addMove(moveChoice.getValue());
+                System.out.println(pokemonTrainer.getTeam());
+            } else {
+                System.out.println("test else");
+                System.out.println("previousValue : " + previousValue[0]);
+                pokemonTrainer.getTeam().getPokemons().get(pokemonID).switchMove(previousValue[0], moveChoice.getValue());
+            }
+
+            System.out.println(pokemonTrainer.getTeam());
+
             for (ComboBox<String> pokemonMoveComboBox : pokemonMovesComboBoxes) {
                 if (moveChoice.getValue() == null) {
                 } else if (moveChoice.getValue().equals(pokemonMoveComboBox.getValue()) && moveChoice != pokemonMoveComboBox) {
-//                    pokemonTrainer.getTeam().getPokemons().get(0).addMove(moveChoice.getValue());
                     pokemonMoveComboBox.setValue("");
                 }
             }
