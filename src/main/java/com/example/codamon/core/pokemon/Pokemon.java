@@ -1,7 +1,8 @@
 package com.example.codamon.core.pokemon;
+import com.example.codamon.core.action.move.MoveTools;
 import com.example.codamon.core.type.TypeTools;
 import com.example.codamon.core.batlle.Terrain;
-import com.example.codamon.core.effect.status.AbstractStatus;
+import com.example.codamon.core.effect.batlle_effect.status.Status;
 import com.example.codamon.core.type.Type;
 import com.example.codamon.core.action.move.Move;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,13 +17,13 @@ public class Pokemon {
 
     private Boolean isAlive = true;
     private final String name;
-    private int lvl = 1000;
+    private int lvl = 100;
     private final HashMap<String, Integer> baseStats = new HashMap<>();
     private HashMap<String, Integer> modifierStats = new HashMap<>();
     private int currentHP;
     private ArrayList<Type> types = new ArrayList<>();
     private ArrayList<Move> moves = new ArrayList<>();
-    private AbstractStatus status;
+    private Status majorStatus = null;
     private Terrain terrain = null;
 
     //CONSTRUCTOR______________________________________________________________
@@ -92,9 +93,9 @@ public class Pokemon {
     }
 
     public String statusToSrint(){
-        if(this.status == null){
+        if(this.majorStatus == null){
             return "";
-        }return "[" +status.getName()+"]";
+        }return "[" + majorStatus.getName()+"]";
     }
     public String typesToString() {
         String types = "";
@@ -198,7 +199,6 @@ public class Pokemon {
 
     public Move getMoveByName(String moveSearched){
         for(Move move : this.moves){
-            System.out.println("Move name : "+move.getName());
             if(move.getName().equalsIgnoreCase(moveSearched)){
                 return move;
             }
@@ -213,8 +213,8 @@ public class Pokemon {
         return this.lvl;
     }
 
-    public AbstractStatus getStatus() {
-        return status;
+    public Status getMajorStatus() {
+        return majorStatus;
     }
 
     //SETTER___________________________________________________________________
@@ -223,8 +223,16 @@ public class Pokemon {
         this.terrain = terrain;
     }
 
-    public void setStatus(AbstractStatus status){
-        this.status = status;
+    public void setMajorStatus(Status majorStatus){
+        this.majorStatus = majorStatus;
+        this.majorStatus.setPokemon(this);
+    }
+
+    public void unsetMajorStatus(){
+        if(this.majorStatus != null){
+            this.majorStatus.setPokemon(null);
+            this.majorStatus = null;
+        }
     }
 
     public void addModifierStat(String stat, int modifier){
@@ -249,14 +257,35 @@ public class Pokemon {
     }
 
     //MOVES TOOLS______________________________________________________________
-    public void addMove(Move move){
+    public void addMove(String move){
         if(this.moves.size() < 4){
-            this.moves.add(move);
+            this.moves.add(MoveTools.newMove(move));
+            this.moves.getLast().setOwner(this);
+            System.out.println("#POKEMON# "+this.getName()+
+                    " learn the move\""+move+"\"");
         }else{
-            System.out.println("#POKEMON#"+this.getName()+
-                    "is trying to learn the move\""+move.getName()+
-                    "but he already knows 4 moves");
+            System.out.println("#POKEMON #"+this.getName()+
+                    " is trying to learn the move\""+move+
+                    "\" but he already knows 4 moves");
         }
+    }
+
+    public void removeMoveByName(String moveName){
+        if(this.moves != null || this.moves.size()>0){
+            for(Move move: this.moves){
+                if(move.getName().equals(moveName)){
+                    this.moves.remove(move);
+                    System.out.println("#POKEMON# "+this.getName()+
+                            " forgot the move\""+move.getName()+"\"");
+                    return;
+                }
+            }
+        }
+    }
+
+    public void switchMove(String forgottenMove, String learnedMove){
+        this.removeMoveByName(forgottenMove);
+        this.addMove(learnedMove);
     }
 
     public void getDamage(int damage){
@@ -266,4 +295,6 @@ public class Pokemon {
             this.isAlive = false;
         }
     }
+    //Battle Tools_____________________________________________________________
+
 }
