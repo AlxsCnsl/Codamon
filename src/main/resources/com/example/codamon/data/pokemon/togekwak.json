@@ -1,0 +1,17 @@
+{
+  "name": "Togekwak",
+  "types": [
+    "Water",
+    "Fairy"
+  ],
+  "stats": {
+    "HP": 20,
+    "ATK": 110,
+    "DEF": 70,
+    "SPA": 120,
+    "SPD": 90,
+    "SPE": 155
+  },
+  "Ability": [],
+  "move": []
+}
