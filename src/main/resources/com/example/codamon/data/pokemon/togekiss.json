@@ -1,6 +1,9 @@
 {
   "name":"Togekiss",
-  "types": ["Flying","Fairy"],
+  "types": [
+    "Flying",
+    "Fairy"
+  ],
   "stats": {
     "HP":85,
     "ATK": 50,

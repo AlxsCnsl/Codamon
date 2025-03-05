@@ -1,9 +1,9 @@
-package com.example.codamon.core.Effect.MoveEffect;
+package com.example.codamon.core.effect.move_effect;
 
-import com.example.codamon.core.Battle;
-import com.example.codamon.core.Pokemon;
-import com.example.codamon.core.Effect.Status.Status;
-import com.example.codamon.core.Effect.Status.StatusTools;
+import com.example.codamon.core.batlle.Battle;
+import com.example.codamon.core.pokemon.Pokemon;
+import com.example.codamon.core.effect.status.Status;
+import com.example.codamon.core.effect.status.StatusTools;
 import com.fasterxml.jackson.databind.JsonNode;
 
 public class StatusGiverEffect implements MoveEffect {

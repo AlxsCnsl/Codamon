@@ -1,13 +1,13 @@
-package com.example.codamon.core.action.Move;
+package com.example.codamon.core.action.move;
 
-import com.example.codamon.core.Type;
-import com.example.codamon.core.TypeTools;
-import com.example.codamon.core.action.Category.Category;
-import com.example.codamon.core.action.Category.CathegoryTools;
-import com.example.codamon.core.Effect.MoveEffect.ModifierStatisticEffect;
-import com.example.codamon.core.Effect.MoveEffect.MoveEffect;
-import com.example.codamon.core.Effect.MoveEffect.ProbabilityEffect;
-import com.example.codamon.core.Effect.MoveEffect.StatusGiverEffect;
+import com.example.codamon.core.type.Type;
+import com.example.codamon.core.type.TypeTools;
+import com.example.codamon.core.action.category.Category;
+import com.example.codamon.core.action.category.CathegoryTools;
+import com.example.codamon.core.effect.move_effect.ModifierStatisticEffect;
+import com.example.codamon.core.effect.move_effect.MoveEffect;
+import com.example.codamon.core.effect.move_effect.ProbabilityEffect;
+import com.example.codamon.core.effect.move_effect.StatusGiverEffect;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

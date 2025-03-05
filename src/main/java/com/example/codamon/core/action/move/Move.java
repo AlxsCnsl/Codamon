@@ -1,17 +1,15 @@
-package com.example.codamon.core.action.Move;
+package com.example.codamon.core.action.move;
 
-import com.example.codamon.core.Battle;
-import com.example.codamon.core.Pokemon;
-import com.example.codamon.core.Type;
-import com.example.codamon.core.TypeTools;
+import com.example.codamon.core.batlle.Battle;
+import com.example.codamon.core.pokemon.Pokemon;
+import com.example.codamon.core.type.Type;
+import com.example.codamon.core.type.TypeTools;
 import com.example.codamon.core.action.Action;
-import com.example.codamon.core.action.Category.Category;
-import com.example.codamon.core.Effect.MoveEffect.MoveEffect;
+import com.example.codamon.core.action.category.Category;
+import com.example.codamon.core.effect.move_effect.MoveEffect;
 
 import java.util.ArrayList;
 import java.util.Random;
-
-import static com.example.codamon.core.TypeTools.getEfficiencyAttackLog;
 
 public class Move extends Action {
     private String name;

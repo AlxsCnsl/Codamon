@@ -1,7 +1,7 @@
-package com.example.codamon.core.Effect.MoveEffect;
+package com.example.codamon.core.effect.move_effect;
 
-import com.example.codamon.core.Battle;
-import com.example.codamon.core.Pokemon;
+import com.example.codamon.core.batlle.Battle;
+import com.example.codamon.core.pokemon.Pokemon;
 import com.fasterxml.jackson.databind.JsonNode;
 
 public class ModifierStatisticEffect implements MoveEffect {

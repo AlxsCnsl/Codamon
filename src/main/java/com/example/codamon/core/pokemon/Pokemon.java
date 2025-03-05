@@ -1,7 +1,9 @@
-package com.example.codamon.core;
-
-import com.example.codamon.core.Effect.Status.AbstractStatus;
-import com.example.codamon.core.action.Move.Move;
+package com.example.codamon.core.pokemon;
+import com.example.codamon.core.type.TypeTools;
+import com.example.codamon.core.batlle.Terrain;
+import com.example.codamon.core.effect.status.AbstractStatus;
+import com.example.codamon.core.type.Type;
+import com.example.codamon.core.action.move.Move;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -14,13 +16,14 @@ public class Pokemon {
 
     private Boolean isAlive = true;
     private final String name;
-    private int lvl = 100;
+    private int lvl = 1000;
     private final HashMap<String, Integer> baseStats = new HashMap<>();
     private HashMap<String, Integer> modifierStats = new HashMap<>();
     private int currentHP;
     private ArrayList<Type> types = new ArrayList<>();
     private ArrayList<Move> moves = new ArrayList<>();
     private AbstractStatus status;
+    private Terrain terrain = null;
 
     //CONSTRUCTOR______________________________________________________________
     public Pokemon(String name, ArrayList<Type> types,
@@ -108,6 +111,10 @@ public class Pokemon {
         return moves;
     }
     //GETTER___________________________________________________________________
+    public Terrain getTerrains(){
+        return this.terrain;
+    }
+
     public int getBaseState(String key){
         //Error à faire
         return this.baseStats.get(key);
@@ -211,6 +218,10 @@ public class Pokemon {
     }
 
     //SETTER___________________________________________________________________
+
+    public void setTerrain(Terrain terrain){
+        this.terrain = terrain;
+    }
 
     public void setStatus(AbstractStatus status){
         this.status = status;

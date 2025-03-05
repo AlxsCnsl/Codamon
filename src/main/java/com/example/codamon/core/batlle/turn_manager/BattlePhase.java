@@ -1,4 +1,4 @@
-package com.example.codamon.core.turn_manager;
+package com.example.codamon.core.batlle.turn_manager;
 
 public enum BattlePhase {
     START_PHASE,

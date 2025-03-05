@@ -1,6 +1,6 @@
-package com.example.codamon.core.turn_manager;
+package com.example.codamon.core.batlle.turn_manager;
 
-import com.example.codamon.core.Battle;
+import com.example.codamon.core.batlle.Battle;
 
 public interface Turn {
     public void executePhase(BattlePhase phase, Battle battle);
@@ -8,5 +8,5 @@ public interface Turn {
     public void selectMovePhaseRule(Battle battle);
     public void applyMovePhaseRule(Battle battle);
     public void endPhaseRule(Battle battle);
-
+    public void startBattleRule(Battle battle);
 }

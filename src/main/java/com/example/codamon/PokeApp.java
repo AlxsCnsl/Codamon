@@ -1,15 +1,15 @@
 package com.example.codamon;
 
-import com.example.codamon.core.action.Category.Category;
-import com.example.codamon.core.action.Move.Move;
-import com.example.codamon.core.action.Move.MoveTools;
+import com.example.codamon.core.batlle.Battle;
+import com.example.codamon.core.pokemon.Pokemon;
+import com.example.codamon.core.pokemon.Team;
+import com.example.codamon.core.action.move.MoveTools;
 import com.example.codamon.models.SceneName;
 import com.example.codamon.views.BattleView;
 import com.example.codamon.views.MenuView;
 import com.example.codamon.views.TeamBuilderView;
-import com.example.codamon.core.*;
 
-import com.example.codamon.core.turn_manager.ConsoleTurnManager;
+import com.example.codamon.core.batlle.turn_manager.ConsoleTurnManager;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -26,6 +26,7 @@ public class PokeApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+
         HashMap<String, Object> userData = new HashMap<>();
         stage.setUserData(userData);
 
@@ -40,59 +41,7 @@ public class PokeApp extends Application {
         stage.setTitle("MENU");
         stage.show();
 
-        /*
-        //ALEXIS________________________________________________________________
-        Scanner scanner = new Scanner(System.in); // Création du scanner
-
-
-        Pokemon pikachu = new Pokemon("Pikachu");
-        pikachu.addMove(MoveTools.newMove("Charge"));
-        pikachu.addMove(MoveTools.newMove("Eclair"));
-        pikachu.addMove(MoveTools.newMove("Fatal-Foudre"));
-        pikachu.addMove(MoveTools.newMove("Cage-Eclair"));
-
-        Pokemon raikou = new Pokemon("Raikou");
-        pikachu.addMove(MoveTools.newMove("Fatal-Foudre"));
-
-        Pokemon psykokwak = new Pokemon("Psykokwak");
-        psykokwak.addMove(MoveTools.newMove("Charge"));
-        psykokwak.addMove(MoveTools.newMove("Mimi-Queue"));
-
-        Pokemon togekiss = new Pokemon("Togekiss");
-        togekiss.addMove(MoveTools.newMove("Charge"));
-        
-        Pokemon lugulabre = new Pokemon("Lugulabre");
-
-        PokemonTeam team1 = new PokemonTeam("Alexis");
-        team1.addPokemon(pikachu);
-        team1.addPokemon(psykokwak);
-
-        PokemonTeam team2 = new PokemonTeam("Ethan");
-        team2.addPokemon(togekiss);
-        team2.addPokemon(lugulabre);
-
-        System.out.println(togekiss.getTypes());
-        System.out.println(togekiss.getName());
-
-        Battle battle = new Battle(team1, team2, new ConsoleTurnManager());
-
-        pikachu.getMoveByName("Fatal-Foudre").execute(pikachu, togekiss, battle);
-        psykokwak.getMoveByName("Charge").execute(psykokwak, togekiss, battle);
-
-
-        if(togekiss.getStatus() != null &&
-                togekiss.getStatus().testIfNexMoveAccept()) {
-            togekiss.getMoveByName("Charge").execute(togekiss, pikachu, battle);
-        }
-
-
-        System.out.println(team1);System.out.println(team2);
-        //System.out.println(battle.activePokemonsToString());
-        battle.run();
-
-        //______________________________________________________________________
-
-         */
+        Scanner scanner = new Scanner(System.in);
 
     }
 
