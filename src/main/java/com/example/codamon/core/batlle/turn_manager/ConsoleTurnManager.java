@@ -1,5 +1,6 @@
 package com.example.codamon.core.batlle.turn_manager;
 
+import com.example.codamon.core.Trainer;
 import com.example.codamon.core.batlle.Battle;
 import com.example.codamon.core.batlle.Terrain;
 import com.example.codamon.core.pokemon.Team;
@@ -49,7 +50,7 @@ public class ConsoleTurnManager implements Turn {
 
     public void startBattleRule(Battle battle){
         for(Terrain terrain : battle.getTerrains()){
-            for(Team team : terrain.getPlayersTeam()){
+            for(Trainer trainer : terrain.getTrainersTeam()){
                 // =========================================================================< logique de debut de combat
             }
         }

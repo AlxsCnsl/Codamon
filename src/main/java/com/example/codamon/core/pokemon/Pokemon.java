@@ -218,7 +218,6 @@ public class Pokemon {
     }
 
     //SETTER___________________________________________________________________
-
     public void setTerrain(Terrain terrain){
         this.terrain = terrain;
     }
@@ -230,6 +229,8 @@ public class Pokemon {
 
     public void unsetMajorStatus(){
         if(this.majorStatus != null){
+            System.out.println("#POKEMON#STATUS# "+
+                    this.name+" Status remove : "+this.majorStatus.getName());
             this.majorStatus.setPokemon(null);
             this.majorStatus = null;
         }
@@ -297,4 +298,28 @@ public class Pokemon {
     }
     //Battle Tools_____________________________________________________________
 
+    public void gotToTerrain(Terrain terrain){
+        terrain.addPokemon(this);
+    }
+
+    public void quitTerrain(){
+        if(this.terrain != null){
+            terrain.deletePokemon(this);
+        }else{
+            System.out.println("#POKEMON#"+this.name+"want to leave terrain but " +
+                    "is not on it");
+        }
+    }
+
+    public void useMove(String name, Pokemon target){
+        for(Move move : this.moves){
+            if(move.getName().equals(name)){
+                move.execute(this, target, this.terrain.getBattle());
+            }return;
+        }
+        System.out.println("#POKEMON# "+this.getName()+
+                " want use \""+name+"\""+
+                " but doesn't know \""+name+"\""
+        );
+    }
 }
