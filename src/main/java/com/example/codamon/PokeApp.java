@@ -101,9 +101,6 @@ public class PokeApp extends Application {
         */
 
         //______________________________________________________________________
-
-
-
     }
 
     public static Map<SceneName, Scene> getScenes() {
