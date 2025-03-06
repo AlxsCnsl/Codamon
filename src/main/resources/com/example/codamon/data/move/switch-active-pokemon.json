@@ -1,0 +1,17 @@
+{
+  "name" : "Switch",
+  "type" : null,
+  "category" : "Status",
+  "description" : "",
+  "power": 0,
+  "accurate": 100,
+  "pp": -1,
+  "priority": 6,
+  "targetMode": "Team",
+  "effects" :
+  [
+    {
+      "type_effect": "SwitchActivePokemonEffect"
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 package com.example.codamon.core.pokemon;
+import com.example.codamon.core.Trainer;
 import com.example.codamon.core.action.move.MoveTools;
 import com.example.codamon.core.type.TypeTools;
 import com.example.codamon.core.batlle.Terrain;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 public class Pokemon {
 
     private Boolean isAlive = true;
+    private Trainer owner = null;
     private final String name;
     private int lvl = 100;
     private final HashMap<String, Integer> baseStats = new HashMap<>();
@@ -25,6 +27,7 @@ public class Pokemon {
     private ArrayList<Move> moves = new ArrayList<>();
     private Status majorStatus = null;
     private Terrain terrain = null;
+    private Move switchActivePokemon;
 
     //CONSTRUCTOR______________________________________________________________
     public Pokemon(String name, ArrayList<Type> types,
@@ -43,6 +46,7 @@ public class Pokemon {
         System.out.println("#POKEMON#"+name+" is Construct");
         this.resetPokemon();
         System.out.println("#POKEMON# " + name + " is built");
+        initSwitchMove();
     }
 
     public Pokemon(String name){
@@ -81,7 +85,12 @@ public class Pokemon {
         this.baseStats.put("ESC", 1);
         this.resetPokemon();//for define modifierStats and other stats
         System.out.println("#POKEMON# " + name + " is built");
+        initSwitchMove();
+    }
 
+    private void initSwitchMove(){
+        switchActivePokemon = MoveTools.newMove("Switch-active-pokemon");
+        switchActivePokemon.setOwner(this);
     }
 
     //STRINGIFIER______________________________________________________________
@@ -112,7 +121,19 @@ public class Pokemon {
         return moves;
     }
     //GETTER___________________________________________________________________
-    public Terrain getTerrains(){
+    public Move getSwitchMove(){
+        return switchActivePokemon;
+    }
+
+    public Trainer getOwner(){
+        return this.owner;
+    }
+
+    public ArrayList<Move> getMoves(){
+        return this.moves;
+    }
+
+    public Terrain getTerrain(){
         return this.terrain;
     }
 
@@ -198,6 +219,9 @@ public class Pokemon {
     }
 
     public Move getMoveByName(String moveSearched){
+        if(moveSearched.equalsIgnoreCase("Switch")){
+            return switchActivePokemon;
+        }
         for(Move move : this.moves){
             if(move.getName().equalsIgnoreCase(moveSearched)){
                 return move;
@@ -218,6 +242,10 @@ public class Pokemon {
     }
 
     //SETTER___________________________________________________________________
+    public void setOwner(Trainer owner){
+        this.owner = owner;
+    }
+
     public void setTerrain(Terrain terrain){
         this.terrain = terrain;
     }
@@ -276,7 +304,8 @@ public class Pokemon {
             for(Move move: this.moves){
                 if(move.getName().equals(moveName)){
                     this.moves.remove(move);
-                    System.out.println("#POKEMON# "+this.getName()+
+                    move.setOwner(null);
+                    System.out.println("#POKEMON# " +this.getName()+
                             " forgot the move\""+move.getName()+"\"");
                     return;
                 }
@@ -296,6 +325,20 @@ public class Pokemon {
             this.isAlive = false;
         }
     }
+
+    public Boolean hasMove(String moveName){
+        if(this.moves != null || this.moves.size()>0){
+            for(Move move: this.moves){
+                if(move.getName().equals(move)){
+                    this.moves.remove(move);
+                    return true;
+                }
+            }
+        }
+        System.out.println("#POKEMON# "+this.getName()+
+                " has not the move\""+moveName+"\"");
+        return false;
+    }
     //Battle Tools_____________________________________________________________
 
     public void gotToTerrain(Terrain terrain){
@@ -306,18 +349,43 @@ public class Pokemon {
         if(this.terrain != null){
             terrain.deletePokemon(this);
         }else{
-            System.out.println("#POKEMON#"+this.name+"want to leave terrain but " +
-                    "is not on it");
+            System.out.println("#POKEMON#"+
+                    this.name+"want to leave terrain but " + "is not on it");
         }
     }
 
-    public void useMove(String name, Pokemon target){
+    public void loadMove(String name, Pokemon target){
+        if(name.equalsIgnoreCase("Switch")){
+            targetLog(target);
+            switchActivePokemon.addTarget(target);
+            return;
+        }
+        for(Move move : this.moves){
+            if(move.getName().equalsIgnoreCase(name)){
+                targetLog(target);
+                move.addTarget(target);
+            }
+        }
+    }
+    private void targetLog(Pokemon target){
+        System.out.println("#POKEMON# "+this.name+
+                " target "+target.getName());
+    }
+
+    public void useMove(String name){
+        if(name.equalsIgnoreCase("Switch")){
+            switchActivePokemon.execute();
+            return;
+        }
         for(Move move : this.moves){
             if(move.getName().equals(name)){
-                move.execute(this, target, this.terrain.getBattle());
-            }return;
+                System.out.println("#POKEMON# "+this.name+
+                        " want use \""+name+"\"");
+                move.execute();
+                return;
+            }
         }
-        System.out.println("#POKEMON# "+this.getName()+
+        System.out.println("#POKEMON# "+this.name+
                 " want use \""+name+"\""+
                 " but doesn't know \""+name+"\""
         );

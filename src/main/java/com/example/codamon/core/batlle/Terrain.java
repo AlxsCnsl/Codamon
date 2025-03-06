@@ -14,6 +14,18 @@ public class Terrain {
     public Terrain(){
 
     }
+
+    public String toString(){
+        String str = "";
+        for(Pokemon pokemon : activePokemons){
+            str += ">>>>>>>>>>>>>>>>>>\n";
+            str += pokemon.toString();
+        }
+        str += "\n>>>>>>>>>>>>>>>>>>";
+        return str;
+    }
+
+
     //GETTER___________________________________________________________________
     public ArrayList<Pokemon> getActivePokemons(){
         return this.activePokemons;
@@ -28,8 +40,12 @@ public class Terrain {
     }
     //SETTER____________________________________________________________________
 
+    public void setBattle(Battle battle){
+        this.battle=battle;
+    }
+
     public void addPokemon(Pokemon pokemon) {
-        if(pokemon.getTerrains() != null){
+        if(pokemon.getTerrain() != null){
             return;
         }
         if (activePokemons != null &&
@@ -45,6 +61,7 @@ public class Terrain {
         System.out.println("#TERRAIN# "
                 + pokemon.getName() + " added on this terrain");
         this.activePokemons.add(pokemon);
+        pokemon.getOwner().setActivePokemons(pokemon);
         pokemon.setTerrain(this);
     }
 
@@ -56,6 +73,7 @@ public class Terrain {
                     System.out.println("#TERRAIN# "
                             + pokemon.getName() + "removed on this terrain");
                     activePokemons.remove(pokemon);
+                    pokemon.getOwner().getActivePokemons().remove(pokemon);
                     pokemon.setTerrain(null);
                     return;
                 }
@@ -67,10 +85,11 @@ public class Terrain {
 
     public void addTrainer(Trainer trainer){
         if(trainer.getTerrain() != null){
+            System.out.println("#TERRAIN# impossible to add "
+                    + trainer.getName() + " on this terrain");
             return;
         }
-        if (trainersTeam != null &&
-                !trainersTeam.isEmpty()) {
+        if (trainersTeam != null && !trainersTeam.isEmpty()) {
             for (Trainer actTrainer : trainersTeam) {
                 if (actTrainer.equals(trainer)) {
                     System.out.println("#TERRAIN# impossible to add "
