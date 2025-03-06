@@ -98,7 +98,7 @@
 
             <VBox fx:id="buttonsInterface" spacing="20.0">
                 <HBox fx:id="movesButtons" spacing="50.0" alignment="CENTER">
-                    <Button fx:id="Move1" text="Move 1" prefWidth="200" prefHeight="50" onAction="#onMoveButtonClick"/>
+                    <Button fx:id="Move1" text="Move 1" prefWidth="200" prefHeight="50"/>
                     <Button fx:id="Move2" text="Move 2" prefWidth="200" prefHeight="50"/>
                     <Button fx:id="Move3" text="Move 3" prefWidth="200" prefHeight="50"/>
                     <Button fx:id="Move4" text="Move 4" prefWidth="200" prefHeight="50"/>

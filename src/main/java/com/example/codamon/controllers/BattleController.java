@@ -30,9 +30,4 @@ public class BattleController {
     public void onExitButtonClick() {
         stage.setScene(PokeApp.getScenes().get(SceneName.MENU));
     }
-
-    @FXML
-    public void onMoveButtonClick() {
-
-    }
 }
