@@ -42,14 +42,13 @@ public class PokeApp extends Application {
         scenes.put(
                 SceneName.TEAMBUILDER, new TeamBuilderView(stage).getScene());
 
-        stage.setScene(scenes.get(SceneName.TEAMBUILDER));
+        stage.setScene(scenes.get(SceneName.BATTLE));
         stage.setTitle("MENU");
         stage.show();
 
-        /*
+
         //ALEXIS________________________________________________________________
         Scanner scanner = new Scanner(System.in); // Création du scanner
-
 
         Pokemon pikachu = new Pokemon("Pikachu");
         pikachu.addMove("Charge");
@@ -58,7 +57,10 @@ public class PokeApp extends Application {
         pikachu.addMove("Cage-Eclair");
 
         Pokemon raikou = new Pokemon("Raikou");
+        raikou.addMove("Charge");
+        raikou.addMove("Eclair");
         raikou.addMove("Fatal-Foudre");
+        raikou.addMove("Cage-Eclair");
 
         Pokemon psykokwak = new Pokemon("Psykokwak");
         psykokwak.addMove("Charge");
@@ -66,8 +68,9 @@ public class PokeApp extends Application {
 
         Pokemon togekiss = new Pokemon("Togekiss");
         togekiss.addMove("Charge");
-
-        Pokemon lugulabre = new Pokemon("Lugulabre");
+        togekiss.addMove("Eclair");
+        togekiss.addMove("Fatal-Foudre");
+        togekiss.addMove("Cage-Eclair");
 
         Trainer alexis = new Trainer("Alexis");
         Team team1 = new Team(alexis);
@@ -77,33 +80,22 @@ public class PokeApp extends Application {
         Trainer ethane = new Trainer("Ethan");
         Team team2 = new Team(ethane);
         team2.addPokemon(togekiss);
-        //team2.addPokemon(lugulabre);
-
-        System.out.println(togekiss.getTypes());
-        System.out.println(togekiss.getName());
 
         Battle battle = new Battle(alexis, ethane, new ConsoleTurnManager());
 
 
         pikachu.switchMove("Charge", "Para-Spore");
         pikachu.getMoveByName("Cage-Eclair").execute(pikachu, togekiss, battle);
-        //psykokwak.getMoveByName("Charge").execute(psykokwak, togekiss, battle);
-
 
         togekiss.getMoveByName("Charge").execute(togekiss, pikachu, battle);
 
         togekiss.unsetMajorStatus();
 
         System.out.println(team1);System.out.println(team2);
-        //System.out.println(battle.activePokemonsToString());
-        battle.run();
 
-        */
+//        battle.run();
 
         //______________________________________________________________________
-
-
-
     }
 
     public static Map<SceneName, Scene> getScenes() {
