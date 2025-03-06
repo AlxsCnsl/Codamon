@@ -265,10 +265,12 @@ public class Pokemon {
     //MOVES TOOLS______________________________________________________________
     public void addMove(String move){
         if (Objects.equals(move, "")) {
-            System.out.println("ne peut pas apprendre un move null");
+            System.out.println("can't learn a null move");
             Move tempMove = this.moves.getLast();
             this.moves.remove(this.moves.removeLast());
             this.moves.add(tempMove);
+            return;
+        } else if (Objects.equals(move, null)) {
             return;
         }
 
