@@ -1,9 +1,12 @@
 package com.example.codamon.core.effect.move_effect;
 
+import com.example.codamon.core.action.move.Move;
 import com.example.codamon.core.batlle.Battle;
 import com.example.codamon.core.pokemon.Pokemon;
 import com.example.codamon.core.effect.batlle_effect.status.StatusTools;
 import com.fasterxml.jackson.databind.JsonNode;
+
+import java.util.ArrayList;
 
 public class StatusGiverEffect implements MoveEffect {
     private String statusName;
@@ -12,10 +15,14 @@ public class StatusGiverEffect implements MoveEffect {
         this.statusName = status;
     }
 
-    public void applyEffect(Pokemon user, Pokemon target, Battle battle){
-        target.setMajorStatus(StatusTools.newStatus(this.statusName));
-        System.out.println("#MOVE#STATUS_GIVER# "+target.getName()+" is "+
-                this.getStatusName());
+    public void applyEffect(Move move, ArrayList<Pokemon> targets, Battle battle){
+        if(!targets.isEmpty()){
+            for(Pokemon target: targets){
+                target.setMajorStatus(StatusTools.newStatus(this.statusName));
+                System.out.println("#MOVE#STATUS_GIVER# "+target.getName()+" is "+
+                        this.getStatusName());
+            }
+        }
     }
 
     public String toString(){

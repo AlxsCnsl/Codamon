@@ -1,8 +1,11 @@
 package com.example.codamon.core.effect.move_effect;
 
+import com.example.codamon.core.action.move.Move;
 import com.example.codamon.core.batlle.Battle;
 import com.example.codamon.core.pokemon.Pokemon;
 import com.fasterxml.jackson.databind.JsonNode;
+
+import java.util.ArrayList;
 
 public class ModifierStatisticEffect implements MoveEffect {
     private String stat;
@@ -17,15 +20,19 @@ public class ModifierStatisticEffect implements MoveEffect {
     }
 
 
-    public void applyEffect(Pokemon user, Pokemon target, Battle battle){
-        System.out.println("#MOVE#MODSTATE# before : "+this.stat+
-                " : "+getTargetModifierState(target));
-        target.addModifierStat(this.stat, this.modifier);
-        System.out.println("#MOVE#MODSTATE# after : "+this.stat+
-                " : "+getTargetModifierState(target));
+    public void applyEffect(Move move, ArrayList<Pokemon> targets, Battle battle) {
+        if (!targets.isEmpty()) {
+            for (Pokemon target : targets) {
+                System.out.println("#MOVE#MODSTATE# before : " + this.stat +
+                        " : " + getTargetModifierState(target));
+                target.addModifierStat(this.stat, this.modifier);
+                System.out.println("#MOVE#MODSTATE# after : " + this.stat +
+                        " : " + getTargetModifierState(target));
+            }
+        }
     }
 
-    public static ModifierStatisticEffect newModifierStatEffect(JsonNode effectsNode){
+    public static ModifierStatisticEffect newMoveEffect(JsonNode effectsNode){
         String stat = effectsNode.get("statistic").asText();
         int modifier = effectsNode.get("modifier").asInt();
         return new ModifierStatisticEffect(stat, modifier);

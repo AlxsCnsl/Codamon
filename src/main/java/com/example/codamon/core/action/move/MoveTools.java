@@ -1,13 +1,11 @@
 package com.example.codamon.core.action.move;
 
+import com.example.codamon.core.effect.MoveEffectTools;
 import com.example.codamon.core.type.Type;
 import com.example.codamon.core.type.TypeTools;
 import com.example.codamon.core.action.category.Category;
 import com.example.codamon.core.action.category.CathegoryTools;
-import com.example.codamon.core.effect.move_effect.ModifierStatisticEffect;
 import com.example.codamon.core.effect.move_effect.MoveEffect;
-import com.example.codamon.core.effect.move_effect.ProbabilityEffect;
-import com.example.codamon.core.effect.move_effect.StatusGiverEffect;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -63,26 +61,11 @@ public class MoveTools {
                                 ArrayList<MoveEffect> effects){
         if(effectsNode != null && effectsNode.isArray()){
             for (JsonNode effectNode : effectsNode) {
-                effectSetter(effectNode, effects);
+                MoveEffectTools.effectSetter(effectNode, effects);
             }
         }
     }
 
-    public static void effectSetter(JsonNode effectNode,
-                              ArrayList<MoveEffect> effects){
-        String typeEffect = effectNode.get("type_effect").asText();
-        switch (typeEffect){
-            case "StatusGiverEffect" ->
-                    effects.add(StatusGiverEffect.newMoveEffect(effectNode));
-            case "ProbabilityEffect" ->
-                    effects.add(ProbabilityEffect.newProbabilityEffect(effectNode));
-            case "ModifierStatisticEffect" ->
-                effects.add(ModifierStatisticEffect.newModifierStatEffect(effectNode));
-            default ->
-                    System.err.println("Type_effect is not in switch : "
-                            +typeEffect);
-        }
-        System.out.println("#MOVE#INIT# add efect : "+ typeEffect);
-    }
+
 
 }

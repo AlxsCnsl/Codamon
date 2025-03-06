@@ -21,6 +21,7 @@ public class Move extends Action {
     private int currentPp;
     private ArrayList<MoveEffect> effects;
     private Pokemon owner = null;
+    private ArrayList<Pokemon> targets= new ArrayList<>();
 
     public Move(String name, Type type, Category category,
                 int power, int accurate, int pp, int priority) {
@@ -86,6 +87,7 @@ public class Move extends Action {
     public Pokemon getOwner(){
         return this.owner;
     }
+
     //SETTER___________________________________________________________________
     public void setOwner(Pokemon owner){
         this.owner = owner;
@@ -95,52 +97,89 @@ public class Move extends Action {
         this.owner = null;
     }
 
-    //EXECUTOR_________________________________________________________________
-    public void execute(Pokemon user, Pokemon target, Battle battle){
-        this.executeLog(user);
-        if(this.currentPp > 0 ){
-            this.currentPp -= 1;
-            if(this.power != 0) {
-                this.applyDamage(user, target, battle);
-            }
-            if (this.effects != null){
-                for(MoveEffect effect : this.effects){
-                    effect.applyEffect(user,target, battle);
+    public void addTarget(Pokemon pokemon){
+        if(!targets.isEmpty()) {
+            for (Pokemon target : targets) {
+                if(target.equals(pokemon)) {
+                    return;
                 }
             }
-            this.successExecuteLog(user);
+        }
+        this.targets.add(pokemon);
+    }
+
+    public void deleteAllTargets(){
+        this.targets = new ArrayList<>();
+    }
+
+    public void deleteTarget(Pokemon pokemon){
+        if(!targets.isEmpty()) {
+            for (Pokemon target : targets) {
+                if(target.equals(pokemon)){
+                    targets.remove(pokemon);
+                }
+            }
         }
     }
 
-    private void executeLog (Pokemon user){
-        System.out.println("#MOVE# "+user.getName()+" want use "+this.name);
+    //EXECUTOR_________________________________________________________________
+    public void execute(){
+        if(targets.isEmpty()){
+            noTargetLog();
+            return;
+        }
+        executeLog();
+        if(this.currentPp > 0 || this.currentPp == -1){
+            for(MoveEffect effect : this.effects){
+                System.out.println("GIGACACADEMORT=======================================================");
+                effect.applyEffect(this, targets , owner.getTerrain().getBattle());
+            }
+            if(currentPp!= -1){
+                this.currentPp --;
+            }
+            successExecuteLog();
+            this.deleteAllTargets();
+
+            return;
+        }
+        anyPpLog();
     }
 
-    private void successExecuteLog (Pokemon user){
-        System.out.println("#MOVE# "+user.getName()+" use "+this.name);
+    private void noTargetLog(){
+        System.out.println("#MOVE# "+owner.getName()+" want use "+this.name+
+                " but : no targets defined");
+    }
+
+    private void executeLog (){
+        System.out.println("#MOVE# "+owner.getName()+" want use "+this.name);
+    }
+
+    private void successExecuteLog (){
+        System.out.println("#MOVE# "+owner.getName()+" use "+this.name);
     }
 
     private void anyPpLog(){
         System.out.println("#MOVE# any Pp for use move : " + this.name);
     }
 
-    private void applyDamage(Pokemon user, Pokemon target, Battle battle){
+    public void applyDamage(Pokemon user, Pokemon target, Battle battle){
         String atk = "ATK"; String def = "DEF";
         if(this.category == Category.SPECIAL){
             atk = "SPA"; def = "SPD";
         }
         int damage = (int) ((((((user.getLvl() * 0.4 + 2)
-                        * user.getCurrentState(atk) * this.getPower())
-                        / target.getCurrentState(def))/50)+2)
-                        * getStab(user)
-                        * TypeTools.getTypesEfficiency(this.getType(), target.getTypes())
-                        //Future Parameter
-                        * getCritical()
-                        * getRng());
+                * user.getCurrentState(atk) * this.getPower())
+                / target.getCurrentState(def))/50)+2)
+                * getStab(user)
+                * TypeTools.getTypesEfficiency(
+                        this.getType(), target.getTypes())
+                //Future Parameter
+                * isCritical()
+                * rng());
         target.getDamage(damage);
     }
 
-    private int getCritical(){
+    public int isCritical(){
         Random random = new Random();
         int randCC = random.nextInt(16 )+1;
         if(randCC == 1){
@@ -150,7 +189,7 @@ public class Move extends Action {
         return 1;
     }
 
-    private double getStab(Pokemon user){
+    public double getStab(Pokemon user){
         for(Type pokeType : user.getTypes()){
             if(pokeType == this.type){
                 System.out.println("#MOVE# Stab");
@@ -160,7 +199,7 @@ public class Move extends Action {
         return 1.0;
     }
 
-    private double getRng(){
+    private double rng(){
         Random random = new Random();
         return  0.8 + (1.0 - 0.8) *  random.nextDouble();
     }
@@ -180,3 +219,4 @@ public class Move extends Action {
         return false;
     }
 }
+

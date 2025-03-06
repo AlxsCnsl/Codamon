@@ -8,5 +8,7 @@
   "pp": 30,
   "priority": 0,
   "targetMode": "AdjacentTarget",
-  "effects" : []
+  "effects" : [
+    {"type_effect" : "DamageApplicatorEffect"}
+  ]
 }

@@ -8,17 +8,16 @@
   "pp": 10,
   "priority": 0,
   "targetMode": "AdjacentTarget",
-  "effects" :
-  [
-      {
-      "type_effect" : "ProbabilityEffect",
+  "effects":[
+    {"type_effect" : "DamageApplicatorEffect"
+    },
+    {"type_effect" : "ProbabilityEffect",
       "probability" : 0.3,
       "effects" : [
-                      {
-                      "type_effect": "StatusGiverEffect",
-                      "status": "Paralysis"
-                      }
-                  ]
-      }
+        {"type_effect": "StatusGiverEffect",
+          "status": "Paralysis"
+        }
+      ]
+    }
   ]
 }

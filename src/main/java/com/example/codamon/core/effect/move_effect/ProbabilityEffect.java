@@ -1,5 +1,6 @@
 package com.example.codamon.core.effect.move_effect;
 
+import com.example.codamon.core.action.move.Move;
 import com.example.codamon.core.batlle.Battle;
 import com.example.codamon.core.pokemon.Pokemon;
 import com.example.codamon.core.action.move.MoveTools;
@@ -18,14 +19,14 @@ public class ProbabilityEffect implements MoveEffect {
         this.effects = effects;
     }
 
-    public void applyEffect(Pokemon user, Pokemon target, Battle battle){
+    public void applyEffect(Move move, ArrayList<Pokemon> targets, Battle battle){
         Random rand = new Random();
         int maxProba = (int) (getProbability()*100);
         int test = rand.nextInt(100)+1;
         if(test<maxProba){
             System.out.println("#MOVE#PROBABLY# ProbablySuccess");
             for (MoveEffect effect: effects){
-                effect.applyEffect(user, target, battle);
+                effect.applyEffect(move, targets, battle);
             }
         }else{
             System.out.println("#MOVE#PROBABLY# ProbablyLoose");
@@ -40,7 +41,7 @@ public class ProbabilityEffect implements MoveEffect {
         return effects;
     }
 
-    public static ProbabilityEffect newProbabilityEffect(JsonNode effectsNode){
+    public static ProbabilityEffect newMoveEffect(JsonNode effectsNode){
         double probability = effectsNode.get("probability").asDouble();
         ArrayList<MoveEffect> effects =new ArrayList<>();
         ProbabilityEffect probabilityEffect =

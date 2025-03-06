@@ -332,8 +332,9 @@ public class TeamBuilderController {
                 pokemonTrainer.getTeam().getPokemons().add(pokemon);
             } else {
                 pokemonTrainer.getTeam().getPokemons().set(pokemonID, pokemon);
+
             }
-            System.out.println(pokemonTrainer.getTeam());
+            System.out.println(pokemonTrainer.getPokemonsTeam());
 
             setPokemonInfosVBoxVisible(pokemonID);
 
@@ -493,6 +494,8 @@ public class TeamBuilderController {
             for (ComboBox<String> pokemonMoveComboBox : pokemonMovesComboBoxes) {
                 if (moveChoice.getValue() == null) {
                 } else if (moveChoice.getValue().equals(pokemonMoveComboBox.getValue()) && moveChoice != pokemonMoveComboBox) {
+
+
                     pokemonMoveComboBox.setValue("");
                 }
             }

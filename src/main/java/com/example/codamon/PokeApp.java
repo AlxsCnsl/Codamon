@@ -1,25 +1,23 @@
 package com.example.codamon;
 
 import com.example.codamon.core.Trainer;
-import com.example.codamon.core.action.category.Category;
-import com.example.codamon.core.action.move.Move;
-import com.example.codamon.core.action.move.MoveTools;
 import com.example.codamon.core.batlle.Battle;
+import com.example.codamon.core.batlle.Terrain;
+import com.example.codamon.core.batlle.control.BotControl;
+import com.example.codamon.core.batlle.control.ConsoleControl;
+import com.example.codamon.core.batlle.control.GraphicControl;
 import com.example.codamon.core.pokemon.Pokemon;
-import com.example.codamon.core.pokemon.Team;
 import com.example.codamon.models.SceneName;
 import com.example.codamon.views.BattleView;
 import com.example.codamon.views.MenuView;
 import com.example.codamon.views.TeamBuilderView;
-import com.example.codamon.core.*;
 
-import com.example.codamon.core.batlle.turn_manager.ConsoleTurnManager;
+import com.example.codamon.core.batlle.turn_manager.TurnManager;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -30,7 +28,9 @@ public class PokeApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        Trainer pokemonTrainer = new Trainer("Alexis");
+        Trainer pokemonTrainer = new Trainer("Alexis", new GraphicControl());//Change To GraphicControl
+        pokemonTrainer.getControl().setStage(stage);
+
         HashMap<String, Object> userData = new HashMap<>();
         userData.put("pokemonTrainer", pokemonTrainer);
         stage.setUserData(userData);
@@ -56,6 +56,7 @@ public class PokeApp extends Application {
         pikachu.addMove("Fatal-Foudre");
         pikachu.addMove("Cage-Eclair");
 
+      
         Pokemon raikou = new Pokemon("Raikou");
         raikou.addMove("Charge");
         raikou.addMove("Eclair");
@@ -66,36 +67,55 @@ public class PokeApp extends Application {
         psykokwak.addMove("Charge");
         psykokwak.addMove("Mimi-Queue");
 
+
         Pokemon togekiss = new Pokemon("Togekiss");
         togekiss.addMove("Charge");
         togekiss.addMove("Eclair");
         togekiss.addMove("Fatal-Foudre");
         togekiss.addMove("Cage-Eclair");
 
-        Trainer alexis = new Trainer("Alexis");
-        Team team1 = new Team(alexis);
-        team1.addPokemon(pikachu);
-        //team1.addPokemon(psykokwak);
+        Pokemon lugulabre = new Pokemon("Lugulabre");
+        lugulabre.addMove("Charge");
+        lugulabre.addMove("Para-Spore");
 
+
+
+        Trainer alexis = new Trainer("Alexis", new BotControl());
+
+        alexis.addPokemon(pikachu);
+        alexis.addPokemon(psykokwak);
+        alexis.addPokemon(raikou);
+      
         Trainer ethane = new Trainer("Ethan");
         Team team2 = new Team(ethane);
         team2.addPokemon(togekiss);
 
-        Battle battle = new Battle(alexis, ethane, new ConsoleTurnManager());
+        Trainer ethan = new Trainer("Ethan", new BotControl());
+        ethan.addPokemon(togekiss);
+        ethan.addPokemon(lugulabre);
 
 
-        pikachu.switchMove("Charge", "Para-Spore");
-        pikachu.getMoveByName("Cage-Eclair").execute(pikachu, togekiss, battle);
 
-        togekiss.getMoveByName("Charge").execute(togekiss, pikachu, battle);
+        /*
+        //=======Test2=====
+        alexis.setTerrain(new Terrain());
+        ethan.setTerrain(new Terrain());
+        alexis.sendPokemon(pikachu);
+        ethan.sendPokemon(togekiss);
+        //=======Test2=====
 
-        togekiss.unsetMajorStatus();
+        pikachu.loadMove("Switch", psykokwak);
+        pikachu.getMoveByName("Switch").execute();
 
-        System.out.println(team1);System.out.println(team2);
+        psykokwak.getTerrain().getTrainersTeam();
+         */
 
-//        battle.run();
 
-        //______________________________________________________________________
+
+        Battle battle = new Battle(alexis, ethan, new TurnManager());
+        System.out.println(alexis.getTerrain());System.out.println(ethan.getTerrain());
+        battle.run();
+
     }
 
     public static Map<SceneName, Scene> getScenes() {
