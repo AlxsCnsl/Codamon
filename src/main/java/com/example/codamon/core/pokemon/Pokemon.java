@@ -11,8 +11,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Pokemon {
 
@@ -233,6 +235,10 @@ public class Pokemon {
         return null;
     }
 
+    public ArrayList<Move> getMoves() {
+        return this.moves;
+    }
+
     public int getLvl(){
         return this.lvl;
     }
@@ -287,6 +293,16 @@ public class Pokemon {
 
     //MOVES TOOLS______________________________________________________________
     public void addMove(String move){
+        if (Objects.equals(move, "")) {
+            System.out.println("can't learn a null move");
+            Move tempMove = this.moves.getLast();
+            this.moves.remove(this.moves.removeLast());
+            this.moves.add(tempMove);
+            return;
+        } else if (Objects.equals(move, null)) {
+            return;
+        }
+
         if(this.moves.size() < 4){
             this.moves.add(MoveTools.newMove(move));
             this.moves.getLast().setOwner(this);
@@ -302,6 +318,8 @@ public class Pokemon {
     public void removeMoveByName(String moveName){
         if(this.moves != null || this.moves.size()>0){
             for(Move move: this.moves){
+                System.out.println("move.getName() : " + move.getName());
+                System.out.println("moveName : " + moveName);
                 if(move.getName().equals(moveName)){
                     this.moves.remove(move);
                     move.setOwner(null);

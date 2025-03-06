@@ -42,7 +42,7 @@ public class PokeApp extends Application {
         scenes.put(
                 SceneName.TEAMBUILDER, new TeamBuilderView(stage).getScene());
 
-        stage.setScene(scenes.get(SceneName.TEAMBUILDER));
+        stage.setScene(scenes.get(SceneName.BATTLE));
         stage.setTitle("MENU");
         stage.show();
 
@@ -50,12 +50,18 @@ public class PokeApp extends Application {
         //ALEXIS________________________________________________________________
         Scanner scanner = new Scanner(System.in); // Création du scanner
 
-
         Pokemon pikachu = new Pokemon("Pikachu");
         pikachu.addMove("Charge");
         pikachu.addMove("Eclair");
         pikachu.addMove("Fatal-Foudre");
         pikachu.addMove("Cage-Eclair");
+
+      
+        Pokemon raikou = new Pokemon("Raikou");
+        raikou.addMove("Charge");
+        raikou.addMove("Eclair");
+        raikou.addMove("Fatal-Foudre");
+        raikou.addMove("Cage-Eclair");
 
         Pokemon psykokwak = new Pokemon("Psykokwak");
         psykokwak.addMove("Charge");
@@ -64,16 +70,25 @@ public class PokeApp extends Application {
 
         Pokemon togekiss = new Pokemon("Togekiss");
         togekiss.addMove("Charge");
+        togekiss.addMove("Eclair");
+        togekiss.addMove("Fatal-Foudre");
+        togekiss.addMove("Cage-Eclair");
 
         Pokemon lugulabre = new Pokemon("Lugulabre");
         lugulabre.addMove("Charge");
         lugulabre.addMove("Para-Spore");
 
 
+
         Trainer alexis = new Trainer("Alexis", new BotControl());
 
         alexis.addPokemon(pikachu);
         alexis.addPokemon(psykokwak);
+        alexis.addPokemon(raikou);
+      
+        Trainer ethane = new Trainer("Ethan");
+        Team team2 = new Team(ethane);
+        team2.addPokemon(togekiss);
 
         Trainer ethan = new Trainer("Ethan", new BotControl());
         ethan.addPokemon(togekiss);
@@ -93,7 +108,6 @@ public class PokeApp extends Application {
         pikachu.getMoveByName("Switch").execute();
 
         psykokwak.getTerrain().getTrainersTeam();
-
          */
 
 
@@ -101,8 +115,6 @@ public class PokeApp extends Application {
         Battle battle = new Battle(alexis, ethan, new TurnManager());
         System.out.println(alexis.getTerrain());System.out.println(ethan.getTerrain());
         battle.run();
-
-        //______________________________________________________________________
 
     }
 
