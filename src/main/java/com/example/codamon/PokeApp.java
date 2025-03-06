@@ -42,7 +42,7 @@ public class PokeApp extends Application {
         scenes.put(
                 SceneName.TEAMBUILDER, new TeamBuilderView(stage).getScene());
 
-        stage.setScene(scenes.get(SceneName.TEAMBUILDER));
+        stage.setScene(scenes.get(SceneName.BATTLE));
         stage.setTitle("MENU");
         stage.show();
 
