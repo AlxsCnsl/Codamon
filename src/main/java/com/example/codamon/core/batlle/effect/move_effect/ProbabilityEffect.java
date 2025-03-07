@@ -1,9 +1,9 @@
-package com.example.codamon.core.effect.move_effect;
+package com.example.codamon.core.batlle.effect.move_effect;
 
-import com.example.codamon.core.action.move.Move;
+import com.example.codamon.core.batlle.move.Move;
 import com.example.codamon.core.batlle.Battle;
 import com.example.codamon.core.pokemon.Pokemon;
-import com.example.codamon.core.action.move.MoveTools;
+import com.example.codamon.core.batlle.move.MoveTools;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.ArrayList;
@@ -43,11 +43,16 @@ public class ProbabilityEffect implements MoveEffect {
 
     public static ProbabilityEffect newMoveEffect(JsonNode effectsNode){
         double probability = effectsNode.get("probability").asDouble();
+
         ArrayList<MoveEffect> effects =new ArrayList<>();
+
         ProbabilityEffect probabilityEffect =
                 new ProbabilityEffect(probability, effects);
+
         JsonNode nextEffectsNode = effectsNode.get("effects");
+
         MoveTools.effectsBuilder(nextEffectsNode, effects);
+
         return probabilityEffect;
     }
 }

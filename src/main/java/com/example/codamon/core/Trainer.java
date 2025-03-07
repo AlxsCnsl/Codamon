@@ -24,6 +24,8 @@ public class Trainer {
         return pokemonsTeam.toString();
     }
     //GETTER___________________________________________________________________
+
+
     public String getName() {
         return name;
     }

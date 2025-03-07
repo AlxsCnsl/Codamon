@@ -1,6 +1,6 @@
 package com.example.codamon.core.batlle.turn_manager;
 
-import com.example.codamon.core.action.move.Move;
+import com.example.codamon.core.batlle.move.Move;
 
 import java.util.ArrayList;
 

@@ -1,0 +1,17 @@
+{
+  "name":"Ohmassacre",
+  "types": ["Electric"],
+  "stats": {
+    "HP":82,
+    "ATK": 115,
+    "DEF": 80,
+    "SPA": 105,
+    "SPD": 80,
+    "SPE": 50
+  },
+  "Ability": [],
+  "move": [
+    "Cage-Eclair",
+    "Fatal-Foudre"
+  ]
+}

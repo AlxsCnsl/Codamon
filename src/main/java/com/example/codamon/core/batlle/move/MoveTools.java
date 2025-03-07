@@ -1,11 +1,11 @@
-package com.example.codamon.core.action.move;
+package com.example.codamon.core.batlle.move;
 
-import com.example.codamon.core.effect.MoveEffectTools;
+import com.example.codamon.core.batlle.effect.MoveEffectTools;
 import com.example.codamon.core.type.Type;
 import com.example.codamon.core.type.TypeTools;
-import com.example.codamon.core.action.category.Category;
-import com.example.codamon.core.action.category.CathegoryTools;
-import com.example.codamon.core.effect.move_effect.MoveEffect;
+import com.example.codamon.core.batlle.move.category.Category;
+import com.example.codamon.core.batlle.move.category.CathegoryTools;
+import com.example.codamon.core.batlle.effect.move_effect.MoveEffect;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

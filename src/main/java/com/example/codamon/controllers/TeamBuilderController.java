@@ -59,7 +59,7 @@ public class TeamBuilderController {
         HashMap<String, Object> userData =
                 (HashMap<String, Object>) stage.getUserData();
         Trainer pokemonTrainer = (Trainer) userData.get("pokemonTrainer");
-        int pokemonIndex = pokemonTrainer.getTeam().getPokemons().size();
+        int pokemonIndex = pokemonTrainer.getPokemonsTeam().getPokemons().size();
         return pokemonIndex;
     }
 
@@ -328,10 +328,10 @@ public class TeamBuilderController {
 
             int index = pokemonID + 1;
 
-            if (pokemonTrainer.getTeam().getPokemons().size() < index) {
-                pokemonTrainer.getTeam().getPokemons().add(pokemon);
+            if (pokemonTrainer.getPokemonsTeam().getPokemons().size() < index) {
+                pokemonTrainer.getPokemonsTeam().getPokemons().add(pokemon);
             } else {
-                pokemonTrainer.getTeam().getPokemons().set(pokemonID, pokemon);
+                pokemonTrainer.getPokemonsTeam().getPokemons().set(pokemonID, pokemon);
 
             }
             System.out.println(pokemonTrainer.getPokemonsTeam());
@@ -477,19 +477,19 @@ public class TeamBuilderController {
                             userData.get("pokemonMovesComboBox" + pokemonID);
             Trainer pokemonTrainer = (Trainer) userData.get("pokemonTrainer");
 
-            if (moveChoice.getValue() != null && pokemonTrainer.getTeam().getPokemons().get(pokemonID).getMoves().size() < 4) {
-                pokemonTrainer.getTeam().getPokemons().get(pokemonID).switchMove(previousValue[0], moveChoice.getValue());
-            } else if (pokemonTrainer.getTeam().getPokemons().get(pokemonID).getMoves().size() < 4) {
+            if (moveChoice.getValue() != null && pokemonTrainer.getPokemonsTeam().getPokemons().get(pokemonID).getMoves().size() < 4) {
+                pokemonTrainer.getPokemonsTeam().getPokemons().get(pokemonID).switchMove(previousValue[0], moveChoice.getValue());
+            } else if (pokemonTrainer.getPokemonsTeam().getPokemons().get(pokemonID).getMoves().size() < 4) {
                 System.out.println("test if");
-                pokemonTrainer.getTeam().getPokemons().get(pokemonID).addMove(moveChoice.getValue());
-                System.out.println(pokemonTrainer.getTeam());
+                pokemonTrainer.getPokemonsTeam().getPokemons().get(pokemonID).addMove(moveChoice.getValue());
+                System.out.println(pokemonTrainer.getPokemonsTeam());
             } else {
                 System.out.println("test else");
                 System.out.println("previousValue : " + previousValue[0]);
-                pokemonTrainer.getTeam().getPokemons().get(pokemonID).switchMove(previousValue[0], moveChoice.getValue());
+                pokemonTrainer.getPokemonsTeam().getPokemons().get(pokemonID).switchMove(previousValue[0], moveChoice.getValue());
             }
 
-            System.out.println(pokemonTrainer.getTeam());
+            System.out.println(pokemonTrainer.getPokemonsTeam());
 
             for (ComboBox<String> pokemonMoveComboBox : pokemonMovesComboBoxes) {
                 if (moveChoice.getValue() == null) {
@@ -692,17 +692,17 @@ public class TeamBuilderController {
                     Integer.parseInt(deletePokemonButton.getParent().getId());
             System.out.println(deletePokemonButton.getParent().getId());
 
-            System.out.println("Deleted pokemon : " + pokemonTrainer.getTeam().getPokemons().get(pokemonID));
+            System.out.println("Deleted pokemon : " + pokemonTrainer.getPokemonsTeam().getPokemons().get(pokemonID));
             Pokemons.getChildren().remove(pokemon);
-            pokemonTrainer.getTeam().getPokemons().remove(pokemonID);
-            System.out.println(pokemonTrainer.getTeam());
+            pokemonTrainer.getPokemonsTeam().getPokemons().remove(pokemonID);
+            System.out.println(pokemonTrainer.getPokemonsTeam());
 
-            if (pokemonTrainer.getTeam().getPokemons().size() > pokemonID) {
+            if (pokemonTrainer.getPokemonsTeam().getPokemons().size() > pokemonID) {
                 System.out.println("test if null");
-                System.out.println("size : " + pokemonTrainer.getTeam().getPokemons().size());
+                System.out.println("size : " + pokemonTrainer.getPokemonsTeam().getPokemons().size());
                 int i = 0;
 
-                for (i = 0 ; i < pokemonTrainer.getTeam().getPokemons().size() - pokemonID ; i++) {
+                for (i = 0 ; i < pokemonTrainer.getPokemonsTeam().getPokemons().size() - pokemonID ; i++) {
                     ArrayList<ImageView> nextPokemonSpritesImageView = (ArrayList<ImageView>) userData.get("pokemonSpritesImageView" + (pokemonID + (i + 1)));
                     ArrayList<VBox> nextPokemonInfosVBox = (ArrayList<VBox>) userData.get("pokemonInfosVBox" + (pokemonID + (i + 1)));
                     ArrayList<ProgressBar> nextPokemonStatsProgressBars = (ArrayList<ProgressBar>) userData.get("pokemonStatsProgressBar" + (pokemonID + (i + 1)));

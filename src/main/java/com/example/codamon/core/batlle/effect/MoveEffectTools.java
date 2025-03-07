@@ -1,6 +1,6 @@
-package com.example.codamon.core.effect;
+package com.example.codamon.core.batlle.effect;
 
-import com.example.codamon.core.effect.move_effect.*;
+import com.example.codamon.core.batlle.effect.move_effect.*;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.ArrayList;
@@ -20,6 +20,10 @@ public class MoveEffectTools {
             case "SwitchActivePokemonEffect" ->
                 effects.add(SwitchActivePokemonEffect.
                         newMoveEffect(effectNode));
+
+            case "TypesFilterEffect" ->
+                    effects.add(TypesFilterEffect.
+                            newMoveEffect(effectNode));
 
             case "StatusGiverEffect" ->
                     effects.add(StatusGiverEffect.

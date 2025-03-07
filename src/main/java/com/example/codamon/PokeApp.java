@@ -7,6 +7,7 @@ import com.example.codamon.core.batlle.control.BotControl;
 import com.example.codamon.core.batlle.control.ConsoleControl;
 import com.example.codamon.core.batlle.control.GraphicControl;
 import com.example.codamon.core.pokemon.Pokemon;
+import com.example.codamon.core.pokemon.Team;
 import com.example.codamon.models.SceneName;
 import com.example.codamon.views.BattleView;
 import com.example.codamon.views.MenuView;
@@ -42,7 +43,7 @@ public class PokeApp extends Application {
         scenes.put(
                 SceneName.TEAMBUILDER, new TeamBuilderView(stage).getScene());
 
-        stage.setScene(scenes.get(SceneName.BATTLE));
+        stage.setScene(scenes.get(SceneName.MENU));
         stage.setTitle("MENU");
         stage.show();
 
@@ -57,11 +58,12 @@ public class PokeApp extends Application {
         pikachu.addMove("Cage-Eclair");
 
       
-        Pokemon raikou = new Pokemon("Raikou");
-        raikou.addMove("Charge");
-        raikou.addMove("Eclair");
-        raikou.addMove("Fatal-Foudre");
-        raikou.addMove("Cage-Eclair");
+        Pokemon rafflesia1 = new Pokemon("Rafflesia");
+        rafflesia1.addMove("Para-Spore");
+
+        Pokemon rafflesia2 = new Pokemon("Rafflesia");
+        rafflesia2.addMove("Para-Spore");
+
 
         Pokemon psykokwak = new Pokemon("Psykokwak");
         psykokwak.addMove("Charge");
@@ -75,24 +77,20 @@ public class PokeApp extends Application {
         togekiss.addMove("Cage-Eclair");
 
         Pokemon lugulabre = new Pokemon("Lugulabre");
-        lugulabre.addMove("Charge");
         lugulabre.addMove("Para-Spore");
 
 
 
         Trainer alexis = new Trainer("Alexis", new BotControl());
-
+        alexis.addPokemon(rafflesia1);
         alexis.addPokemon(pikachu);
         alexis.addPokemon(psykokwak);
-        alexis.addPokemon(raikou);
-      
-        Trainer ethane = new Trainer("Ethan");
-        Team team2 = new Team(ethane);
-        team2.addPokemon(togekiss);
 
         Trainer ethan = new Trainer("Ethan", new BotControl());
-        ethan.addPokemon(togekiss);
         ethan.addPokemon(lugulabre);
+        ethan.addPokemon(rafflesia2);
+        ethan.addPokemon(togekiss);
+
 
 
 

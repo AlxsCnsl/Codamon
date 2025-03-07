@@ -1,6 +1,6 @@
-package com.example.codamon.core.effect.move_effect;
+package com.example.codamon.core.batlle.effect.move_effect;
 
-import com.example.codamon.core.action.move.Move;
+import com.example.codamon.core.batlle.move.Move;
 import com.example.codamon.core.batlle.Battle;
 import com.example.codamon.core.pokemon.Pokemon;
 import com.fasterxml.jackson.databind.JsonNode;

@@ -11,8 +11,13 @@
   "effects" :
   [
     {
-      "type_effect": "StatusGiverEffect",
-      "status": "Paralysis"
+      "type_effect":"TypesFilterEffect",
+      "types": ["Grass"],
+      "effects": [{
+          "type_effect": "StatusGiverEffect",
+          "status": "Paralysis"
+        }
+      ]
     }
   ]
 }

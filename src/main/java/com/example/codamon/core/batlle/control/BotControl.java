@@ -1,12 +1,11 @@
 package com.example.codamon.core.batlle.control;
 
-import com.example.codamon.core.action.move.Move;
+import com.example.codamon.core.batlle.move.Move;
 import com.example.codamon.core.batlle.Battle;
 import com.example.codamon.core.batlle.Terrain;
 import com.example.codamon.core.pokemon.Pokemon;
 import javafx.stage.Stage;
 
-import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -25,6 +24,10 @@ public class BotControl implements TrainerControl{
     public Move getSwitchPokemonAbsent(){
       return null;
     };
+
+    public Move getSwitchBeforeKo(Pokemon pokemon){
+        return null;
+    }
 
     private Move getRandSwitch( Pokemon pokemon){
         Random random = new Random();

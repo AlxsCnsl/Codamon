@@ -1,4 +1,4 @@
-package com.example.codamon.core.action;
+package com.example.codamon.core.batlle.move;
 
 public abstract class Action {
     protected Boolean allowed = true;

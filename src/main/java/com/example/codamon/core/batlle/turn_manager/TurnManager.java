@@ -1,7 +1,6 @@
 package com.example.codamon.core.batlle.turn_manager;
 
 import com.example.codamon.core.Trainer;
-import com.example.codamon.core.action.move.Move;
 import com.example.codamon.core.batlle.Battle;
 import com.example.codamon.core.batlle.Terrain;
 import com.example.codamon.core.pokemon.Pokemon;
@@ -46,6 +45,7 @@ public class TurnManager implements Turn {
     }
 
     public void endPhaseRule(Battle battle) {
+
         terrainsLog(battle);
         waitPressEnter();
     }
@@ -65,6 +65,16 @@ public class TurnManager implements Turn {
                 for(Pokemon pokemon : trainer.getActivePokemons()){
                     moveQueue.addMoveInQueue(
                             trainer.getControl().getMoveChoice(pokemon));
+                }
+            }
+        }
+    }
+
+    private void switchIfPokemonKo(Battle battle){
+        for(Terrain terrain : battle.getTerrains()){
+            for(Trainer trainer : terrain.getTrainersTeam()){
+                for(Pokemon pokemon : trainer.getActivePokemons()){
+
                 }
             }
         }

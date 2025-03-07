@@ -1,4 +1,4 @@
-package com.example.codamon.core.effect.batlle_effect.status;
+package com.example.codamon.core.batlle.effect.batlle_effect.status;
 
 public class StatusTools {
 

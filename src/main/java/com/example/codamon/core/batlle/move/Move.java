@@ -1,12 +1,11 @@
-package com.example.codamon.core.action.move;
+package com.example.codamon.core.batlle.move;
 
 import com.example.codamon.core.batlle.Battle;
 import com.example.codamon.core.pokemon.Pokemon;
 import com.example.codamon.core.type.Type;
 import com.example.codamon.core.type.TypeTools;
-import com.example.codamon.core.action.Action;
-import com.example.codamon.core.action.category.Category;
-import com.example.codamon.core.effect.move_effect.MoveEffect;
+import com.example.codamon.core.batlle.move.category.Category;
+import com.example.codamon.core.batlle.effect.move_effect.MoveEffect;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -176,6 +175,7 @@ public class Move extends Action {
                 //Future Parameter
                 * isCritical()
                 * rng());
+        target.setLastDamageReceived(damage);
         target.getDamage(damage);
     }
 

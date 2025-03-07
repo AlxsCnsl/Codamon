@@ -1,17 +1,16 @@
 package com.example.codamon.core.pokemon;
 import com.example.codamon.core.Trainer;
-import com.example.codamon.core.action.move.MoveTools;
+import com.example.codamon.core.batlle.move.MoveTools;
 import com.example.codamon.core.type.TypeTools;
 import com.example.codamon.core.batlle.Terrain;
-import com.example.codamon.core.effect.batlle_effect.status.Status;
+import com.example.codamon.core.batlle.effect.batlle_effect.status.Status;
 import com.example.codamon.core.type.Type;
-import com.example.codamon.core.action.move.Move;
+import com.example.codamon.core.batlle.move.Move;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -30,6 +29,7 @@ public class Pokemon {
     private Status majorStatus = null;
     private Terrain terrain = null;
     private Move switchActivePokemon;
+    private int lastDamageReceived = 0;
 
     //CONSTRUCTOR______________________________________________________________
     public Pokemon(String name, ArrayList<Type> types,
@@ -123,6 +123,11 @@ public class Pokemon {
         return moves;
     }
     //GETTER___________________________________________________________________
+
+    public int getLastDamageReceived() {
+        return lastDamageReceived;
+    }
+
     public Move getSwitchMove(){
         return switchActivePokemon;
     }
@@ -235,10 +240,6 @@ public class Pokemon {
         return null;
     }
 
-    public ArrayList<Move> getMoves() {
-        return this.moves;
-    }
-
     public int getLvl(){
         return this.lvl;
     }
@@ -248,6 +249,18 @@ public class Pokemon {
     }
 
     //SETTER___________________________________________________________________
+    public Boolean hasType(Type typeSearched){
+        for(Type type: this.types){
+            if(type.equals(typeSearched)){
+                return true;
+            }
+        }return false;
+    }
+
+    public void setLastDamageReceived(int lastDamageReceived) {
+        this.lastDamageReceived = lastDamageReceived;
+    }
+
     public void setOwner(Trainer owner){
         this.owner = owner;
     }
@@ -408,4 +421,5 @@ public class Pokemon {
                 " but doesn't know \""+name+"\""
         );
     }
+
 }

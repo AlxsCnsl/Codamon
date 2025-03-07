@@ -1,6 +1,6 @@
-package com.example.codamon.core.effect.batlle_effect.status;
+package com.example.codamon.core.batlle.effect.batlle_effect.status;
 
-import com.example.codamon.core.action.move.Move;
+import com.example.codamon.core.batlle.move.Move;
 import com.example.codamon.core.pokemon.Pokemon;
 
 public abstract class Status {

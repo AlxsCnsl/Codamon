@@ -1,6 +1,6 @@
 {
   "name" : "Mimi-Queue",
-  "type" : "Grass",
+  "type" : "Normal",
   "category" : "Status",
   "description" : "Le lanceur remue son adorable queue pour tromper la vigilance de la cible et baisser sa Défense.",
   "power": 0,
