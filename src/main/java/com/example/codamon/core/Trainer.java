@@ -1,5 +1,6 @@
 package com.example.codamon.core;
 
+import com.example.codamon.core.batlle.Battle;
 import com.example.codamon.core.batlle.Terrain;
 import com.example.codamon.core.batlle.control.TrainerControl;
 import com.example.codamon.core.pokemon.Pokemon;
@@ -123,5 +124,14 @@ public class Trainer {
             return;
         }System.out.println("#TRAINER# " + name + " wants to add " +
                 addedPokemon.getName() + " to his team, but he can't have more than 6 Pokémon.");
+    }
+
+    public Boolean getTeamIsAlive(){
+        for (Pokemon pokemon : pokemonsTeam.getPokemons()){
+            if (pokemon.getIsAlive()){
+                return true;
+            }
+        }
+        return false;
     }
 }
