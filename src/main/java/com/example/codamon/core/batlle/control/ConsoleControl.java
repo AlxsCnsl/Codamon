@@ -14,8 +14,7 @@ public class ConsoleControl implements TrainerControl{
         return null;
     }
 
-    public Move getSwitchBeforeKo(Pokemon pokemon){
-        return null;
+    public void switchBeforeKo(Trainer trainer){
     }
 
     public void setStage(Stage stage){}
