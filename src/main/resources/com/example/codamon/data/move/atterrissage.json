@@ -1,0 +1,22 @@
+{
+  "name" : "Atterrissage",
+  "type" : "Flying",
+  "category" : "Status",
+  "description" : "Le lanceur atterrit et se repose. Restaure jusqu'à la moitié de ses PV max.",
+  "power": 0,
+  "accurate": 100,
+  "pp": 5,
+  "priority": 0,
+  "targetMode": "self",
+  "effects" : [
+    {
+      "type_effect": "TargetSelfEffect",
+      "effects":[
+        {
+          "type_effect": "HealPercentHPEffect",
+          "percent" : 50
+        }
+      ]
+    }
+  ]
+}

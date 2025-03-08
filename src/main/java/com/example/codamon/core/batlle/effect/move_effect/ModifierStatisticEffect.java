@@ -15,8 +15,8 @@ public class ModifierStatisticEffect implements MoveEffect {
         this.modifier = modifier;
     }
 
-    private int getTargetModifierState(Pokemon targe){
-        return targe.getModifierState(this.stat);
+    private int getTargetModifierState(Pokemon target){
+        return target.getModifierState(this.stat);
     }
 
 

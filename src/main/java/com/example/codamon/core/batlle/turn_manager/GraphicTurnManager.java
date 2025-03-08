@@ -5,6 +5,7 @@ import com.example.codamon.core.batlle.Terrain;
 import com.example.codamon.core.pokemon.Pokemon;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import static com.example.codamon.core.GlobalTools.waitPressEnter;
@@ -41,19 +42,35 @@ public class GraphicTurnManager implements Turn {
     public void selectMovePhaseRule(Battle battle) throws InterruptedException {
         System.out.println("SELECT MOVE PHASE executed");
         this.trainersMoveChoice(battle);
+        System.out.println("#TURNMANAGER# queue befor sort : "+
+                moveQueue.toString());
+        moveQueue.sortQueue();
+        System.out.println("#TURNMANAGER# queue after sort : "+
+                moveQueue.toString());
         Thread.sleep(1000);
     }
 
     public void applyMovePhaseRule(Battle battle) throws InterruptedException {
-        System.out.println("APPLY MOVE PHASE executed");
         while(!moveQueue.getMoveQueue().isEmpty()){
-            moveQueue.nextMoveExecute();
+            Pokemon owner = moveQueue.getNextMove().getOwner();
+            if(!owner.getIsAlive()){
+                System.out.println("#TURNMANAGER# Move of "+
+                        owner.getName()+ " is delete on Move Queue");
+                moveQueue.deleteFirstMove();
+            }else{
+                moveQueue.nextMoveExecute();
+            }
         }
         Thread.sleep(1000);
     }
 
     public void endPhaseRule(Battle battle) throws InterruptedException {
         System.out.println("END PHASE executed");
+        switchIfPokemonKo(battle);
+        terrainsLog(battle);
+        if(checkEndBattleCondition(battle)){
+            battle.stop();
+        }
         terrainsLog(battle);
         Thread.sleep(1000);
     }
@@ -85,14 +102,35 @@ public class GraphicTurnManager implements Turn {
         }
     }
 
-    private void switchIfPokemonKo(Battle battle){
+    private void switchIfPokemonKo(Battle battle){//=====à Modifier Pour 2V2
         for(Terrain terrain : battle.getTerrains()){
             for(Trainer trainer : terrain.getTrainersTeam()){
-                for(Pokemon pokemon : trainer.getActivePokemons()){
-
+                if(trainer.getTerrain().getActivePokemons().isEmpty()){
+                    ArrayList<Pokemon> trainerTeam =
+                            trainer.getPokemonsTeam().getPokemons();
+                    for(Pokemon pokemon : trainerTeam ){
+                        if(pokemon.getIsAlive()){
+                            //aux moin 1 pkm vivant donc le trainer peut switch
+                            trainer.getControl().switchBeforeKo(trainer);
+                            return;
+                        }
+                    }
                 }
             }
         }
+    }
+
+    private Boolean checkEndBattleCondition(Battle battle){
+        for (Terrain terrain : battle.getTerrains()){
+            for (Trainer trainer : terrain.getTrainersTeam()){
+                if(!trainer.getTeamIsAlive()){
+                    System.out.println("#TURNMANAGER# "+trainer.getName()+
+                            " has no more Pokémon left to fight.");
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     //ConsoleLOG_______________________________________________________________
