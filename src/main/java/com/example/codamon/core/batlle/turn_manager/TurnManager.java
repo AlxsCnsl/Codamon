@@ -30,6 +30,7 @@ public class TurnManager implements Turn {
         }
 
     }
+
     public void startPhaseRule(Battle battle) {
         waitPressEnter();
     }
@@ -81,8 +82,13 @@ public class TurnManager implements Turn {
         for(Terrain terrain : battle.getTerrains()){
             for(Trainer trainer : terrain.getTrainersTeam()){
                 for(Pokemon pokemon : trainer.getActivePokemons()){
-                    moveQueue.addMoveInQueue(
-                            trainer.getControl().getMoveChoice(pokemon));
+//                    moveQueue.addMoveInQueue(
+//                            trainer.getControl().getMoveChoiceAsync(pokemon));
+                    trainer.getControl().getMoveChoiceAsync(pokemon)
+                            .thenAccept(move -> {
+                                moveQueue.addMoveInQueue(move);
+                                System.out.println("moveQueue : " + moveQueue.getMoveQueue());
+                            });
                 }
             }
         }

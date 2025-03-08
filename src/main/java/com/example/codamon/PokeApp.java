@@ -1,10 +1,14 @@
 package com.example.codamon;
 
+import com.example.codamon.controllers.BattleController;
 import com.example.codamon.core.Trainer;
 import com.example.codamon.core.batlle.Battle;
+import com.example.codamon.core.batlle.Terrain;
 import com.example.codamon.core.batlle.control.BotControl;
+import com.example.codamon.core.batlle.control.ConsoleControl;
 import com.example.codamon.core.batlle.control.GraphicControl;
 import com.example.codamon.core.pokemon.Pokemon;
+import com.example.codamon.core.pokemon.Team;
 import com.example.codamon.models.SceneName;
 import com.example.codamon.views.BattleView;
 import com.example.codamon.views.MenuView;
@@ -26,8 +30,7 @@ public class PokeApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        Trainer pokemonTrainer = new Trainer("Alexis", new GraphicControl());//Change To GraphicControl
-        pokemonTrainer.getControl().setStage(stage);
+        Trainer pokemonTrainer = new Trainer("Alexis", null);//Change To GraphicControl
 
         HashMap<String, Object> userData = new HashMap<>();
         userData.put("pokemonTrainer", pokemonTrainer);
@@ -36,13 +39,13 @@ public class PokeApp extends Application {
         scenes.put(
                 SceneName.MENU, new MenuView(stage).getScene());
         scenes.put(
-                SceneName.BATTLE, new BattleView(stage).getScene());
-        scenes.put(
                 SceneName.TEAMBUILDER, new TeamBuilderView(stage).getScene());
 
-        stage.setScene(scenes.get(SceneName.MENU));
+        stage.setScene(scenes.get(SceneName.TEAMBUILDER));
         stage.setTitle("MENU");
         stage.show();
+
+        /*
 
 
         //ALEXIS________________________________________________________________
@@ -54,7 +57,7 @@ public class PokeApp extends Application {
         pikachu.addMove("Fatal-Foudre");
         pikachu.addMove("Cage-Eclair");
 
-      
+
         Pokemon raikou = new Pokemon("Raikou");
         raikou.addMove("Eclair");
         raikou.addMove("Fatal-Foudre");;
@@ -107,13 +110,12 @@ public class PokeApp extends Application {
         pikachu.getMoveByName("Switch").execute();
 
         psykokwak.getTerrain().getTrainersTeam();
-         */
+        */
 
 
-
-        Battle battle = new Battle(alexis, ethan, new TurnManager());
-        System.out.println(alexis.getTerrain());System.out.println(ethan.getTerrain());
-        battle.run();
+//        Battle battle = new Battle(alexis, ethan, new TurnManager());
+//        System.out.println(alexis.getTerrain());System.out.println(ethan.getTerrain());
+//        battle.run();
 
     }
 

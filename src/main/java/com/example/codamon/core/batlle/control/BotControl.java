@@ -9,22 +9,20 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.CompletableFuture;
 
 public class BotControl implements TrainerControl{
     public BotControl(){}
 
 
-    //Called in TurnManager____________________________________________________
-
-    public Move getMoveChoice( Pokemon pokemon){
+    public CompletableFuture<Move> getMoveChoiceAsync(Pokemon pokemon){
         Random random = new Random();
-        int firstChoice = random.nextInt(5);
+        int firstChoice = random.nextInt(10);
         if(firstChoice == 0){
-            return getRandSwitch(pokemon);
+            return CompletableFuture.completedFuture(getRandSwitch(pokemon));
         }
-        return getRandAttack(pokemon);
+        return CompletableFuture.completedFuture(getRandAttack(pokemon));
     }
-
     public Move getSwitchPokemonAbsent(){
       return null;
     };

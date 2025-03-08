@@ -2,14 +2,19 @@ package com.example.codamon.controllers;
 
 import com.example.codamon.PokeApp;
 import com.example.codamon.core.Trainer;
+import com.example.codamon.core.batlle.GraphicBattle;
+import com.example.codamon.core.batlle.control.BotControl;
+import com.example.codamon.core.batlle.turn_manager.GraphicTurnManager;
 import com.example.codamon.core.pokemon.Pokemon;
 import com.example.codamon.models.SceneName;
+import com.example.codamon.views.BattleView;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,6 +28,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class TeamBuilderController {
 
@@ -51,8 +57,28 @@ public class TeamBuilderController {
     }
 
     @FXML
-    public void onBattleButtonClick() {
+    public void onBattleButtonClick() throws IOException, InterruptedException {
+        Pokemon pikachu = new Pokemon("Pikachu");
+        pikachu.addMove("Charge");
+        pikachu.addMove("Eclair");
+        pikachu.addMove("Fatal-Foudre");
+        pikachu.addMove("Cage-Eclair");
+
+        HashMap<String, Object> userData = (HashMap<String, Object>) stage.getUserData();
+        Trainer pokemonTrainer = (Trainer) userData.get("pokemonTrainer");
+
+        Trainer bot = new Trainer("bot", new BotControl());
+        bot.addPokemon(pikachu);
+
+        GraphicBattle graphicBattle = new GraphicBattle(pokemonTrainer, bot, new GraphicTurnManager());
+        graphicBattle.turnRule.startBattleRule(graphicBattle);
+
+        Map<SceneName, Scene> scenes = PokeApp.getScenes();
+        scenes.put(
+                SceneName.BATTLE, new BattleView(stage, graphicBattle).getScene());
         stage.setScene(PokeApp.getScenes().get(SceneName.BATTLE));
+
+
     }
 
     public int getPokemonIndex() {
@@ -329,9 +355,9 @@ public class TeamBuilderController {
             int index = pokemonID + 1;
 
             if (pokemonTrainer.getPokemonsTeam().getPokemons().size() < index) {
-                pokemonTrainer.getPokemonsTeam().getPokemons().add(pokemon);
+                pokemonTrainer.addPokemon(pokemon);
             } else {
-                pokemonTrainer.getPokemonsTeam().getPokemons().set(pokemonID, pokemon);
+                pokemonTrainer.setPokemon(pokemonID, pokemon);
 
             }
             System.out.println(pokemonTrainer.getPokemonsTeam());
