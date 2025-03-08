@@ -12,10 +12,12 @@ import com.example.codamon.models.SceneName;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -51,7 +53,6 @@ public class BattleController implements TrainerControl {
             throw new IllegalArgumentException("Stage cannot be null");
         }
         this.stage = stage;
-
         setSwitchButtons();
         setMainPokemonSprite();
         setBotPokemonSprite();
@@ -115,17 +116,40 @@ public class BattleController implements TrainerControl {
             } switchButtons.getChildren().clear();
             for (Pokemon pokemonSwitch : getMainTrainer().getPokemonsTeam().getPokemons()) {
                 Button switchButton = new Button(pokemonSwitch.getName());
+                updateSwitchButton(pokemonSwitch, switchButton);
+
+
                 switchButton.setPrefSize(100, 30);
+
                 switchButton.setOnAction(e -> {
+                    if (!pokemonSwitch.getIsAlive() ||
+                            pokemonSwitch.equals(getMainTrainerPokemon())) {
+                        return;
+                    }
                     getMainTrainerPokemon().loadMove("Switch", pokemonSwitch);
                     future.complete(getMainTrainerPokemon().getSwitchMove());
                     switchButtons.getChildren().clear();
                     movesButtons.getChildren().clear();
                 });
+
                 switchButtons.getChildren().add(switchButton);
             }
         });
         return future;
+    }
+
+    private void updateSwitchButton(Pokemon pokemonSwitch, Button switchButton){
+        if(!pokemonSwitch.getIsAlive()){
+            switchButton.setStyle(
+                    "-fx-background-color: #4F4F4F; -fx-text-fill: white;");
+        }
+        if(pokemonSwitch == getMainTrainerPokemon()){
+            switchButton.setStyle("-fx-text-fill: black; " +
+                    "-fx-border-color: yellow; " +
+                    "-fx-border-width: 4px; " +
+                    "-fx-border-radius: 5px;");
+        }
+
     }
 
     private Pokemon getTarget(Pokemon pokemon) {
@@ -271,6 +295,11 @@ public class BattleController implements TrainerControl {
         pokemonMaxHP2.setText("/" + getBotTrainerPokemon().getCurrentState("HP"));
     }
 
+    public void updateHistory(String text, int size){
+        Text newText = new Text(text);
+        newText.setFont(new Font(20));
+        history.getChildren().add(newText);
+    }
 
     private void setSwitchButtons() {
         ArrayList<Pokemon> pokemonsTeam = getMainTrainer().getPokemonsTeam().getPokemons();

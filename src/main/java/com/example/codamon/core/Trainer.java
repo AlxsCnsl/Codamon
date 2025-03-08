@@ -5,6 +5,8 @@ import com.example.codamon.core.batlle.Terrain;
 import com.example.codamon.core.batlle.control.TrainerControl;
 import com.example.codamon.core.pokemon.Pokemon;
 import com.example.codamon.core.pokemon.Team;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 
@@ -20,6 +22,7 @@ public class Trainer {
         this.control = control;
         this.pokemonsTeam = new Team(this);
     }
+
 
     public String toString(){
         return pokemonsTeam.toString();
@@ -88,8 +91,7 @@ public class Trainer {
                 if (pokemon.equals(sendedPokemon) &&
                         pokemon.getTerrain() == null) {
                     sendedPokemon.gotToTerrain(this.terrain);
-                    System.out.println("#TRAINER# " + name + " send a " +
-                            sendedPokemon.getName() + " onto the terrain.");
+
                     return;
                 }
             }
@@ -104,8 +106,7 @@ public class Trainer {
             for (Pokemon pokemon : pokemonsTeam.getPokemons()) {
                 if (pokemon.equals(calledPokemon) &&
                         pokemon.getTerrain()!= null) {
-                    System.out.println("#TRAINER# " + name + " recall " +
-                            calledPokemon.getName() + " out to the terrain.");
+
                     calledPokemon.quitTerrain();
                     return;
                 }
@@ -143,5 +144,12 @@ public class Trainer {
             }
         }
         return false;
+    }
+
+    //Turn Graphic Log_________________________________________________________
+    public void updateHistory(String text, int size){
+        Trainer user = getTerrain().getBattle().
+                getPlayersTeams().getFirst().getFirst();
+        user.getControl().updateHistory(text, size);
     }
 }

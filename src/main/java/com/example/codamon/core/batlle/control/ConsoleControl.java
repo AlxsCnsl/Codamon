@@ -26,5 +26,6 @@ public class ConsoleControl implements TrainerControl{
     public void updatePokemons() {
 
     }
+    public void updateHistory(String text, int size){}
 
 }

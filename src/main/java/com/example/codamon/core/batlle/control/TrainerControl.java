@@ -16,4 +16,5 @@ public interface TrainerControl {
     void setStage(Stage stage);
 
     public void updatePokemons();
+    public void updateHistory(String text, int size);
 }

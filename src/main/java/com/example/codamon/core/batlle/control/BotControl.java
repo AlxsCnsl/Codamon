@@ -94,5 +94,6 @@ public class BotControl implements TrainerControl{
          }
         return target;
     }
+    public void updateHistory(String text, int size){}
 
 }

@@ -27,12 +27,10 @@ public class GraphicBattle extends Battle {
         this.nextPhase();
     }
 
-    @Override
-    public void addTurnLogs(String logs) {
-        super.addTurnLogs(logs);
+
+    public void updateLogs(String turn, int size){
+        Trainer user = getPlayersTeams().getFirst().getFirst();
+        user.getControl().updateHistory(turn, size);
     }
 
-    public void displayHistory() {
-
-    }
 }

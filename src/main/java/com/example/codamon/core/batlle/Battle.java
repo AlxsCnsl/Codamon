@@ -12,9 +12,9 @@ public class Battle {
             new ArrayList<>();//if 2p/2p
     protected ArrayList<Terrain> terrains = new ArrayList<>();
     public Turn turnRule;
+    private int turneNumber = 0;
     protected BattlePhase phase = BattlePhase.START_PHASE;
     protected Boolean isRunning = true;
-    protected ArrayList<String> turnLogs;
 
     //CONSTRUCTOR______________________________________________________________
     public Battle(Trainer trainer1, Trainer trainer2, Turn turnRules){//==============================================à refaire
@@ -44,8 +44,14 @@ public class Battle {
     public ArrayList<ArrayList<Trainer>> getPlayersTeams() {
         return this.playersTeams;
     }
+    public int getTurneNumber(){
+        return turneNumber;
+    }
 
     //SETTER___________________________________________________________________
+    public void addTurnNumber(){
+        turneNumber += 1;
+    }
     public void stop(){
         this.isRunning = false;
     }
@@ -90,12 +96,7 @@ public class Battle {
 
     public void executeCurrentPhase() throws InterruptedException {}
 
-    public void addTurnLogs(String logs) {
-        turnLogs.add(logs);
-    }
+    public void updateLogs(String turn, int i){}
 
-    public void displayHistory() {
-
-    }
 
 }

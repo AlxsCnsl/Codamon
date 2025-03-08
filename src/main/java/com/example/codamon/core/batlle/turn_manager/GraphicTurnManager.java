@@ -39,6 +39,8 @@ public class GraphicTurnManager implements Turn {
     }
 
     public void startPhaseRule(Battle battle) throws InterruptedException {
+        battle.addTurnNumber();
+        battle.updateLogs("Turn "+battle.getTurneNumber()+" :", 40);
         System.out.println("START PHASE executed");
         Thread.sleep(1000);
     }
@@ -70,14 +72,10 @@ public class GraphicTurnManager implements Turn {
 
     public void endPhaseRule(Battle battle) throws InterruptedException {
         System.out.println("END PHASE executed");
-
-        // Perform any phase–end effects first
         endPhasesEffect(battle);
-
-        // Now, if a switch is needed, wait for the switch to be made
         switchIfPokemonKoAsync(battle)
                 .thenRun(() -> {
-                    // Switch is now complete—you can proceed with the remainder of your end phase.
+
                     terrainsLog(battle);
                     if (checkEndBattleCondition(battle)) {
                         battle.stop();
@@ -88,9 +86,7 @@ public class GraphicTurnManager implements Turn {
                     ex.printStackTrace();
                     return null;
                 });
-
-        // Remove the sleep if you're fully asynchronous; otherwise, consider scheduling further actions.
-        Thread.sleep(1000);
+        Thread.sleep(500);
     }
 
     private void endPhasesEffect(Battle battle){
