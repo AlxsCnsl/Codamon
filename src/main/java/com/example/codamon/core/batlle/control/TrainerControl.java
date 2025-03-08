@@ -14,4 +14,6 @@ public interface TrainerControl {
     public void switchBeforeKo(Trainer trainer);
 
     void setStage(Stage stage);
+
+    public void updatePokemons();
 }

@@ -94,6 +94,8 @@ public class TurnManager implements Turn {
         }
     }
 
+    private void updatePokemons(Battle battle) {}
+
     private void switchIfPokemonKo(Battle battle){//=====à Modifier Pour 2V2
         for(Terrain terrain : battle.getTerrains()){
             for(Trainer trainer : terrain.getTrainersTeam()){

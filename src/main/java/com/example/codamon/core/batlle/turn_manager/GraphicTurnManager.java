@@ -5,6 +5,7 @@ import com.example.codamon.core.batlle.Terrain;
 import com.example.codamon.core.batlle.effect.batlle_effect.status.Status;
 import com.example.codamon.core.batlle.move.Move;
 import com.example.codamon.core.pokemon.Pokemon;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -104,17 +105,6 @@ public class GraphicTurnManager implements Turn {
         ArrayList<Trainer> trainers = new ArrayList<>();
 
         for(Terrain terrain : battle.getTerrains()){
-            //                for(Pokemon pokemon : trainer.getActivePokemons()){
-            //                    System.out.println("trainer control : " + trainer.getControl());
-            ////                    moveQueue.addMoveInQueue(
-            ////                            trainer.getControl().getMoveChoiceAsync(pokemon));
-            //                    // Assuming getMoveChoiceAsync returns a CompletableFuture<Move>
-            //                    trainer.getControl().getMoveChoiceAsync(pokemon)
-            //                            .thenAccept(move -> {
-            //                                moveQueue.addMoveInQueue(move);
-            //                                System.out.println("moveQueue : " + moveQueue.getMoveQueue());
-            //                            });
-            //                }
             trainers.addAll(terrain.getTrainersTeam());
         }
 
@@ -136,8 +126,24 @@ public class GraphicTurnManager implements Turn {
             moveQueue.addMoveInQueue(humanMove);
             moveQueue.addMoveInQueue(botMove);
             System.out.println("moveQueue : " + moveQueue.getMoveQueue());
-        });
 
+            Platform.runLater(() -> {
+                try {
+                    battle.executeCurrentPhase(); // APPLY MOVE PHASE
+                    battle.executeCurrentPhase(); // END PHASE
+                    battle.executeCurrentPhase(); // START PHASE
+                    updatePokemons(battle);
+                    battle.executeCurrentPhase();
+                    updatePokemons(battle);// SELECT MOVE PHASE
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        });
+    }
+
+    private void updatePokemons(Battle battle) {
+        battle.getPlayersTeams().getFirst().getFirst().getControl().updatePokemons();
     }
 
     private void switchIfPokemonKo(Battle battle){//=====à Modifier Pour 2V2
