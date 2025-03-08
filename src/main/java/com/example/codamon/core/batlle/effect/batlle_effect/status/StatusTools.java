@@ -6,6 +6,7 @@ public class StatusTools {
         return switch (name){
             case "Paralysis" -> new Paralysis();
             case "Burn" -> new Burn();
+            case "Poison" -> new Poison();
             default -> null;
         };
     }

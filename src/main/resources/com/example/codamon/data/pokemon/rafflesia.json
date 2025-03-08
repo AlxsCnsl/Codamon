@@ -10,5 +10,9 @@
     "SPE": 50
   },
   "Ability": [],
-  "move": ["Para-Spore"]
+  "move": [
+    "Charge",
+    "Para-Spore",
+    "Poudre-Toxik"
+  ]
 }
