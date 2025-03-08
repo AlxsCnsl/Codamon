@@ -34,7 +34,11 @@ public class BattleController implements TrainerControl {
     @FXML HBox movesButtons;
     @FXML HBox switchButtons;
     @FXML VBox mainPokemonBackSprite;
+    @FXML ImageView mainPokemonSpriteImageView;
+    @FXML Image mainPokemonSpriteImage;
     @FXML VBox botPokemonFrontSprite;
+    @FXML ImageView botPokemonSpriteImageView;
+    @FXML Image botPokemonSpriteImage;
     @FXML Text pokemonName1;
     @FXML Text pokemonName2;
     @FXML Text pokemonCurrentHP1;
@@ -52,6 +56,7 @@ public class BattleController implements TrainerControl {
             throw new IllegalArgumentException("Stage cannot be null");
         }
         this.stage = stage;
+
         setSwitchButtons();
         setMainPokemonSprite();
         setBotPokemonSprite();
@@ -95,25 +100,6 @@ public class BattleController implements TrainerControl {
     private Pokemon getBotTrainerPokemon() {
         return getBotTrainer().getActivePokemons().getFirst();
     }
-
-//    private void setAttackButtons() {
-//        ArrayList<Move> moves = getMainTrainer().getActivePokemons().getFirst().getMoves();
-//
-//        for (Move move : moves) {
-//            Button moveButton = new Button(move.getName());
-//            moveButton.setPrefSize(200, 50);
-//            movesButtons.getChildren().add(moveButton);
-//
-//            moveButton.setOnAction((actionEvent -> {
-//                System.out.println("moveButton.setOnAction : " + getMainTrainerPokemon().getMoveByName(moveButton.getText()));
-//                try {
-//                    graphicBattle.executeCurrentPhase();
-//                } catch (InterruptedException e) {
-//                    throw new RuntimeException(e);
-//                }
-//            }));
-//        }
-//    }
 
     @Override
     public CompletableFuture<Move> getMoveChoiceAsync(Pokemon pokemon) {
@@ -173,16 +159,16 @@ public class BattleController implements TrainerControl {
                 pokemonSpriteURL.toExternalForm());
     }
 
-    private ImageView createPokemonImageView(String pokemonName, String direction) {
-        Image pokemonSprite = getPokemonSprite(pokemonName, direction);
-
-        ImageView pokemonSpriteImageView = new ImageView(pokemonSprite);
-        pokemonSpriteImageView.setFitWidth(350);
-        pokemonSpriteImageView.setPickOnBounds(true);
-        pokemonSpriteImageView.setPreserveRatio(true);
-
-        return pokemonSpriteImageView;
-    }
+//    private ImageView createPokemonImageView(String pokemonName, String direction) {
+//        Image pokemonSprite = getPokemonSprite(pokemonName, direction);
+//
+//        ImageView pokemonSpriteImageView = new ImageView(pokemonSprite);
+//        pokemonSpriteImageView.setFitWidth(350);
+//        pokemonSpriteImageView.setPickOnBounds(true);
+//        pokemonSpriteImageView.setPreserveRatio(true);
+//
+//        return pokemonSpriteImageView;
+//    }
 
     //SETTER____________________________________________________________________
     private void setPokemonNames() {
@@ -198,13 +184,11 @@ public class BattleController implements TrainerControl {
     }
 
     private void setMainPokemonSprite() {
-        ImageView pokemonSpriteImageView = createPokemonImageView(getMainTrainer().getActivePokemons().getFirst().getName(), "back");
-        mainPokemonBackSprite.getChildren().add(pokemonSpriteImageView);
+        mainPokemonSpriteImageView.setImage(getPokemonSprite(getMainTrainer().getActivePokemons().getFirst().getName(), "back"));
     }
 
     private void setBotPokemonSprite() {
-        ImageView pokemonSpriteImageView = createPokemonImageView(getBotTrainer().getActivePokemons().getFirst().getName(), "face");
-        botPokemonFrontSprite.getChildren().add(pokemonSpriteImageView);
+        botPokemonSpriteImageView.setImage(getPokemonSprite(getBotTrainer().getActivePokemons().getFirst().getName(), "face"));
     }
 
 
