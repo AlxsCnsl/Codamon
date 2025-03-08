@@ -1,0 +1,17 @@
+{
+  "name" : "Feu-Follet",
+  "type" : "Fire",
+  "category" : "Status",
+  "description" : "Le lanceur projette des flammes maléfiques à la cible pour lui infliger une brûlure.",
+  "power": 0,
+  "accurate": 85,
+  "pp": 15,
+  "priority": 0,
+  "targetMode": "AdjacentTarget",
+  "effects" : [
+    {
+      "type_effect": "StatusGiverEffect",
+      "status": "Burn"
+    }
+  ]
+}

@@ -1,6 +1,5 @@
 package com.example.codamon.core.batlle.effect.batlle_effect.status;
 
-import com.example.codamon.core.batlle.move.Move;
 import com.example.codamon.core.pokemon.Pokemon;
 
 public abstract class Status {
@@ -15,7 +14,7 @@ public abstract class Status {
     public boolean getIfNexMoveAccept(){return true;}
     public boolean getIfApplyIsPossible(Pokemon taget){return true;}
     public double selfStatModifier(String stat){return 1;}
-
+    public void endPhaseDamage(){}
 
     //TEST_____________________________________________________________________
     public boolean testApplyMoveAccept(){
@@ -28,7 +27,7 @@ public abstract class Status {
     public String getName() {
         return this.name;
     }
-    public Pokemon getPokemon(){
+    public Pokemon getOwner(){
         return this.pokemon;
     }
 

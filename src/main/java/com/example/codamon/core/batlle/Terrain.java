@@ -38,6 +38,7 @@ public class Terrain {
     public Battle getBattle(){
         return this.battle;
     }
+
     //SETTER____________________________________________________________________
 
     public void setBattle(Battle battle){

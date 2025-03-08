@@ -5,6 +5,7 @@ public class StatusTools {
     public static Status newStatus(String name){
         return switch (name){
             case "Paralysis" -> new Paralysis();
+            case "Burn" -> new Burn();
             default -> null;
         };
     }
