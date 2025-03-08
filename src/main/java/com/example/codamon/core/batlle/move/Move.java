@@ -1,6 +1,7 @@
 package com.example.codamon.core.batlle.move;
 
 import com.example.codamon.core.batlle.Battle;
+import com.example.codamon.core.batlle.Terrain;
 import com.example.codamon.core.pokemon.Pokemon;
 import com.example.codamon.core.type.Type;
 import com.example.codamon.core.type.TypeTools;
@@ -127,26 +128,37 @@ public class Move extends Action {
             noTargetLog();
             return;
         }
+        if(!name.equals("Switch")){changeTargetIfIsSwitch();}
         executeLog();
         if(this.currentPp > 0 || this.currentPp == -1){
             if(!getOwner().asMajorStatus() ||
-                    getOwner().getMajorStatus().getIfNexMoveAccept()){
+                    getOwner().getMajorStatus().getIfNexMoveAccept() ||
+                    name.equals("Switch") ){
                 for(MoveEffect effect : this.effects){
-
                     effect.applyEffect(
                             this, targets , owner.getTerrain().getBattle());
                 }
             }
-
-            if(currentPp!= -1){
-                this.currentPp --;
-            }
+            if(currentPp!= -1){this.currentPp --;}
             successExecuteLog();
             this.deleteAllTargets();
-
             return;
+        }anyPpLog();
+    }
+
+    private void changeTargetIfIsSwitch(){
+        for (Pokemon target : targets){
+            if(target.getTerrain()==null){
+                addOtherEnemyTarget(target);
+                targets.remove(target);
+            }
         }
-        anyPpLog();
+    }
+    private void addOtherEnemyTarget(Pokemon target){
+        Terrain terrain = target.getOwner().getTerrain();
+        targets.add(terrain.getActivePokemons().getFirst());
+        System.out.println("#MOVE# Change Target of "+name+
+                " of "+owner.getName());
     }
 
     private void noTargetLog(){

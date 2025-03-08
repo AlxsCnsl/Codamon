@@ -256,14 +256,4 @@ public class BattleController implements TrainerControl {
     }
 
 
-    private void setPokemonsCurrentHPs() {
-        if (getBotTrainer().getActivePokemons().isEmpty()) {
-            pokemonCurrentHP2.setText("0");
-        } else if (getMainTrainer().getActivePokemons().isEmpty()) {
-            pokemonCurrentHP1.setText("0");
-        } else {
-            pokemonCurrentHP1.setText(String.valueOf(getMainTrainerPokemon().getCurrentHP()));
-            pokemonCurrentHP2.setText(String.valueOf(getBotTrainerPokemon().getCurrentHP()));
-        }
-    }
 }
