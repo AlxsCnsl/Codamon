@@ -44,8 +44,8 @@ public class BattleController implements TrainerControl {
     @FXML Text pokemonMaxHP2;
 
     @Override
-    public Move getSwitchBeforeKo(Pokemon pokemon) {
-        return null;
+    public void switchBeforeKo(Trainer trainer) {
+        return;
     }
 
     public void setStage(Stage stage) {
