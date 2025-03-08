@@ -136,6 +136,10 @@ public class BattleController implements TrainerControl {
                     future.complete(move);
                     try {
                         graphicBattle.executeCurrentPhase();
+                        setPokemonHPs();
+                        graphicBattle.executeCurrentPhase();
+                        graphicBattle.executeCurrentPhase();
+                        graphicBattle.executeCurrentPhase();
                     } catch (InterruptedException ex) {
                         throw new RuntimeException(ex);
                     }
