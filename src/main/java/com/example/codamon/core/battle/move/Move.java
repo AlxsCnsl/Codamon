@@ -129,10 +129,15 @@ public class Move extends Action {
         }
         executeLog();
         if(this.currentPp > 0 || this.currentPp == -1){
-            for(MoveEffect effect : this.effects){
-                System.out.println("GIGACACADEMORT=======================================================");
-                effect.applyEffect(this, targets , owner.getTerrain().getBattle());
+            if(!getOwner().asMajorStatus() ||
+                    getOwner().getMajorStatus().getIfNexMoveAccept()){
+                for(MoveEffect effect : this.effects){
+
+                    effect.applyEffect(
+                            this, targets , owner.getTerrain().getBattle());
+                }
             }
+
             if(currentPp!= -1){
                 this.currentPp --;
             }
@@ -172,14 +177,19 @@ public class Move extends Action {
                 * getStab(user)
                 * TypeTools.getTypesEfficiency(
                         this.getType(), target.getTypes())
-                //Future Parameter
+                *otherParameter()
                 * isCritical()
                 * rng());
         target.setLastDamageReceived(damage);
         target.getDamage(damage);
     }
 
-    public int isCritical(){
+    private double otherParameter(){
+        double multiplier = 1;
+        return multiplier;
+    }
+
+    private int isCritical(){
         Random random = new Random();
         int randCC = random.nextInt(16 )+1;
         if(randCC == 1){
@@ -189,7 +199,7 @@ public class Move extends Action {
         return 1;
     }
 
-    public double getStab(Pokemon user){
+    private double getStab(Pokemon user){
         for(Type pokeType : user.getTypes()){
             if(pokeType == this.type){
                 System.out.println("#MOVE# Stab");

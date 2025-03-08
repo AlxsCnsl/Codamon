@@ -203,10 +203,19 @@ public class Pokemon {
         int iv = 61;
         if(!key.equals("HP")){
             return (int)
-                    ((2*this.getBaseState("HP")*this.lvl+iv)/100)+5;
+                    (((2*this.getBaseState(key)*this.lvl+iv)/100)+5
+                    *otherPameter(key));
 
         } return (int)
                 ((2*this.getBaseState("HP")*this.lvl+iv)/100)+this.lvl+10;
+    }
+
+    private double otherPameter(String key){
+        double multiplier = 1;
+        if(asMajorStatus()){
+            multiplier *= getMajorStatus().selfStatModifier(key);
+        }
+        return multiplier;
     }
 
     public ArrayList<Type> getTypes() {
@@ -246,6 +255,11 @@ public class Pokemon {
 
     public Status getMajorStatus() {
         return majorStatus;
+    }
+    public Boolean asMajorStatus(){
+        if(majorStatus == null ){
+            return false;
+        }return true;
     }
 
     //SETTER___________________________________________________________________

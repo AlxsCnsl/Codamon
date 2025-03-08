@@ -1,0 +1,19 @@
+{
+  "name" : "Poudre-Toxik",
+  "type" : "Poison",
+  "category" : "Status",
+  "description" : "Le lanceur répand sur la cible une poudre qui la paralyse.",
+  "power": 0,
+  "accurate": 75,
+  "pp": 35,
+  "priority": 0,
+  "targetMode": "AdjacentTarget",
+  "effects" :
+  [
+    {
+      "type_effect": "StatusGiverEffect",
+      "status": "Poison"
+
+    }
+  ]
+}

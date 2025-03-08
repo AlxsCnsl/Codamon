@@ -51,6 +51,7 @@ public class MoveQueue {
         winMove.add(move2);
         ArrayList<Move> loseMove= new ArrayList<>();
         loseMove.add(move1);
+
         if(loseMove.getFirst().getOwner().getCurrentState("SPE") >
                 winMove.getFirst().getOwner().getCurrentState("SPE")) {
             changeWinMove(winMove, loseMove);
@@ -67,6 +68,7 @@ public class MoveQueue {
         }
         return winMove.getFirst();
     }
+
 
     private void changeWinMove(ArrayList<Move> winMove, ArrayList<Move> loseMove){
         winMove.add(loseMove.getFirst());

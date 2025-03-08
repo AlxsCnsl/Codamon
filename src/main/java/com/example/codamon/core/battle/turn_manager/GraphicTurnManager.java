@@ -1,13 +1,17 @@
-package com.example.codamon.core.battle.turn_manager;
+package com.example.codamon.core.batlle.turn_manager;
 import com.example.codamon.core.Trainer;
-import com.example.codamon.core.battle.Battle;
-import com.example.codamon.core.battle.Terrain;
-import com.example.codamon.core.battle.move.Move;
+import com.example.codamon.core.batlle.Battle;
+import com.example.codamon.core.batlle.Terrain;
+import com.example.codamon.core.batlle.effect.batlle_effect.status.Status;
+import com.example.codamon.core.batlle.move.Move;
 import com.example.codamon.core.pokemon.Pokemon;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.CompletableFuture;
+
+import static com.example.codamon.core.GlobalTools.waitPressEnter;
 
 public class GraphicTurnManager implements Turn {
     private Stage stage;
@@ -65,6 +69,7 @@ public class GraphicTurnManager implements Turn {
 
     public void endPhaseRule(Battle battle) throws InterruptedException {
         System.out.println("END PHASE executed");
+        endPhasesEffect(battle);
         switchIfPokemonKo(battle);
         terrainsLog(battle);
         if(checkEndBattleCondition(battle)){
@@ -72,6 +77,18 @@ public class GraphicTurnManager implements Turn {
         }
         terrainsLog(battle);
         Thread.sleep(1000);
+    }
+    private void endPhasesEffect(Battle battle){
+        for(Terrain terrain: battle.getTerrains()){
+            for (Pokemon pokemon : terrain.getActivePokemons()){
+                StatusEffect(pokemon);
+            }
+        }
+    }
+    private void StatusEffect(Pokemon pokemon){
+        if(pokemon.asMajorStatus()){
+            pokemon.getMajorStatus().endPhaseDamage();
+        }
     }
 
     public void startBattleRule(Battle battle){
