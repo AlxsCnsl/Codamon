@@ -1,9 +1,12 @@
 package com.example.codamon.core.batlle.effect.batlle_effect.status;
 
+import com.example.codamon.core.batlle.effect.batlle_effect.status.Status;
 import com.example.codamon.core.pokemon.Pokemon;
 import com.example.codamon.core.type.Type;
 
-public class Burn extends Status{
+import static java.nio.file.Files.getOwner;
+
+public class Burn extends Status {
 
     public Burn(){
         this.name = "Burn";
