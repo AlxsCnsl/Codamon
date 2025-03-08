@@ -64,11 +64,18 @@ public class TeamBuilderController {
         pikachu.addMove("Fatal-Foudre");
         pikachu.addMove("Cage-Eclair");
 
+        Pokemon raikou = new Pokemon("Raikou");
+        raikou.addMove("Charge");
+        raikou.addMove("Eclair");
+        raikou.addMove("Fatal-Foudre");
+        raikou.addMove("Cage-Eclair");
+
         HashMap<String, Object> userData = (HashMap<String, Object>) stage.getUserData();
         Trainer pokemonTrainer = (Trainer) userData.get("pokemonTrainer");
 
         Trainer bot = new Trainer("bot", new BotControl());
         bot.addPokemon(pikachu);
+        bot.addPokemon(raikou);
 
         GraphicBattle graphicBattle = new GraphicBattle(pokemonTrainer, bot, new GraphicTurnManager());
         graphicBattle.turnRule.startBattleRule(graphicBattle);

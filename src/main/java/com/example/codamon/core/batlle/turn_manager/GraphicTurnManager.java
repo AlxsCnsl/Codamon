@@ -2,11 +2,13 @@ package com.example.codamon.core.batlle.turn_manager;
 import com.example.codamon.core.Trainer;
 import com.example.codamon.core.batlle.Battle;
 import com.example.codamon.core.batlle.Terrain;
+import com.example.codamon.core.batlle.move.Move;
 import com.example.codamon.core.pokemon.Pokemon;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.CompletableFuture;
 
 import static com.example.codamon.core.GlobalTools.waitPressEnter;
 
@@ -42,15 +44,15 @@ public class GraphicTurnManager implements Turn {
     public void selectMovePhaseRule(Battle battle) throws InterruptedException {
         System.out.println("SELECT MOVE PHASE executed");
         this.trainersMoveChoice(battle);
+        Thread.sleep(1000);
+    }
+
+    public void applyMovePhaseRule(Battle battle) throws InterruptedException {
         System.out.println("#TURNMANAGER# queue befor sort : "+
                 moveQueue.toString());
         moveQueue.sortQueue();
         System.out.println("#TURNMANAGER# queue after sort : "+
                 moveQueue.toString());
-        Thread.sleep(1000);
-    }
-
-    public void applyMovePhaseRule(Battle battle) throws InterruptedException {
         while(!moveQueue.getMoveQueue().isEmpty()){
             Pokemon owner = moveQueue.getNextMove().getOwner();
             if(!owner.getIsAlive()){
@@ -85,21 +87,43 @@ public class GraphicTurnManager implements Turn {
 
     //Tools____________________________________________________________________
     private void trainersMoveChoice(Battle battle){
+        ArrayList<Trainer> trainers = new ArrayList<>();
+
         for(Terrain terrain : battle.getTerrains()){
-            for(Trainer trainer : terrain.getTrainersTeam()){
-                for(Pokemon pokemon : trainer.getActivePokemons()){
-                    System.out.println("trainer control : " + trainer.getControl());
-//                    moveQueue.addMoveInQueue(
-//                            trainer.getControl().getMoveChoiceAsync(pokemon));
-                    // Assuming getMoveChoiceAsync returns a CompletableFuture<Move>
-                    trainer.getControl().getMoveChoiceAsync(pokemon)
-                            .thenAccept(move -> {
-                                moveQueue.addMoveInQueue(move);
-                                System.out.println("moveQueue : " + moveQueue.getMoveQueue());
-                            });
-                }
-            }
+            //                for(Pokemon pokemon : trainer.getActivePokemons()){
+            //                    System.out.println("trainer control : " + trainer.getControl());
+            ////                    moveQueue.addMoveInQueue(
+            ////                            trainer.getControl().getMoveChoiceAsync(pokemon));
+            //                    // Assuming getMoveChoiceAsync returns a CompletableFuture<Move>
+            //                    trainer.getControl().getMoveChoiceAsync(pokemon)
+            //                            .thenAccept(move -> {
+            //                                moveQueue.addMoveInQueue(move);
+            //                                System.out.println("moveQueue : " + moveQueue.getMoveQueue());
+            //                            });
+            //                }
+            trainers.addAll(terrain.getTrainersTeam());
         }
+
+        CompletableFuture<Move> humanMoveFuture =
+                trainers.getFirst().getControl().getMoveChoiceAsync(
+                        trainers.getFirst().getActivePokemons().getFirst());
+        CompletableFuture<Move> botMoveFuture =
+                trainers.getLast().getControl().getMoveChoiceAsync(
+                        trainers.getLast().getActivePokemons().getFirst());
+
+        // Wait until both moves are chosen
+        CompletableFuture<Void> bothMovesChosen =
+                CompletableFuture.allOf(humanMoveFuture, botMoveFuture);
+
+        bothMovesChosen.thenRun(() -> {
+            Move humanMove = humanMoveFuture.join();
+            Move botMove = botMoveFuture.join();
+
+            moveQueue.addMoveInQueue(humanMove);
+            moveQueue.addMoveInQueue(botMove);
+            System.out.println("moveQueue : " + moveQueue.getMoveQueue());
+        });
+
     }
 
     private void switchIfPokemonKo(Battle battle){//=====à Modifier Pour 2V2
