@@ -101,26 +101,43 @@ public class BattleController implements TrainerControl {
         return getBotTrainer().getActivePokemons().getFirst();
     }
 
-    @Override
-    public CompletableFuture<Move> getMoveChoiceAsync(Pokemon pokemon) {
+    @Override public CompletableFuture<Move> getMoveChoiceAsync(Pokemon pokemon) {
         System.out.println("getMoveChoice is called");
         CompletableFuture<Move> future = new CompletableFuture<>();
-
         Platform.runLater(() -> {
             System.out.println("Platform runlater");
             movesButtons.getChildren().clear();
-
             for (Move move : pokemon.getMoves()) {
-                System.out.println("boucle for");
                 Button moveButton = new Button(move.getName());
                 moveButton.setPrefSize(200, 50);
                 moveButton.setOnAction(e -> {
                     move.getOwner().loadMove(move.getName(), getTarget(pokemon));
                     future.complete(move);
+                    switchButtons.getChildren().clear();
                     movesButtons.getChildren().clear();
                     try {
                         graphicBattle.executeCurrentPhase(); // APPLY MOVE PHASE
+                        graphicBattle.executeCurrentPhase(); // END PHASE
+                        graphicBattle.executeCurrentPhase(); // START PHASE
                         updatePokemons();
+                        graphicBattle.executeCurrentPhase();
+                        updatePokemons();// SELECT MOVE PHASE
+                    } catch (InterruptedException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                });
+                movesButtons.getChildren().add(moveButton);
+            } switchButtons.getChildren().clear();
+            for (Pokemon pokemonSwitch : getMainTrainer().getPokemonsTeam().getPokemons()) {
+                Button switchButton = new Button(pokemonSwitch.getName());
+                switchButton.setPrefSize(100, 30);
+                switchButton.setOnAction(e -> {
+                    getMainTrainerPokemon().loadMove("Switch", pokemonSwitch);
+                    future.complete(getMainTrainerPokemon().getSwitchMove());
+                    switchButtons.getChildren().clear();
+                    movesButtons.getChildren().clear();
+                    try {
+                        graphicBattle.executeCurrentPhase(); // APPLY MOVE PHASE
                         graphicBattle.executeCurrentPhase(); // END PHASE
                         updatePokemons();
                         graphicBattle.executeCurrentPhase(); // START PHASE
@@ -131,10 +148,9 @@ public class BattleController implements TrainerControl {
                         throw new RuntimeException(ex);
                     }
                 });
-                movesButtons.getChildren().add(moveButton);
+                switchButtons.getChildren().add(switchButton);
             }
         });
-        System.out.println("end of getMoveChoice");
         return future;
     }
 
