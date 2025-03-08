@@ -30,7 +30,6 @@ public class BattleController implements TrainerControl {
 
     private Stage stage;
     private GraphicBattle graphicBattle;
-    private CompletableFuture<Move> moveFuture;
     @FXML VBox history;
     @FXML HBox movesButtons;
     @FXML HBox switchButtons;
@@ -134,12 +133,13 @@ public class BattleController implements TrainerControl {
                 moveButton.setOnAction(e -> {
                     move.getOwner().loadMove(move.getName(), getTarget(pokemon));
                     future.complete(move);
+                    movesButtons.getChildren().clear();
                     try {
-                        graphicBattle.executeCurrentPhase();
-                        setPokemonHPs();
-                        graphicBattle.executeCurrentPhase();
-                        graphicBattle.executeCurrentPhase();
-                        graphicBattle.executeCurrentPhase();
+                        graphicBattle.executeCurrentPhase(); // APPLY MOVE PHASE
+                        setPokemonsCurrentHPs();
+                        graphicBattle.executeCurrentPhase(); // END PHASE
+                        graphicBattle.executeCurrentPhase(); // START PHASE
+                        graphicBattle.executeCurrentPhase(); // SELECT MOVE PHASE
                     } catch (InterruptedException ex) {
                         throw new RuntimeException(ex);
                     }
@@ -212,5 +212,16 @@ public class BattleController implements TrainerControl {
         pokemonCurrentHP2.setText(String.valueOf(getBotTrainerPokemon().getCurrentHP()));
         pokemonMaxHP1.setText("/" + getMainTrainerPokemon().getCurrentState("HP"));
         pokemonMaxHP2.setText("/" + getBotTrainerPokemon().getCurrentState("HP"));
+    }
+
+    private void setPokemonsCurrentHPs() {
+        if (getBotTrainer().getActivePokemons().isEmpty()) {
+            pokemonCurrentHP2.setText("0");
+        } else if (getMainTrainer().getActivePokemons().isEmpty()) {
+            pokemonCurrentHP1.setText("0");
+        } else {
+            pokemonCurrentHP1.setText(String.valueOf(getMainTrainerPokemon().getCurrentHP()));
+            pokemonCurrentHP2.setText(String.valueOf(getBotTrainerPokemon().getCurrentHP()));
+        }
     }
 }
