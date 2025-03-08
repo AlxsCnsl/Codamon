@@ -354,6 +354,8 @@ public class Pokemon {
         if(this.currentHP < 0){
             this.currentHP = 0;
             this.isAlive = false;
+            System.out.println("#POKEMON# "+name+" Is KO !!");
+            getOwner().recallPokemon(this);
         }
     }
 

@@ -1,5 +1,6 @@
 package com.example.codamon.core;
 
+import com.example.codamon.core.batlle.Battle;
 import com.example.codamon.core.batlle.Terrain;
 import com.example.codamon.core.batlle.control.TrainerControl;
 import com.example.codamon.core.pokemon.Pokemon;
@@ -133,5 +134,14 @@ public class Trainer {
         pokemonsTeam.getPokemons().set(pokemonID, addedPokemon);
         addedPokemon.setOwner(this);
         return;
+    }
+
+    public Boolean getTeamIsAlive(){
+        for (Pokemon pokemon : pokemonsTeam.getPokemons()){
+            if (pokemon.getIsAlive()){
+                return true;
+            }
+        }
+        return false;
     }
 }

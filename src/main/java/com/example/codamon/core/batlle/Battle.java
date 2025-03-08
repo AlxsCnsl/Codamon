@@ -46,6 +46,9 @@ public class Battle {
     }
 
     //SETTER___________________________________________________________________
+    public void stop(){
+        this.isRunning = false;
+    }
 
     //TURN_MANAGER_____________________________________________________________
     protected void nextPhase(){

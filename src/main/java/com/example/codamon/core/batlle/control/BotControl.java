@@ -1,5 +1,6 @@
 package com.example.codamon.core.batlle.control;
 
+import com.example.codamon.core.Trainer;
 import com.example.codamon.core.batlle.move.Move;
 import com.example.codamon.core.batlle.Battle;
 import com.example.codamon.core.batlle.Terrain;
@@ -26,8 +27,25 @@ public class BotControl implements TrainerControl{
       return null;
     };
 
-    public Move getSwitchBeforeKo(Pokemon pokemon){
-        return null;
+
+    public void switchBeforeKo(Trainer trainer){
+        trainer.sendPokemon(getRandPokemonAlive(trainer));
+    }
+
+    public void setStage(Stage stage){};
+
+    //Bot Tools________________________________________________________________
+
+    private Pokemon getRandPokemonAlive(Trainer trainer){
+        Random random = new Random();
+        int index;
+        ArrayList<Pokemon> team = trainer.getPokemonsTeam().getPokemons();
+        Pokemon randPokemon = null;
+        do {
+            index = random.nextInt(team.size());
+            randPokemon = team.get(index);
+        }while(randPokemon == null || !randPokemon.getIsAlive());
+        return randPokemon;
     }
 
     private Move getRandSwitch( Pokemon pokemon){
@@ -39,7 +57,7 @@ public class BotControl implements TrainerControl{
         do {
             index = random.nextInt(team.size());
             nextPokemon = team.get(index);
-        }while(!nextPokemon.getIsAlive());
+        }while(!nextPokemon.getIsAlive() && !nextPokemon.equals(pokemon));
         pokemon.loadMove("Switch", nextPokemon);
         return pokemon.getMoveByName("Switch");
     }
@@ -68,7 +86,5 @@ public class BotControl implements TrainerControl{
          }
         return target;
     }
-
-    public void setStage(Stage stage){};
 
 }
