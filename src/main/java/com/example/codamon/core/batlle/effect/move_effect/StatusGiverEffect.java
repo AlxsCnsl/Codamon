@@ -1,5 +1,6 @@
 package com.example.codamon.core.batlle.effect.move_effect;
 
+import com.example.codamon.core.batlle.effect.batlle_effect.status.Status;
 import com.example.codamon.core.batlle.move.Move;
 import com.example.codamon.core.batlle.Battle;
 import com.example.codamon.core.pokemon.Pokemon;
@@ -18,9 +19,12 @@ public class StatusGiverEffect implements MoveEffect {
     public void applyEffect(Move move, ArrayList<Pokemon> targets, Battle battle){
         if(!targets.isEmpty()){
             for(Pokemon target: targets){
-                target.setMajorStatus(StatusTools.newStatus(this.statusName));
-                System.out.println("#MOVE#STATUS_GIVER# "+target.getName()+" is "+
-                        this.getStatusName());
+                Status status = StatusTools.newStatus(this.statusName);
+                if(status.getIfApplyIsPossible(target)){
+                    target.setMajorStatus(status);
+                    System.out.println("#MOVE#STATUS_GIVER# "+
+                            target.getName()+" is "+ this.getStatusName());
+                }
             }
         }
     }

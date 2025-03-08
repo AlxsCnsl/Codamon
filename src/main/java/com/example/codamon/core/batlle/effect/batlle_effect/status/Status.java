@@ -12,11 +12,9 @@ public abstract class Status {
 
 
     //APPLIER__________________________________________________________________
-    public void applyExecuteMovePhaseEffect(){}
-    public void applyEndPhaseEffect(){
-        this.activeTurn += 1;
-    }
-    public void applyEffectAfterReceiveAttack(Move move){}
+    public boolean getIfNexMoveAccept(){return true;}
+    public boolean getIfApplyIsPossible(Pokemon taget){return true;}
+    public double selfStatModifier(String stat){return 1;}
 
 
     //TEST_____________________________________________________________________
@@ -26,14 +24,10 @@ public abstract class Status {
 
 
     //GETTER___________________________________________________________________
-    public double selfStatModifier(String stat){
-        return 1;
-    }
 
     public String getName() {
         return this.name;
     }
-
     public Pokemon getPokemon(){
         return this.pokemon;
     }
