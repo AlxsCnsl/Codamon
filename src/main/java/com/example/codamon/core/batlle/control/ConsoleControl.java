@@ -21,4 +21,9 @@ public class ConsoleControl implements TrainerControl{
 
     public void setStage(Stage stage){}
 
+    @Override
+    public void updatePokemons() {
+
+    }
+
 }

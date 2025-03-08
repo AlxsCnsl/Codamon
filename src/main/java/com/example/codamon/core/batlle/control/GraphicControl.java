@@ -27,5 +27,10 @@ public class GraphicControl implements TrainerControl {
         this.stage = stage;
     }
 
+    @Override
+    public void updatePokemons() {
+
+    }
+
 }
 

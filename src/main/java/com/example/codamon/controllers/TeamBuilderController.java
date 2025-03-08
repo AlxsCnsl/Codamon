@@ -75,7 +75,7 @@ public class TeamBuilderController {
 
         Trainer bot = new Trainer("bot", new BotControl());
         bot.addPokemon(pikachu);
-        bot.addPokemon(raikou);
+//        bot.addPokemon(raikou);
 
         GraphicBattle graphicBattle = new GraphicBattle(pokemonTrainer, bot, new GraphicTurnManager());
         graphicBattle.turnRule.startBattleRule(graphicBattle);

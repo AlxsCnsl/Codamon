@@ -115,16 +115,6 @@ public class BattleController implements TrainerControl {
                     future.complete(move);
                     switchButtons.getChildren().clear();
                     movesButtons.getChildren().clear();
-                    try {
-                        graphicBattle.executeCurrentPhase(); // APPLY MOVE PHASE
-                        graphicBattle.executeCurrentPhase(); // END PHASE
-                        graphicBattle.executeCurrentPhase(); // START PHASE
-                        updatePokemons();
-                        graphicBattle.executeCurrentPhase();
-                        updatePokemons();// SELECT MOVE PHASE
-                    } catch (InterruptedException ex) {
-                        throw new RuntimeException(ex);
-                    }
                 });
                 movesButtons.getChildren().add(moveButton);
             } switchButtons.getChildren().clear();
@@ -136,17 +126,6 @@ public class BattleController implements TrainerControl {
                     future.complete(getMainTrainerPokemon().getSwitchMove());
                     switchButtons.getChildren().clear();
                     movesButtons.getChildren().clear();
-                    try {
-                        graphicBattle.executeCurrentPhase(); // APPLY MOVE PHASE
-                        graphicBattle.executeCurrentPhase(); // END PHASE
-                        updatePokemons();
-                        graphicBattle.executeCurrentPhase(); // START PHASE
-                        updatePokemons();
-                        graphicBattle.executeCurrentPhase();
-                        updatePokemons();// SELECT MOVE PHASE
-                    } catch (InterruptedException ex) {
-                        throw new RuntimeException(ex);
-                    }
                 });
                 switchButtons.getChildren().add(switchButton);
             }

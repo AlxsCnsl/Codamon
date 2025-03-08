@@ -88,6 +88,8 @@ public class Battle {
         }
     }
 
+    public void executeCurrentPhase() throws InterruptedException {}
+
     public void addTurnLogs(String logs) {
         turnLogs.add(logs);
     }

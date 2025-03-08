@@ -32,7 +32,14 @@ public class BotControl implements TrainerControl{
         trainer.sendPokemon(getRandPokemonAlive(trainer));
     }
 
-    public void setStage(Stage stage){};
+    public void setStage(Stage stage){}
+
+    @Override
+    public void updatePokemons() {
+
+    }
+
+    ;
 
     //Bot Tools________________________________________________________________
 
