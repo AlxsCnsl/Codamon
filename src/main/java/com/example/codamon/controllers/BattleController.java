@@ -159,16 +159,16 @@ public class BattleController implements TrainerControl {
                 pokemonSpriteURL.toExternalForm());
     }
 
-//    private ImageView createPokemonImageView(String pokemonName, String direction) {
-//        Image pokemonSprite = getPokemonSprite(pokemonName, direction);
-//
-//        ImageView pokemonSpriteImageView = new ImageView(pokemonSprite);
-//        pokemonSpriteImageView.setFitWidth(350);
-//        pokemonSpriteImageView.setPickOnBounds(true);
-//        pokemonSpriteImageView.setPreserveRatio(true);
-//
-//        return pokemonSpriteImageView;
-//    }
+    private ImageView createPokemonImageView(String pokemonName, String direction) {
+        Image pokemonSprite = getPokemonSprite(pokemonName, direction);
+
+        ImageView pokemonSpriteImageView = new ImageView(pokemonSprite);
+        pokemonSpriteImageView.setFitWidth(350);
+        pokemonSpriteImageView.setPickOnBounds(true);
+        pokemonSpriteImageView.setPreserveRatio(true);
+
+        return pokemonSpriteImageView;
+    }
 
     //SETTER____________________________________________________________________
     private void setPokemonNames() {
