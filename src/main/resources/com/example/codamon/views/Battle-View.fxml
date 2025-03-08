@@ -31,7 +31,7 @@
                     <VBox alignment="CENTER" style="-fx-border:solid;-fx-border-color:red">
                         <HBox alignment="CENTER" spacing="30.0">
                             <HBox>
-                                <Text fx:id="pokemonName1" text="Raikou" fill="white">
+                                <Text fx:id="pokemonName1" fill="white">
                                     <font>
                                         <Font size="30"/>
                                     </font>
@@ -39,12 +39,12 @@
                             </HBox>
 
                             <HBox>
-                            <Text fx:id="pokemonCurrentHP1" text="280" fill="white">
+                            <Text fx:id="pokemonCurrentHP1" fill="white">
                                 <font>
                                     <Font size="30"/>
                                 </font>
                             </Text>
-                            <Text fx:id="pokemonMaxHP1" text="/280" fill="white">
+                            <Text fx:id="pokemonMaxHP1" fill="white">
                                 <font>
                                     <Font size="30"/>
                                 </font>
@@ -52,12 +52,12 @@
                             </HBox>
                         </HBox>
 
-                        <ProgressBar prefWidth="300" progress="0.80"/>
+                        <ProgressBar prefWidth="300" progress="0.80" visible="false"/>
                     </VBox>
-                    <VBox style="-fx-border:solid;-fx-border-color:blue">
-                        <ImageView fitWidth="350" pickOnBounds="true" preserveRatio="true">
-                            <Image url="@../sprites/Pokemon/raikou/raikou_back.png"/>
-                        </ImageView>
+                    <VBox fx:id="mainPokemonBackSprite" style="-fx-border:solid;-fx-border-color:blue">
+<!--                        <ImageView fitWidth="350" pickOnBounds="true" preserveRatio="true">-->
+<!--                            <Image url="@../sprites/Pokemon/raikou/raikou_back.png"/>-->
+<!--                        </ImageView>-->
                     </VBox>
                 </VBox>
 
@@ -65,7 +65,7 @@
                     <VBox alignment="CENTER" style="-fx-border:solid;-fx-border-color:red">
                         <HBox alignment="CENTER" spacing="30.0">
                             <HBox>
-                                <Text fx:id="pokemonName2" text="Togekiss" fill="white">
+                                <Text fx:id="pokemonName2" fill="white">
                                     <font>
                                         <Font size="30"/>
                                     </font>
@@ -73,12 +73,12 @@
                             </HBox>
 
                             <HBox>
-                                <Text fx:id="pokemonCurrentHP2" text="280" fill="white">
+                                <Text fx:id="pokemonCurrentHP2" fill="white">
                                     <font>
                                         <Font size="30"/>
                                     </font>
                                 </Text>
-                                <Text fx:id="pokemonMaxHP2" text="/280" fill="white">
+                                <Text fx:id="pokemonMaxHP2" fill="white">
                                     <font>
                                         <Font size="30"/>
                                     </font>
@@ -86,31 +86,31 @@
                             </HBox>
                         </HBox>
 
-                        <ProgressBar prefWidth="300" progress="0.80"/>
+                        <ProgressBar prefWidth="300" progress="0.80" visible="false"/>
                     </VBox>
-                    <VBox style="-fx-border:solid;-fx-border-color:blue">
-                        <ImageView fitWidth="350" pickOnBounds="true" preserveRatio="true">
-                            <Image url="@../sprites/Pokemon/togekiss/togekiss_face.png"/>
-                        </ImageView>
+                    <VBox fx:id="botPokemonFrontSprite" style="-fx-border:solid;-fx-border-color:blue">
+<!--                        <ImageView fitWidth="350" pickOnBounds="true" preserveRatio="true">-->
+<!--                            <Image url="@../sprites/Pokemon/togekiss/togekiss_face.png"/>-->
+<!--                        </ImageView>-->
                     </VBox>
                 </VBox>
             </Group>
 
             <VBox fx:id="buttonsInterface" spacing="20.0">
                 <HBox fx:id="movesButtons" spacing="50.0" alignment="CENTER">
-                    <Button fx:id="Move1" text="Move 1" prefWidth="200" prefHeight="50"/>
-                    <Button fx:id="Move2" text="Move 2" prefWidth="200" prefHeight="50"/>
-                    <Button fx:id="Move3" text="Move 3" prefWidth="200" prefHeight="50"/>
-                    <Button fx:id="Move4" text="Move 4" prefWidth="200" prefHeight="50"/>
+<!--                    <Button fx:id="Move1" text="Move 1" prefWidth="200" prefHeight="50"/>-->
+<!--                    <Button fx:id="Move2" text="Move 2" prefWidth="200" prefHeight="50"/>-->
+<!--                    <Button fx:id="Move3" text="Move 3" prefWidth="200" prefHeight="50"/>-->
+<!--                    <Button fx:id="Move4" text="Move 4" prefWidth="200" prefHeight="50"/>-->
                 </HBox>
 
                 <HBox fx:id="switchButtons" spacing="50.0" alignment="CENTER">
-                    <Button fx:id="Switch1" text="Switch 1" prefWidth="100" prefHeight="30"/>
-                    <Button fx:id="Switch2" text="Switch 2" prefWidth="100" prefHeight="30"/>
-                    <Button fx:id="Switch3" text="Switch 3" prefWidth="100" prefHeight="30"/>
-                    <Button fx:id="Switch4" text="Switch 4" prefWidth="100" prefHeight="30"/>
-                    <Button fx:id="Switch5" text="Switch 5" prefWidth="100" prefHeight="30"/>
-                    <Button fx:id="Switch6" text="Switch 6" prefWidth="100" prefHeight="30"/>
+<!--                    <Button fx:id="Switch1" text="Switch 1" prefWidth="100" prefHeight="30"/>-->
+<!--                    <Button fx:id="Switch2" text="Switch 2" prefWidth="100" prefHeight="30"/>-->
+<!--                    <Button fx:id="Switch3" text="Switch 3" prefWidth="100" prefHeight="30"/>-->
+<!--                    <Button fx:id="Switch4" text="Switch 4" prefWidth="100" prefHeight="30"/>-->
+<!--                    <Button fx:id="Switch5" text="Switch 5" prefWidth="100" prefHeight="30"/>-->
+<!--                    <Button fx:id="Switch6" text="Switch 6" prefWidth="100" prefHeight="30"/>-->
                 </HBox>
             </VBox>
         </VBox>

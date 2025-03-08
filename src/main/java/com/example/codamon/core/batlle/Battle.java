@@ -8,12 +8,13 @@ import java.util.ArrayList;
 
 public class Battle {
 
-    private ArrayList<ArrayList<Trainer>> playersTeams =
+    protected ArrayList<ArrayList<Trainer>> playersTeams =
             new ArrayList<>();//if 2p/2p
-    private ArrayList<Terrain> terrains = new ArrayList<>();
-    private Turn turnRule;
-    private BattlePhase phase = BattlePhase.START_PHASE;
-    private Boolean isRunning = true;
+    protected ArrayList<Terrain> terrains = new ArrayList<>();
+    public Turn turnRule;
+    protected BattlePhase phase = BattlePhase.START_PHASE;
+    protected Boolean isRunning = true;
+    protected ArrayList<String> turnLogs;
 
     //CONSTRUCTOR______________________________________________________________
     public Battle(Trainer trainer1, Trainer trainer2, Turn turnRules){//==============================================à refaire
@@ -37,11 +38,6 @@ public class Battle {
     }
 
 
-    //STRINGIFIER______________________________________________________________
-    public String activePokemonsToString() {//==============================================à refaire
-        return null;
-    }
-
     //GETTER___________________________________________________________________
     public BattlePhase getPhase() { return this.phase;}
     public ArrayList<Terrain> getTerrains() {return this.terrains;}
@@ -52,24 +48,28 @@ public class Battle {
     //SETTER___________________________________________________________________
 
     //TURN_MANAGER_____________________________________________________________
-    private void nextPhase(){
+    protected void nextPhase(){
         switch (this.phase){
             case START_PHASE -> {
                 this.phase = BattlePhase.SELECT_MOVE_PHASE;
+                System.out.println("CURRENT PHASE : SELECT MOVE PHASE");
             }
             case SELECT_MOVE_PHASE -> {
                 this.phase = BattlePhase.APPLY_MOVE_PHASE;
+                System.out.println("CURRENT PHASE : APPLY MOVE PHASE");
             }
             case APPLY_MOVE_PHASE -> {
                 this.phase = BattlePhase.END_PHASE;
+                System.out.println("CURRENT PHASE : END PHASE");
             }
             case END_PHASE -> {
                 this.phase = BattlePhase.START_PHASE;
+                System.out.println("CURRENT PHASE : START PHASE");
             }
         }
     }
 
-    public void run(){
+    public void run() throws InterruptedException {
         System.out.println("#BATTLE# Start of BAAATTTLLLEEEE : ");
 
         this.turnRule.startBattleRule(this);
@@ -79,6 +79,14 @@ public class Battle {
             this.turnRule.executePhase(this.phase, this);
             this.nextPhase();
         }
+    }
+
+    public void addTurnLogs(String logs) {
+        turnLogs.add(logs);
+    }
+
+    public void displayHistory() {
+
     }
 
 }

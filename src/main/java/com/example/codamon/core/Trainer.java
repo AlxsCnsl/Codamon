@@ -63,6 +63,10 @@ public class Trainer {
         activePokemons.add(pokemon);
     }
 
+    public void setController(TrainerControl controller) {
+        this.control = controller;
+    }
+
     //BATTLE TOOLS_____________________________________________________________
     public void enterTheTerrain(Terrain terrain){
         terrain.addTrainer(this);
@@ -123,5 +127,11 @@ public class Trainer {
             return;
         }System.out.println("#TRAINER# " + name + " wants to add " +
                 addedPokemon.getName() + " to his team, but he can't have more than 6 Pokémon.");
+    }
+
+    public void setPokemon(int pokemonID, Pokemon addedPokemon){
+        pokemonsTeam.getPokemons().set(pokemonID, addedPokemon);
+        addedPokemon.setOwner(this);
+        return;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.codamon;
 
+import com.example.codamon.controllers.BattleController;
 import com.example.codamon.core.Trainer;
 import com.example.codamon.core.batlle.Battle;
 import com.example.codamon.core.batlle.Terrain;
@@ -29,8 +30,7 @@ public class PokeApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        Trainer pokemonTrainer = new Trainer("Alexis", new GraphicControl());//Change To GraphicControl
-        pokemonTrainer.getControl().setStage(stage);
+        Trainer pokemonTrainer = new Trainer("Alexis", null);//Change To GraphicControl
 
         HashMap<String, Object> userData = new HashMap<>();
         userData.put("pokemonTrainer", pokemonTrainer);
@@ -39,57 +39,55 @@ public class PokeApp extends Application {
         scenes.put(
                 SceneName.MENU, new MenuView(stage).getScene());
         scenes.put(
-                SceneName.BATTLE, new BattleView(stage).getScene());
-        scenes.put(
                 SceneName.TEAMBUILDER, new TeamBuilderView(stage).getScene());
 
-        stage.setScene(scenes.get(SceneName.MENU));
+        stage.setScene(scenes.get(SceneName.TEAMBUILDER));
         stage.setTitle("MENU");
         stage.show();
 
 
         //ALEXIS________________________________________________________________
-        Scanner scanner = new Scanner(System.in); // Création du scanner
-
-        Pokemon pikachu = new Pokemon("Pikachu");
-        pikachu.addMove("Charge");
-        pikachu.addMove("Eclair");
-        pikachu.addMove("Fatal-Foudre");
-        pikachu.addMove("Cage-Eclair");
-
-      
-        Pokemon rafflesia1 = new Pokemon("Rafflesia");
-        rafflesia1.addMove("Para-Spore");
-
-        Pokemon rafflesia2 = new Pokemon("Rafflesia");
-        rafflesia2.addMove("Para-Spore");
-
-
-        Pokemon psykokwak = new Pokemon("Psykokwak");
-        psykokwak.addMove("Charge");
-        psykokwak.addMove("Mimi-Queue");
-
-
-        Pokemon togekiss = new Pokemon("Togekiss");
-        togekiss.addMove("Charge");
-        togekiss.addMove("Eclair");
-        togekiss.addMove("Fatal-Foudre");
-        togekiss.addMove("Cage-Eclair");
-
-        Pokemon lugulabre = new Pokemon("Lugulabre");
-        lugulabre.addMove("Para-Spore");
-
-
-
-        Trainer alexis = new Trainer("Alexis", new BotControl());
-        alexis.addPokemon(rafflesia1);
-        alexis.addPokemon(pikachu);
-        alexis.addPokemon(psykokwak);
-
-        Trainer ethan = new Trainer("Ethan", new BotControl());
-        ethan.addPokemon(lugulabre);
-        ethan.addPokemon(rafflesia2);
-        ethan.addPokemon(togekiss);
+//        Scanner scanner = new Scanner(System.in); // Création du scanner
+//
+//        Pokemon pikachu = new Pokemon("Pikachu");
+//        pikachu.addMove("Charge");
+//        pikachu.addMove("Eclair");
+//        pikachu.addMove("Fatal-Foudre");
+//        pikachu.addMove("Cage-Eclair");
+//
+//
+//        Pokemon rafflesia1 = new Pokemon("Rafflesia");
+//        rafflesia1.addMove("Para-Spore");
+//
+//        Pokemon rafflesia2 = new Pokemon("Rafflesia");
+//        rafflesia2.addMove("Para-Spore");
+//
+//
+//        Pokemon psykokwak = new Pokemon("Psykokwak");
+//        psykokwak.addMove("Charge");
+//        psykokwak.addMove("Mimi-Queue");
+//
+//
+//        Pokemon togekiss = new Pokemon("Togekiss");
+//        togekiss.addMove("Charge");
+//        togekiss.addMove("Eclair");
+//        togekiss.addMove("Fatal-Foudre");
+//        togekiss.addMove("Cage-Eclair");
+//
+//        Pokemon lugulabre = new Pokemon("Lugulabre");
+//        lugulabre.addMove("Para-Spore");
+//
+//
+//
+//        Trainer alexis = new Trainer("Alexis", new BotControl());
+//        alexis.addPokemon(rafflesia1);
+//        alexis.addPokemon(pikachu);
+//        alexis.addPokemon(psykokwak);
+//
+//        Trainer ethan = new Trainer("Ethan", new BotControl());
+//        ethan.addPokemon(lugulabre);
+//        ethan.addPokemon(rafflesia2);
+//        ethan.addPokemon(togekiss);
 
 
 
@@ -110,9 +108,9 @@ public class PokeApp extends Application {
 
 
 
-        Battle battle = new Battle(alexis, ethan, new TurnManager());
-        System.out.println(alexis.getTerrain());System.out.println(ethan.getTerrain());
-        battle.run();
+//        Battle battle = new Battle(alexis, ethan, new TurnManager());
+//        System.out.println(alexis.getTerrain());System.out.println(ethan.getTerrain());
+//        battle.run();
 
     }
 

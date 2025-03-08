@@ -5,5 +5,5 @@ import javafx.scene.Scene;
 import java.io.IOException;
 
 public interface ViewMaker {
-    Scene getScene() throws IOException;
+    Scene getScene() throws IOException, InterruptedException;
 }

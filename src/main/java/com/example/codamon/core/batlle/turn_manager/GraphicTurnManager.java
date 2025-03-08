@@ -1,23 +1,29 @@
 package com.example.codamon.core.batlle.turn_manager;
-
 import com.example.codamon.core.Trainer;
 import com.example.codamon.core.batlle.Battle;
 import com.example.codamon.core.batlle.Terrain;
 import com.example.codamon.core.pokemon.Pokemon;
+import javafx.stage.Stage;
 
-import java.util.Scanner;
+import java.util.Random;
 
 import static com.example.codamon.core.GlobalTools.waitPressEnter;
 
-public class TurnManager implements Turn {
-    private static Scanner scanner = new Scanner(System.in);
+public class GraphicTurnManager implements Turn {
+    private Stage stage;
     private MoveQueue moveQueue= new MoveQueue();
 
-    public TurnManager(){
-
+    public void setStage(Stage stage) {
+        if(stage == null){
+            throw new IllegalArgumentException("Stage cannot be null");
+        }
+        this.stage = stage;
     }
+
+    public GraphicTurnManager() {}
+
     //TURN RULE________________________________________________________________
-    public void executePhase(BattlePhase phase, Battle battle) {
+    public void executePhase(BattlePhase phase, Battle battle) throws InterruptedException {
         switch (phase){
             case START_PHASE -> startPhaseRule(battle);
             case SELECT_MOVE_PHASE -> selectMovePhaseRule(battle);
@@ -25,29 +31,31 @@ public class TurnManager implements Turn {
             case END_PHASE -> endPhaseRule(battle);
             default -> System.out.println("#PHASE# is not correct");
         }
-
     }
 
-    public void startPhaseRule(Battle battle) {
-        waitPressEnter();
+    public void startPhaseRule(Battle battle) throws InterruptedException {
+        System.out.println("START PHASE executed");
+        Thread.sleep(1000);
     }
 
-    public void selectMovePhaseRule(Battle battle) {
+    public void selectMovePhaseRule(Battle battle) throws InterruptedException {
+        System.out.println("SELECT MOVE PHASE executed");
         this.trainersMoveChoice(battle);
-        waitPressEnter();
+        Thread.sleep(1000);
     }
 
-    public void applyMovePhaseRule(Battle battle) {
+    public void applyMovePhaseRule(Battle battle) throws InterruptedException {
+        System.out.println("APPLY MOVE PHASE executed");
         while(!moveQueue.getMoveQueue().isEmpty()){
             moveQueue.nextMoveExecute();
         }
-        waitPressEnter();
+        Thread.sleep(1000);
     }
 
-    public void endPhaseRule(Battle battle) {
-
+    public void endPhaseRule(Battle battle) throws InterruptedException {
+        System.out.println("END PHASE executed");
         terrainsLog(battle);
-        waitPressEnter();
+        Thread.sleep(1000);
     }
 
     public void startBattleRule(Battle battle){
@@ -63,8 +71,10 @@ public class TurnManager implements Turn {
         for(Terrain terrain : battle.getTerrains()){
             for(Trainer trainer : terrain.getTrainersTeam()){
                 for(Pokemon pokemon : trainer.getActivePokemons()){
+                    System.out.println("trainer control : " + trainer.getControl());
 //                    moveQueue.addMoveInQueue(
 //                            trainer.getControl().getMoveChoiceAsync(pokemon));
+                    // Assuming getMoveChoiceAsync returns a CompletableFuture<Move>
                     trainer.getControl().getMoveChoiceAsync(pokemon)
                             .thenAccept(move -> {
                                 moveQueue.addMoveInQueue(move);
