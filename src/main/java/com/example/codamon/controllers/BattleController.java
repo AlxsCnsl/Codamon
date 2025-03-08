@@ -120,11 +120,13 @@ public class BattleController implements TrainerControl {
                     movesButtons.getChildren().clear();
                     try {
                         graphicBattle.executeCurrentPhase(); // APPLY MOVE PHASE
-                        setPokemonsCurrentHPs();
+                        updatePokemons();
                         graphicBattle.executeCurrentPhase(); // END PHASE
-                        setBotPokemonSprite();
+                        updatePokemons();
                         graphicBattle.executeCurrentPhase(); // START PHASE
-                        graphicBattle.executeCurrentPhase(); // SELECT MOVE PHASE
+                        updatePokemons();
+                        graphicBattle.executeCurrentPhase();
+                        updatePokemons();// SELECT MOVE PHASE
                     } catch (InterruptedException ex) {
                         throw new RuntimeException(ex);
                     }
@@ -168,23 +170,7 @@ public class BattleController implements TrainerControl {
 //        return pokemonSpriteImageView;
 //    }
 
-    private void setMainPokemonSprite() {
-        mainPokemonSpriteImageView.setImage(getPokemonSprite(getMainTrainer().getActivePokemons().getFirst().getName(), "back"));
-    }
-
-    private void setBotPokemonSprite() {
-        botPokemonSpriteImageView.setImage(getPokemonSprite(getBotTrainer().getActivePokemons().getFirst().getName(), "face"));
-    }
-
-    private void setSwitchButtons() {
-        ArrayList<Pokemon> pokemonsTeam = getMainTrainer().getPokemonsTeam().getPokemons();
-        for (Pokemon pokemon : pokemonsTeam) {
-            Button switchButton = new Button(pokemon.getName());
-            switchButton.setPrefSize(100, 30);
-            switchButtons.getChildren().add(switchButton);
-        }
-    }
-
+    //SETTER____________________________________________________________________
     private void setPokemonNames() {
         pokemonName1.setText(getMainTrainer().getActivePokemons().getFirst().getName());
         pokemonName2.setText(getBotTrainer().getActivePokemons().getFirst().getName());
@@ -196,6 +182,63 @@ public class BattleController implements TrainerControl {
         pokemonMaxHP1.setText("/" + getMainTrainerPokemon().getCurrentState("HP"));
         pokemonMaxHP2.setText("/" + getBotTrainerPokemon().getCurrentState("HP"));
     }
+
+    private void setMainPokemonSprite() {
+        mainPokemonSpriteImageView.setImage(getPokemonSprite(getMainTrainer().getActivePokemons().getFirst().getName(), "back"));
+    }
+
+    private void setBotPokemonSprite() {
+        botPokemonSpriteImageView.setImage(getPokemonSprite(getBotTrainer().getActivePokemons().getFirst().getName(), "face"));
+    }
+
+
+    //UPDATE___________________________________________________________________
+
+    public void updatePokemons(){
+        updatePokemonSprites();
+        updatePokemonNames();
+        updatePokemonHPs();
+    }
+
+    private void updateMainPokemonSprite() {
+        mainPokemonBackSprite.getChildren().clear(); // Supprime l'ancien sprite
+        ImageView pokemonSpriteImageView = createPokemonImageView(getMainTrainer().getActivePokemons().getFirst().getName(), "back");
+        mainPokemonBackSprite.getChildren().add(pokemonSpriteImageView);
+    }
+
+    private void updateBotPokemonSprite() {
+        botPokemonFrontSprite.getChildren().clear(); // Supprime l'ancien sprite
+        ImageView pokemonSpriteImageView = createPokemonImageView(getBotTrainer().getActivePokemons().getFirst().getName(), "face");
+        botPokemonFrontSprite.getChildren().add(pokemonSpriteImageView);
+    }
+
+    private void updatePokemonSprites() {
+        updateMainPokemonSprite();
+        updateBotPokemonSprite();
+    }
+
+    private void updatePokemonNames() {
+        pokemonName1.setText(getMainTrainer().getActivePokemons().getFirst().getName());
+        pokemonName2.setText(getBotTrainer().getActivePokemons().getFirst().getName());
+    }
+
+    private void updatePokemonHPs() {
+        pokemonCurrentHP1.setText(String.valueOf(getMainTrainerPokemon().getCurrentHP()));
+        pokemonCurrentHP2.setText(String.valueOf(getBotTrainerPokemon().getCurrentHP()));
+        pokemonMaxHP1.setText("/" + getMainTrainerPokemon().getCurrentState("HP"));
+        pokemonMaxHP2.setText("/" + getBotTrainerPokemon().getCurrentState("HP"));
+    }
+
+
+    private void setSwitchButtons() {
+        ArrayList<Pokemon> pokemonsTeam = getMainTrainer().getPokemonsTeam().getPokemons();
+        for (Pokemon pokemon : pokemonsTeam) {
+            Button switchButton = new Button(pokemon.getName());
+            switchButton.setPrefSize(100, 30);
+            switchButtons.getChildren().add(switchButton);
+        }
+    }
+
 
     private void setPokemonsCurrentHPs() {
         if (getBotTrainer().getActivePokemons().isEmpty()) {
