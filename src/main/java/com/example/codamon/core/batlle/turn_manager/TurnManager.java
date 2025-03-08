@@ -105,7 +105,7 @@ public class TurnManager implements Turn {
                     for(Pokemon pokemon : trainerTeam ){
                         if(pokemon.getIsAlive()){
                             //aux moin 1 pkm vivant donc le trainer peut switch
-                            trainer.getControl().switchBeforeKo(trainer);
+                            trainer.getControl().switchBeforeKoAsync(trainer);
                             return;
                         }
                     }
