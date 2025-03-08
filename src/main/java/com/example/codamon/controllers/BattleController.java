@@ -34,7 +34,11 @@ public class BattleController implements TrainerControl {
     @FXML HBox movesButtons;
     @FXML HBox switchButtons;
     @FXML VBox mainPokemonBackSprite;
+    @FXML ImageView mainPokemonSpriteImageView;
+    @FXML Image mainPokemonSpriteImage;
     @FXML VBox botPokemonFrontSprite;
+    @FXML ImageView botPokemonSpriteImageView;
+    @FXML Image botPokemonSpriteImage;
     @FXML Text pokemonName1;
     @FXML Text pokemonName2;
     @FXML Text pokemonCurrentHP1;
@@ -53,7 +57,6 @@ public class BattleController implements TrainerControl {
         }
         this.stage = stage;
 
-//        setAttackButtons();
         setSwitchButtons();
         setMainPokemonSprite();
         setBotPokemonSprite();
@@ -98,25 +101,6 @@ public class BattleController implements TrainerControl {
         return getBotTrainer().getActivePokemons().getFirst();
     }
 
-//    private void setAttackButtons() {
-//        ArrayList<Move> moves = getMainTrainer().getActivePokemons().getFirst().getMoves();
-//
-//        for (Move move : moves) {
-//            Button moveButton = new Button(move.getName());
-//            moveButton.setPrefSize(200, 50);
-//            movesButtons.getChildren().add(moveButton);
-//
-//            moveButton.setOnAction((actionEvent -> {
-//                System.out.println("moveButton.setOnAction : " + getMainTrainerPokemon().getMoveByName(moveButton.getText()));
-//                try {
-//                    graphicBattle.executeCurrentPhase();
-//                } catch (InterruptedException e) {
-//                    throw new RuntimeException(e);
-//                }
-//            }));
-//        }
-//    }
-
     @Override
     public CompletableFuture<Move> getMoveChoiceAsync(Pokemon pokemon) {
         System.out.println("getMoveChoice is called");
@@ -138,6 +122,7 @@ public class BattleController implements TrainerControl {
                         graphicBattle.executeCurrentPhase(); // APPLY MOVE PHASE
                         setPokemonsCurrentHPs();
                         graphicBattle.executeCurrentPhase(); // END PHASE
+                        setBotPokemonSprite();
                         graphicBattle.executeCurrentPhase(); // START PHASE
                         graphicBattle.executeCurrentPhase(); // SELECT MOVE PHASE
                     } catch (InterruptedException ex) {
@@ -172,25 +157,23 @@ public class BattleController implements TrainerControl {
                 pokemonSpriteURL.toExternalForm());
     }
 
-    private ImageView createPokemonImageView(String pokemonName, String direction) {
-        Image pokemonSprite = getPokemonSprite(pokemonName, direction);
-
-        ImageView pokemonSpriteImageView = new ImageView(pokemonSprite);
-        pokemonSpriteImageView.setFitWidth(350);
-        pokemonSpriteImageView.setPickOnBounds(true);
-        pokemonSpriteImageView.setPreserveRatio(true);
-
-        return pokemonSpriteImageView;
-    }
+//    private ImageView createPokemonImageView(String pokemonName, String direction) {
+//        Image pokemonSprite = getPokemonSprite(pokemonName, direction);
+//
+//        ImageView pokemonSpriteImageView = new ImageView(pokemonSprite);
+//        pokemonSpriteImageView.setFitWidth(350);
+//        pokemonSpriteImageView.setPickOnBounds(true);
+//        pokemonSpriteImageView.setPreserveRatio(true);
+//
+//        return pokemonSpriteImageView;
+//    }
 
     private void setMainPokemonSprite() {
-        ImageView pokemonSpriteImageView = createPokemonImageView(getMainTrainer().getActivePokemons().getFirst().getName(), "back");
-        mainPokemonBackSprite.getChildren().add(pokemonSpriteImageView);
+        mainPokemonSpriteImageView.setImage(getPokemonSprite(getMainTrainer().getActivePokemons().getFirst().getName(), "back"));
     }
 
     private void setBotPokemonSprite() {
-        ImageView pokemonSpriteImageView = createPokemonImageView(getBotTrainer().getActivePokemons().getFirst().getName(), "face");
-        botPokemonFrontSprite.getChildren().add(pokemonSpriteImageView);
+        botPokemonSpriteImageView.setImage(getPokemonSprite(getBotTrainer().getActivePokemons().getFirst().getName(), "face"));
     }
 
     private void setSwitchButtons() {

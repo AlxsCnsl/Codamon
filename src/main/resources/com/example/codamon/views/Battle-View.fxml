@@ -55,9 +55,9 @@
                         <ProgressBar prefWidth="300" progress="0.80" visible="false"/>
                     </VBox>
                     <VBox fx:id="mainPokemonBackSprite" style="-fx-border:solid;-fx-border-color:blue">
-<!--                        <ImageView fitWidth="350" pickOnBounds="true" preserveRatio="true">-->
-<!--                            <Image url="@../sprites/Pokemon/raikou/raikou_back.png"/>-->
-<!--                        </ImageView>-->
+                        <ImageView fx:id="mainPokemonSpriteImageView" fitWidth="350" pickOnBounds="true" preserveRatio="true">
+
+                        </ImageView>
                     </VBox>
                 </VBox>
 
@@ -89,9 +89,9 @@
                         <ProgressBar prefWidth="300" progress="0.80" visible="false"/>
                     </VBox>
                     <VBox fx:id="botPokemonFrontSprite" style="-fx-border:solid;-fx-border-color:blue">
-<!--                        <ImageView fitWidth="350" pickOnBounds="true" preserveRatio="true">-->
-<!--                            <Image url="@../sprites/Pokemon/togekiss/togekiss_face.png"/>-->
-<!--                        </ImageView>-->
+                        <ImageView fx:id="botPokemonSpriteImageView" fitWidth="350" pickOnBounds="true" preserveRatio="true">
+
+                        </ImageView>
                     </VBox>
                 </VBox>
             </Group>
