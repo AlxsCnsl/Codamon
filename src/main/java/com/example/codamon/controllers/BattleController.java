@@ -2,11 +2,11 @@ package com.example.codamon.controllers;
 
 import com.example.codamon.PokeApp;
 import com.example.codamon.core.Trainer;
-import com.example.codamon.core.batlle.Battle;
-import com.example.codamon.core.batlle.GraphicBattle;
-import com.example.codamon.core.batlle.Terrain;
-import com.example.codamon.core.batlle.control.TrainerControl;
-import com.example.codamon.core.batlle.move.Move;
+import com.example.codamon.core.battle.Battle;
+import com.example.codamon.core.battle.GraphicBattle;
+import com.example.codamon.core.battle.Terrain;
+import com.example.codamon.core.battle.control.TrainerControl;
+import com.example.codamon.core.battle.move.Move;
 import com.example.codamon.core.pokemon.Pokemon;
 import com.example.codamon.models.SceneName;
 import javafx.application.Platform;

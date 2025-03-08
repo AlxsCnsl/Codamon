@@ -1,11 +1,11 @@
 package com.example.codamon.core.pokemon;
 import com.example.codamon.core.Trainer;
-import com.example.codamon.core.batlle.move.MoveTools;
+import com.example.codamon.core.battle.move.MoveTools;
 import com.example.codamon.core.type.TypeTools;
-import com.example.codamon.core.batlle.Terrain;
-import com.example.codamon.core.batlle.effect.batlle_effect.status.Status;
+import com.example.codamon.core.battle.Terrain;
+import com.example.codamon.core.battle.effect.battle_effect.status.Status;
 import com.example.codamon.core.type.Type;
-import com.example.codamon.core.batlle.move.Move;
+import com.example.codamon.core.battle.move.Move;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.JsonNode;
 

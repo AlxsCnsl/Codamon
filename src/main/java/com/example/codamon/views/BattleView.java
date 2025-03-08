@@ -2,16 +2,11 @@ package com.example.codamon.views;
 
 import com.example.codamon.PokeApp;
 import com.example.codamon.controllers.BattleController;
-import com.example.codamon.controllers.MenuController;
 import com.example.codamon.core.Trainer;
-import com.example.codamon.core.batlle.GraphicBattle;
-import com.example.codamon.core.batlle.control.GraphicControl;
-import com.example.codamon.core.batlle.control.TrainerControl;
-import com.example.codamon.core.batlle.turn_manager.GraphicTurnManager;
+import com.example.codamon.core.battle.GraphicBattle;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;

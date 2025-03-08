@@ -1,8 +1,7 @@
 package com.example.codamon.core;
 
-import com.example.codamon.core.batlle.Battle;
-import com.example.codamon.core.batlle.Terrain;
-import com.example.codamon.core.batlle.control.TrainerControl;
+import com.example.codamon.core.battle.Terrain;
+import com.example.codamon.core.battle.control.TrainerControl;
 import com.example.codamon.core.pokemon.Pokemon;
 import com.example.codamon.core.pokemon.Team;
 

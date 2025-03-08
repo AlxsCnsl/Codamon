@@ -1,7 +1,7 @@
 package com.example.codamon.core.pokemon;
 
 import com.example.codamon.core.Trainer;
-import com.example.codamon.core.batlle.Terrain;
+import com.example.codamon.core.battle.Terrain;
 
 import java.util.ArrayList;
 

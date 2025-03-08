@@ -1,20 +1,10 @@
 package com.example.codamon;
 
-import com.example.codamon.controllers.BattleController;
 import com.example.codamon.core.Trainer;
-import com.example.codamon.core.batlle.Battle;
-import com.example.codamon.core.batlle.Terrain;
-import com.example.codamon.core.batlle.control.BotControl;
-import com.example.codamon.core.batlle.control.ConsoleControl;
-import com.example.codamon.core.batlle.control.GraphicControl;
-import com.example.codamon.core.pokemon.Pokemon;
-import com.example.codamon.core.pokemon.Team;
 import com.example.codamon.models.SceneName;
-import com.example.codamon.views.BattleView;
 import com.example.codamon.views.MenuView;
 import com.example.codamon.views.TeamBuilderView;
 
-import com.example.codamon.core.batlle.turn_manager.TurnManager;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -22,7 +12,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 public class PokeApp extends Application {
 
