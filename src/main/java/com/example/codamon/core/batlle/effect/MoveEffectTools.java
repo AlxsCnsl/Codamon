@@ -21,6 +21,10 @@ public class MoveEffectTools {
                 effects.add(SwitchActivePokemonEffect.
                         newMoveEffect(effectNode));
 
+            case "TargetSelfEffect" ->
+                effects.add(TargetSelfEffect.
+                        newMoveEffect(effectNode));
+
             case "TypesFilterEffect" ->
                     effects.add(TypesFilterEffect.
                             newMoveEffect(effectNode));
@@ -36,6 +40,10 @@ public class MoveEffectTools {
             case "ModifierStatisticEffect" ->
                     effects.add(ModifierStatisticEffect.
                             newMoveEffect(effectNode));
+
+            case "HealPercentHPEffect" ->
+                effects.add(HealPercentHPEffect.
+                        newMoveEffect(effectNode));
 
             default ->
                     System.err.println("Type_effect is not in switch : "

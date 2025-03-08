@@ -286,6 +286,10 @@ public class Pokemon {
     public void addModifierStat(String stat, int modifier){
         int pastStats = this.modifierStats.get(stat);
         this.modifierStats.put(stat, pastStats+modifier);
+        if(this.modifierStats.get(stat)>6){
+            this.modifierStats.put(stat, 6);
+
+        }
     }
 
     //REST POKEMON STATS_______________________________________________________
@@ -356,6 +360,16 @@ public class Pokemon {
             this.isAlive = false;
             System.out.println("#POKEMON# "+name+" Is KO !!");
             getOwner().recallPokemon(this);
+        }
+    }
+
+    public void getHeal(int heal){
+        int maxHp = this.getCurrentState("HP");
+        int pvWin = Math.min(heal, maxHp - this.currentHP);
+        System.out.println("#POKEMON# "+name+" gained "+pvWin+" HP");
+        this.currentHP += heal;
+        if(this.currentHP > maxHp){
+            this.currentHP = maxHp;
         }
     }
 

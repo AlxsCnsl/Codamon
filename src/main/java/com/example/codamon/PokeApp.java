@@ -45,7 +45,6 @@ public class PokeApp extends Application {
         stage.setTitle("MENU");
         stage.show();
 
-        /*
 
 
         //ALEXIS________________________________________________________________
@@ -76,9 +75,7 @@ public class PokeApp extends Application {
 
         Pokemon togekiss = new Pokemon("Togekiss");
         togekiss.addMove("Charge");
-        togekiss.addMove("Eclair");
-        togekiss.addMove("Fatal-Foudre");
-        togekiss.addMove("Cage-Eclair");
+        togekiss.addMove("Atterrissage");
 
         Pokemon lugulabre = new Pokemon("Lugulabre");
         lugulabre.addMove("Para-Spore");
@@ -92,8 +89,8 @@ public class PokeApp extends Application {
         alexis.addPokemon(pikachu);
 
         Trainer ethan = new Trainer("Ethan", new BotControl());
-        ethan.addPokemon(rafflesia);
         ethan.addPokemon(togekiss);
+        ethan.addPokemon(rafflesia);
         ethan.addPokemon(lugulabre);
 
 
@@ -113,9 +110,9 @@ public class PokeApp extends Application {
         */
 
 
-//        Battle battle = new Battle(alexis, ethan, new TurnManager());
-//        System.out.println(alexis.getTerrain());System.out.println(ethan.getTerrain());
-//        battle.run();
+        Battle battle = new Battle(alexis, ethan, new TurnManager());
+        System.out.println(alexis.getTerrain());System.out.println(ethan.getTerrain());
+        //battle.run();
 
     }
 

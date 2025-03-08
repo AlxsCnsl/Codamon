@@ -18,20 +18,7 @@ public class GraphicBattle extends Battle {
         this.stage = stage;
     }
 
-    public void run() throws InterruptedException {
-        System.out.println("#BATTLE# Start of graphic BAAATTTLLLEEEE : ");
-
-        this.turnRule.startBattleRule(this);
-        while (isRunning){
-            //=======================================
-
-            System.out.println(
-                    "#BATTLE# Start of phase : "+this.getPhase().toString());
-            this.turnRule.executePhase(this.phase, this);
-            this.nextPhase();
-            //===============================================
-        }
-    }
+    public void run() {}
 
     public void executeCurrentPhase() throws InterruptedException {
         System.out.println(

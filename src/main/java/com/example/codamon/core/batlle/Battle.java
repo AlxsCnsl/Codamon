@@ -72,14 +72,18 @@ public class Battle {
         }
     }
 
-    public void run() throws InterruptedException {
+    public void run()  {
         System.out.println("#BATTLE# Start of BAAATTTLLLEEEE : ");
 
         this.turnRule.startBattleRule(this);
         while (isRunning){
             System.out.println(
                     "#BATTLE# Start of phase : "+this.getPhase().toString());
-            this.turnRule.executePhase(this.phase, this);
+            try {
+                this.turnRule.executePhase(this.phase, this);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             this.nextPhase();
         }
     }
