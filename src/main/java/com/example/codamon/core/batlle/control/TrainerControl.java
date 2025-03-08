@@ -11,7 +11,7 @@ public interface TrainerControl {
 
     public CompletableFuture<Move> getMoveChoiceAsync(Pokemon pokemon);
 
-    public void switchBeforeKo(Trainer trainer);
+    public CompletableFuture<Void> switchBeforeKoAsync(Trainer trainer);
 
     void setStage(Stage stage);
 

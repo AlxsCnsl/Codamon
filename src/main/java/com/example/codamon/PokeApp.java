@@ -45,8 +45,6 @@ public class PokeApp extends Application {
         stage.setTitle("MENU");
         stage.show();
 
-
-
 //        //ALEXIS________________________________________________________________
 //        Scanner scanner = new Scanner(System.in); // Création du scanner
 //

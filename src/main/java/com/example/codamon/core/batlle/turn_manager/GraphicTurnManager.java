@@ -70,15 +70,29 @@ public class GraphicTurnManager implements Turn {
 
     public void endPhaseRule(Battle battle) throws InterruptedException {
         System.out.println("END PHASE executed");
+
+        // Perform any phase–end effects first
         endPhasesEffect(battle);
-        switchIfPokemonKo(battle);
-        terrainsLog(battle);
-        if(checkEndBattleCondition(battle)){
-            battle.stop();
-        }
-        terrainsLog(battle);
+
+        // Now, if a switch is needed, wait for the switch to be made
+        switchIfPokemonKoAsync(battle)
+                .thenRun(() -> {
+                    // Switch is now complete—you can proceed with the remainder of your end phase.
+                    terrainsLog(battle);
+                    if (checkEndBattleCondition(battle)) {
+                        battle.stop();
+                    }
+                    terrainsLog(battle);
+                })
+                .exceptionally(ex -> {
+                    ex.printStackTrace();
+                    return null;
+                });
+
+        // Remove the sleep if you're fully asynchronous; otherwise, consider scheduling further actions.
         Thread.sleep(1000);
     }
+
     private void endPhasesEffect(Battle battle){
         for(Terrain terrain: battle.getTerrains()){
             for (Pokemon pokemon : terrain.getActivePokemons()){
@@ -101,10 +115,9 @@ public class GraphicTurnManager implements Turn {
     }
 
     //Tools____________________________________________________________________
-    private void trainersMoveChoice(Battle battle){
+    private void trainersMoveChoice(Battle battle) {
         ArrayList<Trainer> trainers = new ArrayList<>();
-
-        for(Terrain terrain : battle.getTerrains()){
+        for (Terrain terrain : battle.getTerrains()) {
             trainers.addAll(terrain.getTrainersTeam());
         }
 
@@ -115,26 +128,44 @@ public class GraphicTurnManager implements Turn {
                 trainers.getLast().getControl().getMoveChoiceAsync(
                         trainers.getLast().getActivePokemons().getFirst());
 
-        // Wait until both moves are chosen
+        // Wait for both moves to be chosen
         CompletableFuture<Void> bothMovesChosen =
                 CompletableFuture.allOf(humanMoveFuture, botMoveFuture);
 
-        bothMovesChosen.thenRun(() -> {
+        bothMovesChosen.thenCompose(v -> {
+            // Once both moves are gathered, add them to the move queue.
             Move humanMove = humanMoveFuture.join();
             Move botMove = botMoveFuture.join();
-
             moveQueue.addMoveInQueue(humanMove);
             moveQueue.addMoveInQueue(botMove);
             System.out.println("moveQueue : " + moveQueue.getMoveQueue());
-
+            try {
+                battle.executeCurrentPhase(); // APPLY MOVE PHASE
+                battle.executeCurrentPhase(); // END PHASE
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            // Now, instead of immediately advancing the phases,
+            // check if a switch is needed. For example, if the human trainer’s active Pokémon is KO:
+            Trainer humanTrainer = trainers.getFirst();
+            if (humanTrainer.getTerrain().getActivePokemons().isEmpty()) {
+                // The human needs to switch; wait for the switch to complete.
+                System.out.println("A switch is needed. Waiting for the player to select...");
+                return humanTrainer.getControl().switchBeforeKoAsync(humanTrainer)
+                        .thenApply(x -> null); // Chain to a Void future.
+            } else {
+                // Otherwise, return a completed future so we continue immediately.
+                return CompletableFuture.completedFuture(null);
+            }
+        }).thenRun(() -> {
+            // Now all prerequisites are fulfilled—both moves are chosen and any switch is done.
+            // Advance the battle phases.
             Platform.runLater(() -> {
                 try {
-                    battle.executeCurrentPhase(); // APPLY MOVE PHASE
-                    battle.executeCurrentPhase(); // END PHASE
                     battle.executeCurrentPhase(); // START PHASE
                     updatePokemons(battle);
-                    battle.executeCurrentPhase();
-                    updatePokemons(battle);// SELECT MOVE PHASE
+                    battle.executeCurrentPhase();  // SELECT MOVE PHASE
+                    updatePokemons(battle);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -142,27 +173,30 @@ public class GraphicTurnManager implements Turn {
         });
     }
 
+
     private void updatePokemons(Battle battle) {
         battle.getPlayersTeams().getFirst().getFirst().getControl().updatePokemons();
     }
 
-    private void switchIfPokemonKo(Battle battle){//=====à Modifier Pour 2V2
-        for(Terrain terrain : battle.getTerrains()){
-            for(Trainer trainer : terrain.getTrainersTeam()){
-                if(trainer.getTerrain().getActivePokemons().isEmpty()){
-                    ArrayList<Pokemon> trainerTeam =
-                            trainer.getPokemonsTeam().getPokemons();
-                    for(Pokemon pokemon : trainerTeam ){
-                        if(pokemon.getIsAlive()){
-                            //aux moin 1 pkm vivant donc le trainer peut switch
-                            trainer.getControl().switchBeforeKo(trainer);
-                            return;
+    private CompletableFuture<Void> switchIfPokemonKoAsync(Battle battle) {
+        for (Terrain terrain : battle.getTerrains()) {
+            for (Trainer trainer : terrain.getTrainersTeam()) {
+                if (trainer.getTerrain().getActivePokemons().isEmpty()) {
+                    // If at least one Pokémon is KO and there is at least one living Pokémon,
+                    // ask the trainer to select a Pokémon via the UI.
+                    for (Pokemon pokemon : trainer.getPokemonsTeam().getPokemons()) {
+                        if (pokemon.getIsAlive()) {
+                            System.out.println("switchIfPokemonKoAsync: Requesting switch for trainer " + trainer);
+                            return trainer.getControl().switchBeforeKoAsync(trainer);
                         }
                     }
                 }
             }
         }
+        // No switch needed: return an already completed future.
+        return CompletableFuture.completedFuture(null);
     }
+
 
     private Boolean checkEndBattleCondition(Battle battle){
         for (Terrain terrain : battle.getTerrains()){

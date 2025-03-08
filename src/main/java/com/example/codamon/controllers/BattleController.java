@@ -46,11 +46,6 @@ public class BattleController implements TrainerControl {
     @FXML Text pokemonCurrentHP2;
     @FXML Text pokemonMaxHP2;
 
-    @Override
-    public void switchBeforeKo(Trainer trainer) {
-        return;
-    }
-
     public void setStage(Stage stage) {
         if (stage == null) {
             throw new IllegalArgumentException("Stage cannot be null");
@@ -143,6 +138,58 @@ public class BattleController implements TrainerControl {
         }
         return target;
     }
+
+    public CompletableFuture<Void> switchBeforeKoAsync(Trainer trainer) {
+        CompletableFuture<Void> switchFuture = new CompletableFuture<>();
+
+        // Run UI updates on the FX thread
+        Platform.runLater(() -> {
+            System.out.println("switchBeforeKoAsync: Displaying switch buttons...");
+
+            // Clear any previous buttons from the container (make sure switchButtons is visible)
+            switchButtons.getChildren().clear();
+
+            // Get the team of Pokémon for the main trainer (could be trainer.getPokemonsTeam().getPokemons())
+            ArrayList<Pokemon> team = getMainTrainer().getPokemonsTeam().getPokemons();
+            boolean anyAvailable = false;
+
+            // For each living Pokémon in the team, create a button for switching
+            for (Pokemon pokemonSwitch : team) {
+                if (!pokemonSwitch.getIsAlive()) {
+                    // Skip Pokémon that are KO
+                    continue;
+                }
+                anyAvailable = true;
+                Button switchButton = new Button(pokemonSwitch.getName());
+                switchButton.setPrefSize(100, 30);
+                // When the user clicks a button, send the chosen Pokémon,
+                // clear the buttons, update the UI, and then complete the future.
+                switchButton.setOnAction(e -> {
+                    System.out.println("switchBeforeKoAsync: " + pokemonSwitch.getName() + " selected.");
+                    getMainTrainer().sendPokemon(pokemonSwitch);
+                    switchButtons.getChildren().clear();
+                    updatePokemons();
+                    if (!switchFuture.isDone()) {
+                        switchFuture.complete(null);
+                    }
+                });
+
+                // Add the button to the container (make sure this container is visible)
+                switchButtons.getChildren().add(switchButton);
+            }
+
+            // If no available Pokémon are found (should not happen if end-phase was reached properly),
+            // complete the future to avoid hanging.
+            if (!anyAvailable) {
+                System.out.println("switchBeforeKoAsync: No available Pokémon to switch!");
+                switchFuture.complete(null);
+            }
+        });
+
+        return switchFuture;
+    }
+
+
 
     private Image getPokemonSprite(String pokemonName, String direction) {
         URL pokemonSpriteURL = getClass().getResource(

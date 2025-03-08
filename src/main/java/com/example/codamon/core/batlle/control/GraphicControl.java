@@ -16,8 +16,8 @@ public class GraphicControl implements TrainerControl {
         return null;
     }
 
-    public void switchBeforeKo(Trainer trainer){
-
+    public CompletableFuture<Void> switchBeforeKoAsync(Trainer trainer){
+        return null;
     }
 
     public void setStage(Stage stage) {
