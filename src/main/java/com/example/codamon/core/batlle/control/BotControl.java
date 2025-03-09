@@ -30,7 +30,7 @@ public class BotControl implements TrainerControl{
 
     public CompletableFuture<Void> switchBeforeKoAsync(Trainer trainer){
         trainer.sendPokemon(getRandPokemonAlive(trainer));
-        return null;
+        return CompletableFuture.completedFuture(null);
     }
 
     public void setStage(Stage stage){}
