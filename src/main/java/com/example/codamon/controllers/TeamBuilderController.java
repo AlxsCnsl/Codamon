@@ -58,33 +58,11 @@ public class TeamBuilderController {
 
     @FXML
     public void onBattleButtonClick() throws IOException, InterruptedException {
-        Pokemon pikachu = new Pokemon("Pikachu");
-        pikachu.addMove("Charge");
-        pikachu.addMove("Eclair");
-        pikachu.addMove("Fatal-Foudre");
-        pikachu.addMove("Cage-Eclair");
-
-        Pokemon raikou = new Pokemon("Raikou");
-        raikou.addMove("Charge");
-        raikou.addMove("Eclair");
-        raikou.addMove("Fatal-Foudre");
-        raikou.addMove("Cage-Eclair");
-
-        HashMap<String, Object> userData = (HashMap<String, Object>) stage.getUserData();
-        Trainer pokemonTrainer = (Trainer) userData.get("pokemonTrainer");
-
-        Trainer bot = new Trainer("bot", new BotControl());
-//        bot.addPokemon(pikachu);
-        bot.addPokemon(raikou);
-
-        GraphicBattle graphicBattle = new GraphicBattle(pokemonTrainer, bot, new GraphicTurnManager());
-        graphicBattle.turnRule.startBattleRule(graphicBattle);
 
         Map<SceneName, Scene> scenes = PokeApp.getScenes();
         scenes.put(
-                SceneName.BATTLE, new BattleView(stage, graphicBattle).getScene());
+                SceneName.BATTLE, new BattleView(stage).getScene());
         stage.setScene(PokeApp.getScenes().get(SceneName.BATTLE));
-
 
     }
 

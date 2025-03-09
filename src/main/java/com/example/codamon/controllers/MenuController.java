@@ -32,21 +32,7 @@ public class MenuController {
 
     @FXML
     public void onBattleButtonClick() {
-        Pokemon pikachu = new Pokemon("Pikachu");
-        pikachu.addMove("Charge");
-        pikachu.addMove("Eclair");
-        pikachu.addMove("Fatal-Foudre");
-        pikachu.addMove("Cage-Eclair");
-
-        HashMap<String, Object> userData = (HashMap<String, Object>) stage.getUserData();
-        Trainer pokemonTrainer = (Trainer) userData.get("pokemonTrainer");
-
-        Trainer bot = new Trainer("bot", new BotControl());
-        bot.addPokemon(pikachu);
-
         stage.setScene(PokeApp.getScenes().get(SceneName.BATTLE));
-        GraphicBattle graphicBattle = new GraphicBattle(pokemonTrainer, bot, new GraphicTurnManager());
-        graphicBattle.turnRule.startBattleRule(graphicBattle);
     }
 
     @FXML

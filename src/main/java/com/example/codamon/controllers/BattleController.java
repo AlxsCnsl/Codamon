@@ -5,14 +5,15 @@ import com.example.codamon.core.Trainer;
 import com.example.codamon.core.batlle.Battle;
 import com.example.codamon.core.batlle.GraphicBattle;
 import com.example.codamon.core.batlle.Terrain;
+import com.example.codamon.core.batlle.control.BotControl;
 import com.example.codamon.core.batlle.control.TrainerControl;
 import com.example.codamon.core.batlle.move.Move;
+import com.example.codamon.core.batlle.turn_manager.GraphicTurnManager;
 import com.example.codamon.core.pokemon.Pokemon;
 import com.example.codamon.models.SceneName;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -31,7 +32,7 @@ public class BattleController implements TrainerControl {
     public BattleController() {}
 
     private Stage stage;
-    private GraphicBattle graphicBattle;
+    private GraphicBattle battle;
     @FXML VBox history;
     @FXML HBox movesButtons;
     @FXML HBox switchButtons;
@@ -48,11 +49,19 @@ public class BattleController implements TrainerControl {
     @FXML Text pokemonCurrentHP2;
     @FXML Text pokemonMaxHP2;
 
-    public void setStage(Stage stage) {
+    public void setStage(Stage stage) throws InterruptedException {
         if (stage == null) {
             throw new IllegalArgumentException("Stage cannot be null");
         }
         this.stage = stage;
+        setBattle();
+        this.battle.getTurnRule().startBattleRule(this.battle);
+        setScreen();
+        this.battle.executeCurrentPhase();
+        this.battle.executeCurrentPhase();
+    }
+
+    private void setScreen(){
         setSwitchButtons();
         setMainPokemonSprite();
         setBotPokemonSprite();
@@ -60,10 +69,32 @@ public class BattleController implements TrainerControl {
         setPokemonHPs();
     }
 
-    public void setGraphicBattle(GraphicBattle graphicBattle) throws InterruptedException {
-        this.graphicBattle = graphicBattle;
-        graphicBattle.executeCurrentPhase();
-        graphicBattle.executeCurrentPhase();
+    private void setBattle() throws InterruptedException {
+        Trainer user = getMainTrainer();
+        user.setController(this);
+        Trainer botTrainer = setBotTrainer();
+        battle =  new GraphicBattle(
+                user,
+                botTrainer,
+                new GraphicTurnManager()
+        );
+    }
+    private Trainer setBotTrainer(){
+        Trainer bot = new Trainer("Ethan", new BotControl());
+        Pokemon lugulabre = new Pokemon("Lugulabre");
+        lugulabre.addMove("feu-follet");
+        lugulabre.addMove("Charge");
+        Pokemon togekiss = new Pokemon("Togekiss");
+        togekiss.addMove("Charge");
+        togekiss.addMove("Mimi-queue");
+        togekiss.addMove("Atterrissage");
+        bot.addPokemon(togekiss);
+        bot.addPokemon(lugulabre);
+        return bot;
+    }
+
+    public void setBattle(GraphicBattle battle) throws InterruptedException {
+        this.battle = battle;
     }
 
     @FXML
@@ -74,7 +105,6 @@ public class BattleController implements TrainerControl {
     private Trainer getMainTrainer() {
         HashMap<String, Object> userData = (HashMap<String, Object>) stage.getUserData();
         Trainer mainTrainer = (Trainer) userData.get("pokemonTrainer");
-
         return mainTrainer;
     }
 

@@ -13,7 +13,7 @@ public interface TrainerControl {
 
     public CompletableFuture<Void> switchBeforeKoAsync(Trainer trainer);
 
-    void setStage(Stage stage);
+    void setStage(Stage stage) throws InterruptedException;
 
     public void updatePokemons();
     public void updateHistory(String text, int size);

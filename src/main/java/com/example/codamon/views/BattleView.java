@@ -14,11 +14,9 @@ import java.util.HashMap;
 
 public class BattleView implements ViewMaker {
     private Stage stage;
-    public GraphicBattle graphicBattle;
 
-    public BattleView(Stage stage, GraphicBattle graphicBattle) {
+    public BattleView(Stage stage) {
         this.stage = stage;
-        this.graphicBattle = graphicBattle;
     }
 
     @Override
@@ -28,14 +26,8 @@ public class BattleView implements ViewMaker {
                         "/com/example/codamon/views/Battle-View.fxml"));
         Parent root = fxmlLoader.load();
 
-        HashMap<String, Object> userData = (HashMap<String, Object>) stage.getUserData();
-        Trainer pokemonTrainer = (Trainer) userData.get("pokemonTrainer");
-
         BattleController controller = fxmlLoader.getController();
-        pokemonTrainer.setController(controller);
-        System.out.println(pokemonTrainer.getName()+"===================");
         controller.setStage(stage);
-        controller.setGraphicBattle(graphicBattle);
 
         return new Scene(root, 1500, 800);
     }

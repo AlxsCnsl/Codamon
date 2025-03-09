@@ -11,7 +11,7 @@ public class Battle {
     protected ArrayList<ArrayList<Trainer>> playersTeams =
             new ArrayList<>();//if 2p/2p
     protected ArrayList<Terrain> terrains = new ArrayList<>();
-    public Turn turnRule;
+    protected Turn turnRule;
     private int turneNumber = 0;
     protected BattlePhase phase = BattlePhase.START_PHASE;
     protected Boolean isRunning = true;
@@ -46,6 +46,9 @@ public class Battle {
     }
     public int getTurneNumber(){
         return turneNumber;
+    }
+    public Turn getTurnRule(){
+        return turnRule;
     }
 
     //SETTER___________________________________________________________________
