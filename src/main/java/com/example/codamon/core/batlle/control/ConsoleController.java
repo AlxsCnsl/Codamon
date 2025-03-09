@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 
 import java.util.concurrent.CompletableFuture;
 
-public class ConsoleControl implements TrainerControl{
+public class ConsoleController implements TrainerController {
     public String moveChoice(Trainer trainer, Pokemon pokemon){
         return null;
     }

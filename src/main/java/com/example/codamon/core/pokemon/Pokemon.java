@@ -302,8 +302,8 @@ public class Pokemon {
         this.modifierStats.put(stat, pastStats+modifier);
         if(this.modifierStats.get(stat)>6){
             this.modifierStats.put(stat, 6);
-        } else if (this.modifierStats.get(stat)<6) {
-            this.modifierStats.put(stat, 6);
+        } else if (this.modifierStats.get(stat)<-6) {
+            this.modifierStats.put(stat, -6);
         }
     }
 

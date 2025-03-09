@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 
-public class BotControl implements TrainerControl{
-    public BotControl(){}
+public class BotController implements TrainerController {
+    public BotController(){}
 
 
     public CompletableFuture<Move> getMoveChoiceAsync(Pokemon pokemon){

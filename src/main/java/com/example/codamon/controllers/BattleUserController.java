@@ -5,8 +5,8 @@ import com.example.codamon.core.Trainer;
 import com.example.codamon.core.batlle.Battle;
 import com.example.codamon.core.batlle.GraphicBattle;
 import com.example.codamon.core.batlle.Terrain;
-import com.example.codamon.core.batlle.control.BotControl;
-import com.example.codamon.core.batlle.control.TrainerControl;
+import com.example.codamon.core.batlle.control.BotController;
+import com.example.codamon.core.batlle.control.TrainerController;
 import com.example.codamon.core.batlle.move.Move;
 import com.example.codamon.core.batlle.turn_manager.GraphicTurnManager;
 import com.example.codamon.core.pokemon.Pokemon;
@@ -27,9 +27,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
 
-public class BattleController implements TrainerControl {
+public class BattleUserController implements TrainerController {
 
-    public BattleController() {}
+    public BattleUserController() {}
 
     private Stage stage;
     private GraphicBattle battle;
@@ -80,7 +80,7 @@ public class BattleController implements TrainerControl {
         );
     }
     private Trainer setBotTrainer(){
-        Trainer bot = new Trainer("Ethan", new BotControl());
+        Trainer bot = new Trainer("Ethan", new BotController());
         Pokemon lugulabre = new Pokemon("Lugulabre");
         lugulabre.addMove("feu-follet");
         lugulabre.addMove("Charge");

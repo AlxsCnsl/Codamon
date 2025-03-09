@@ -1,12 +1,9 @@
 package com.example.codamon.core;
 
-import com.example.codamon.core.batlle.Battle;
 import com.example.codamon.core.batlle.Terrain;
-import com.example.codamon.core.batlle.control.TrainerControl;
+import com.example.codamon.core.batlle.control.TrainerController;
 import com.example.codamon.core.pokemon.Pokemon;
 import com.example.codamon.core.pokemon.Team;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 
@@ -15,9 +12,9 @@ public class Trainer {
     private ArrayList<Pokemon> activePokemons = new ArrayList<>();
     private String name;
     private Terrain terrain = null;  ;
-    private TrainerControl control;
+    private TrainerController control;
 
-    public Trainer(String name, TrainerControl control){
+    public Trainer(String name, TrainerController control){
         this.name = name;
         this.control = control;
         this.pokemonsTeam = new Team(this);
@@ -38,7 +35,7 @@ public class Trainer {
         return activePokemons;
     }
 
-    public TrainerControl getControl(){
+    public TrainerController getControl(){
         return control;
     }
 
@@ -67,7 +64,7 @@ public class Trainer {
         activePokemons.add(pokemon);
     }
 
-    public void setController(TrainerControl controller) {
+    public void setController(TrainerController controller) {
         this.control = controller;
     }
 
@@ -91,7 +88,8 @@ public class Trainer {
                 if (pokemon.equals(sendedPokemon) &&
                         pokemon.getTerrain() == null) {
                     sendedPokemon.gotToTerrain(this.terrain);
-
+                    System.out.println("#TRAINER# " + name + " send  " +
+                            sendedPokemon.getName());
                     return;
                 }
             }
@@ -106,8 +104,9 @@ public class Trainer {
             for (Pokemon pokemon : pokemonsTeam.getPokemons()) {
                 if (pokemon.equals(calledPokemon) &&
                         pokemon.getTerrain()!= null) {
-
                     calledPokemon.quitTerrain();
+                    System.out.println("#TRAINER# " + name + " send  " +
+                            calledPokemon.getName());
                     return;
                 }
             }
