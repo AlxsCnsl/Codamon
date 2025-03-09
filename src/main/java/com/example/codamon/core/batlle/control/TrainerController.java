@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 
 import java.util.concurrent.CompletableFuture;
 
-public interface TrainerControl {
+public interface TrainerController {
 
     public CompletableFuture<Move> getMoveChoiceAsync(Pokemon pokemon);
 
