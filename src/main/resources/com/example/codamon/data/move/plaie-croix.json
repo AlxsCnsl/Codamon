@@ -1,0 +1,14 @@
+{
+  "name" : "Plaie-Croix",
+  "type" : "BUG",
+  "category" : "Physical",
+  "description" : "Le lanceur taillade la cible en utilisant ses faux ou ses griffes comme une paire de ciseaux.",
+  "power": 80,
+  "accurate": 100,
+  "pp": 15,
+  "priority": 0,
+  "targetMode": "AdjacentTarget",
+  "effects" : [
+    {"type_effect" : "DamageApplicatorEffect"}
+  ]
+}

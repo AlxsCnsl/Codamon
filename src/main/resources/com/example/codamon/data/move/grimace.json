@@ -1,19 +1,19 @@
 {
-  "name" : "Mimi-Queue",
+  "name" : "Grimace",
   "type" : "Normal",
   "category" : "Status",
-  "description" : "Le lanceur remue son adorable queue pour tromper la vigilance de la cible et baisser sa Défense.",
+  "description" : "Le lanceur fait une grimace qui effraie la cible et réduit beaucoup sa Vitesse.",
   "power": 0,
   "accurate": 100,
-  "pp": 30,
+  "pp": 10,
   "priority": 0,
   "targetMode": "AdjacentEnemyTarget",
   "effects" :
   [
     {
       "type_effect": "ModifierStatisticEffect",
-      "statistic": "DEF",
-      "modifier": -1
+      "statistic": "SPE",
+      "modifier": -2
     }
   ]
 }

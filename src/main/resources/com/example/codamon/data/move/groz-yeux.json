@@ -1,8 +1,8 @@
 {
-  "name" : "Mimi-Queue",
+  "name" : "Groz-yeux",
   "type" : "Normal",
   "category" : "Status",
-  "description" : "Le lanceur remue son adorable queue pour tromper la vigilance de la cible et baisser sa Défense.",
+  "description" : "Le lanceur fait les gros yeux à la cible pour l'intimider et baisser sa Défense.",
   "power": 0,
   "accurate": 100,
   "pp": 30,

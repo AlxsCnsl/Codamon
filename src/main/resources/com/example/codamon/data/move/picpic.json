@@ -1,0 +1,14 @@
+{
+  "name" : "Picpic",
+  "type" : "FIGHTING",
+  "category" : "Physical",
+  "description" : "Le lanceur frappe la cible d'un bec acéré ou d'une corne pointue pour infliger des dégâts.",
+  "power": 35,
+  "accurate": 100,
+  "pp": 35,
+  "priority": 0,
+  "targetMode": "AdjacentTarget",
+  "effects" : [
+    {"type_effect" : "DamageApplicatorEffect"}
+  ]
+}
