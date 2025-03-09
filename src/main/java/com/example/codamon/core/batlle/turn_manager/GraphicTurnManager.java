@@ -120,6 +120,7 @@ public class GraphicTurnManager implements Turn {
         CompletableFuture<Move> humanMoveFuture =
                 trainers.getFirst().getControl().getMoveChoiceAsync(
                         trainers.getFirst().getActivePokemons().getFirst());
+
         CompletableFuture<Move> botMoveFuture =
                 trainers.getLast().getControl().getMoveChoiceAsync(
                         trainers.getLast().getActivePokemons().getFirst());
@@ -178,8 +179,6 @@ public class GraphicTurnManager implements Turn {
         for (Terrain terrain : battle.getTerrains()) {
             for (Trainer trainer : terrain.getTrainersTeam()) {
                 if (trainer.getTerrain().getActivePokemons().isEmpty()) {
-                    // If at least one Pokémon is KO and there is at least one living Pokémon,
-                    // ask the trainer to select a Pokémon via the UI.
                     for (Pokemon pokemon : trainer.getPokemonsTeam().getPokemons()) {
                         if (pokemon.getIsAlive()) {
                             System.out.println("switchIfPokemonKoAsync: Requesting switch for trainer " + trainer);
