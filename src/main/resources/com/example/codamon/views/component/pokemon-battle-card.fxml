@@ -1,0 +1,13 @@
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.ImageView?>
+<VBox fx:id="PokemonBattleBorderCard" xmlns:fx="http://www.w3.org/2001/XInclude">
+    <VBox fx:id="PokemonBattleCard">
+        <HBox fx:id="pokemonId">
+            <ImageView>
+            </ImageView>
+            <VBox fx:id="">
+            </VBox>
+        </VBo>
+    </VBox>
+</VBox>

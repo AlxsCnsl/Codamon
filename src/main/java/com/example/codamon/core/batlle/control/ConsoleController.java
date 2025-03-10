@@ -16,7 +16,7 @@ public class ConsoleController implements TrainerController {
         return null;
     }
 
-    public CompletableFuture<Void> switchBeforeKoAsync(Trainer trainer){
+    public CompletableFuture<Void> switchBeforeKo(Trainer trainer){
         return null;
     }
 

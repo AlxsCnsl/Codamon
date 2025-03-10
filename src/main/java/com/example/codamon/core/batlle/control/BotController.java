@@ -24,7 +24,7 @@ public class BotController implements TrainerController {
         return CompletableFuture.completedFuture(getRandAttack(pokemon));
     }
 
-    public CompletableFuture<Void> switchBeforeKoAsync(Trainer trainer){
+    public CompletableFuture<Void> switchBeforeKo(Trainer trainer){
         trainer.sendPokemon(getRandPokemonAlive(trainer));
         return CompletableFuture.completedFuture(null);
     }

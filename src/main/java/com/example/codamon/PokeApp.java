@@ -38,61 +38,6 @@ public class PokeApp extends Application {
         stage.setTitle("MENU");
         stage.show();
 
-//        //ALEXIS________________________________________________________________
-//        Scanner scanner = new Scanner(System.in); // Création du scanner
-//
-//
-//
-//        Pokemon rafflesia = new Pokemon("Rafflesia");
-//        rafflesia.addMove("Para-Spore");
-//        rafflesia.addMove("Charge");
-//
-//        Pokemon psykokwak = new Pokemon("Psykokwak");
-//        psykokwak.addMove("Charge");
-//        psykokwak.addMove("Mimi-Queue");
-//        psykokwak.addMove("Fatal-Foudre");
-//
-//
-//        Pokemon togekiss = new Pokemon("Togekiss");
-//        togekiss.addMove("Charge");
-//        togekiss.addMove("Atterrissage");
-//
-//        Pokemon lugulabre = new Pokemon("Lugulabre");
-//        lugulabre.addMove("Para-Spore");
-//        lugulabre.addMove("Charge");
-//
-//
-//
-//        Trainer alexis = new Trainer("Alexis", new BotControl());
-//        alexis.addPokemon(psykokwak);
-//        alexis.addPokemon(raikou);
-//        alexis.addPokemon(pikachu);
-//
-//        Trainer ethan = new Trainer("Ethan", new BotControl());
-//        ethan.addPokemon(togekiss);
-//        ethan.addPokemon(rafflesia);
-//        ethan.addPokemon(lugulabre);
-//
-//
-//
-//        /*
-//        //=======Test2=====
-//        alexis.setTerrain(new Terrain());
-//        ethan.setTerrain(new Terrain());
-//        alexis.sendPokemon(pikachu);
-//        ethan.sendPokemon(togekiss);
-//        //=======Test2=====
-//
-//        pikachu.loadMove("Switch", psykokwak);
-//        pikachu.getMoveByName("Switch").execute();
-//
-//        psykokwak.getTerrain().getTrainersTeam();
-//        */
-//
-//
-//        Battle battle = new Battle(alexis, ethan, new TurnManager());
-//        System.out.println(alexis.getTerrain());System.out.println(ethan.getTerrain());
-//        //battle.run();
 
     }
 

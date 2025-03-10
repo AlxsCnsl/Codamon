@@ -4,7 +4,6 @@ import com.example.codamon.core.Trainer;
 import com.example.codamon.core.batlle.Battle;
 import com.example.codamon.core.batlle.Terrain;
 import com.example.codamon.core.pokemon.Pokemon;
-import eu.hansolo.tilesfx.addons.Switch;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -105,7 +104,7 @@ public class TurnManager implements Turn {
                     for(Pokemon pokemon : trainerTeam ){
                         if(pokemon.getIsAlive()){
                             //aux moin 1 pkm vivant donc le trainer peut switch
-                            trainer.getControl().switchBeforeKoAsync(trainer);
+                            trainer.getControl().switchBeforeKo(trainer);
                             return;
                         }
                     }

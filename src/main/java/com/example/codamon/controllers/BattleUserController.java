@@ -1,6 +1,7 @@
 package com.example.codamon.controllers;
 
 import com.example.codamon.PokeApp;
+import com.example.codamon.controllers.GraphiqueElements.UiFactory;
 import com.example.codamon.core.Trainer;
 import com.example.codamon.core.batlle.Battle;
 import com.example.codamon.core.batlle.GraphicBattle;
@@ -22,7 +23,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
@@ -79,6 +79,8 @@ public class BattleUserController implements TrainerController {
                 new GraphicTurnManager()
         );
     }
+
+    //à changer plus tard
     private Trainer setBotTrainer(){
         Trainer bot = new Trainer("Ethan", new BotController());
         Pokemon lugulabre = new Pokemon("Lugulabre");
@@ -93,7 +95,7 @@ public class BattleUserController implements TrainerController {
         return bot;
     }
 
-    public void setBattle(GraphicBattle battle) throws InterruptedException {
+    public void setBattle(GraphicBattle battle){
         this.battle = battle;
     }
 
@@ -134,24 +136,20 @@ public class BattleUserController implements TrainerController {
             System.out.println("Platform runlater");
             movesButtons.getChildren().clear();
             for (Move move : pokemon.getMoves()) {
-                Button moveButton = new Button(move.getName());
-                moveButton.setPrefSize(200, 50);
-                moveButton.setOnAction(e -> {
+                HBox attackButton = UiFactory.newAttackButton(move);
+                attackButton.setOnMouseClicked(e -> {
                     move.getOwner().loadMove(move.getName(), getTarget(pokemon));
                     future.complete(move);
                     switchButtons.getChildren().clear();
                     movesButtons.getChildren().clear();
                 });
-                movesButtons.getChildren().add(moveButton);
+                movesButtons.getChildren().add(attackButton);
             } switchButtons.getChildren().clear();
+
             for (Pokemon pokemonSwitch : getMainTrainer().getPokemonsTeam().getPokemons()) {
-                Button switchButton = new Button(pokemonSwitch.getName());
-                updateSwitchButton(pokemonSwitch, switchButton);
-
-
-                switchButton.setPrefSize(100, 30);
-
-                switchButton.setOnAction(e -> {
+                System.out.println(pokemonSwitch.getName());
+                VBox pokemonCard =  UiFactory.newPokemonBattleCard(pokemonSwitch);
+                pokemonCard.setOnMouseClicked(e -> {
                     if (!pokemonSwitch.getIsAlive() ||
                             pokemonSwitch.equals(getMainTrainerPokemon())) {
                         return;
@@ -162,25 +160,13 @@ public class BattleUserController implements TrainerController {
                     movesButtons.getChildren().clear();
                 });
 
-                switchButtons.getChildren().add(switchButton);
+                switchButtons.getChildren().add(pokemonCard);
             }
         });
         return future;
     }
 
-    private void updateSwitchButton(Pokemon pokemonSwitch, Button switchButton){
-        if(!pokemonSwitch.getIsAlive()){
-            switchButton.setStyle(
-                    "-fx-background-color: #4F4F4F; -fx-text-fill: white;");
-        }
-        if(pokemonSwitch == getMainTrainerPokemon()){
-            switchButton.setStyle("-fx-text-fill: black; " +
-                    "-fx-border-color: yellow; " +
-                    "-fx-border-width: 4px; " +
-                    "-fx-border-radius: 5px;");
-        }
 
-    }
 
     private Pokemon getTarget(Pokemon pokemon) {
         Pokemon target = null;
@@ -193,12 +179,12 @@ public class BattleUserController implements TrainerController {
         return target;
     }
 
-    public CompletableFuture<Void> switchBeforeKoAsync(Trainer trainer) {
+    public CompletableFuture<Void> switchBeforeKo(Trainer trainer) {
         CompletableFuture<Void> switchFuture = new CompletableFuture<>();
 
         // Run UI updates on the FX thread
         Platform.runLater(() -> {
-            System.out.println("switchBeforeKoAsync: Displaying switch buttons...");
+            System.out.println("switchBeforeKo: Displaying switch buttons...");
 
             // Clear any previous buttons from the container (make sure switchButtons is visible)
             switchButtons.getChildren().clear();
@@ -219,7 +205,7 @@ public class BattleUserController implements TrainerController {
                 // When the user clicks a button, send the chosen Pokémon,
                 // clear the buttons, update the UI, and then complete the future.
                 switchButton.setOnAction(e -> {
-                    System.out.println("switchBeforeKoAsync: " + pokemonSwitch.getName() + " selected.");
+                    System.out.println("switchBeforeKo: " + pokemonSwitch.getName() + " selected.");
                     getMainTrainer().sendPokemon(pokemonSwitch);
                     switchButtons.getChildren().clear();
                     updatePokemons();
@@ -235,7 +221,7 @@ public class BattleUserController implements TrainerController {
             // If no available Pokémon are found (should not happen if end-phase was reached properly),
             // complete the future to avoid hanging.
             if (!anyAvailable) {
-                System.out.println("switchBeforeKoAsync: No available Pokémon to switch!");
+                System.out.println("switchBeforeKo: No available Pokémon to switch!");
                 switchFuture.complete(null);
             }
         });
@@ -245,18 +231,17 @@ public class BattleUserController implements TrainerController {
 
 
 
-    private Image getPokemonSprite(String pokemonName, String direction) {
-        URL pokemonSpriteURL = getClass().getResource(
-                "/com/example/codamon/sprites/Pokemon/" +
-                        pokemonName.toLowerCase() + "/" +
-                        pokemonName.toLowerCase() + "_" + direction + ".png");
+    private VBox getTypeBox(String type){
+        VBox typeBox = new VBox();
+        return null;
+    }
 
-        return new Image(
-                pokemonSpriteURL.toExternalForm());
+    private VBox getStatusBox(String type){
+        return null;
     }
 
     private ImageView createPokemonImageView(String pokemonName, String direction) {
-        Image pokemonSprite = getPokemonSprite(pokemonName, direction);
+        Image pokemonSprite = UiFactory.getPokemonSprite(pokemonName, direction);
 
         ImageView pokemonSpriteImageView = new ImageView(pokemonSprite);
         pokemonSpriteImageView.setFitWidth(350);
@@ -280,11 +265,11 @@ public class BattleUserController implements TrainerController {
     }
 
     private void setMainPokemonSprite() {
-        mainPokemonSpriteImageView.setImage(getPokemonSprite(getMainTrainer().getActivePokemons().getFirst().getName(), "back"));
+        mainPokemonSpriteImageView.setImage(UiFactory.getPokemonSprite(getMainTrainer().getActivePokemons().getFirst().getName(), "back"));
     }
 
     private void setBotPokemonSprite() {
-        botPokemonSpriteImageView.setImage(getPokemonSprite(getBotTrainer().getActivePokemons().getFirst().getName(), "face"));
+        botPokemonSpriteImageView.setImage(UiFactory.getPokemonSprite(getBotTrainer().getActivePokemons().getFirst().getName(), "face"));
     }
 
 
@@ -297,15 +282,24 @@ public class BattleUserController implements TrainerController {
     }
 
     private void updateMainPokemonSprite() {
-        mainPokemonBackSprite.getChildren().clear(); // Supprime l'ancien sprite
-        ImageView pokemonSpriteImageView = createPokemonImageView(getMainTrainer().getActivePokemons().getFirst().getName(), "back");
-        mainPokemonBackSprite.getChildren().add(pokemonSpriteImageView);
+        mainPokemonBackSprite.getChildren().clear();
+        if (!getMainTrainer().getActivePokemons().isEmpty()) {
+            ImageView pokemonSpriteImageView = createPokemonImageView(
+                    getMainTrainer().getActivePokemons().getFirst().getName(),
+                    "back");
+            mainPokemonBackSprite.getChildren().add(pokemonSpriteImageView);
+        }
     }
 
     private void updateBotPokemonSprite() {
-        botPokemonFrontSprite.getChildren().clear(); // Supprime l'ancien sprite
-        ImageView pokemonSpriteImageView = createPokemonImageView(getBotTrainer().getActivePokemons().getFirst().getName(), "face");
-        botPokemonFrontSprite.getChildren().add(pokemonSpriteImageView);
+        botPokemonFrontSprite.getChildren().clear();
+        if (!getBotTrainer().getActivePokemons().isEmpty()) {
+            ImageView pokemonSpriteImageView = createPokemonImageView(
+                    getBotTrainer().getActivePokemons().getFirst().getName(),
+                    "face"
+            );
+            botPokemonFrontSprite.getChildren().add(pokemonSpriteImageView);
+        }
     }
 
     private void updatePokemonSprites() {

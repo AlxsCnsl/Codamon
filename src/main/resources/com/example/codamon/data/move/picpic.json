@@ -1,6 +1,6 @@
 {
   "name" : "Picpic",
-  "type" : "FIGHTING",
+  "type" : "Flying",
   "category" : "Physical",
   "description" : "Le lanceur frappe la cible d'un bec acéré ou d'une corne pointue pour infliger des dégâts.",
   "power": 35,

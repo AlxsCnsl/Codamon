@@ -1,6 +1,6 @@
 {
   "name" : "Plaie-Croix",
-  "type" : "BUG",
+  "type" : "Bug",
   "category" : "Physical",
   "description" : "Le lanceur taillade la cible en utilisant ses faux ou ses griffes comme une paire de ciseaux.",
   "power": 80,

@@ -20,7 +20,7 @@ public class Pokemon {
     private Boolean isAlive = true;
     private Trainer owner = null;
     private final String name;
-    private int lvl = 100;
+    private int level = 100;
     private final HashMap<String, Integer> baseStats = new HashMap<>();
     private HashMap<String, Integer> modifierStats = new HashMap<>();
     private int currentHP;
@@ -153,6 +153,10 @@ public class Pokemon {
         return  this.modifierStats.get(key);
     }
 
+    public int getLevel(){
+        return level;
+    }
+
     public double getFactorModifiedState(String key) {
         double factor;
         if (!key.equals("ACC") && !key.equals("ESC")) {
@@ -203,11 +207,11 @@ public class Pokemon {
         int iv = 61;
         if(!key.equals("HP")){
             return (int)
-                    (((2*this.getBaseState(key)*this.lvl+iv)/100)+5
+                    (((2*this.getBaseState(key)*this.level +iv)/100)+5
                     *otherPameter(key));
 
         } return (int)
-                ((2*this.getBaseState("HP")*this.lvl+iv)/100)+this.lvl+10;
+                ((2*this.getBaseState("HP")*this.level +iv)/100)+this.level +10;
     }
 
     private double otherPameter(String key){
@@ -247,10 +251,6 @@ public class Pokemon {
                         this.name+" no content move > "+
                         moveSearched);
         return null;
-    }
-
-    public int getLvl(){
-        return this.lvl;
     }
 
     public Status getMajorStatus() {

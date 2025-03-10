@@ -105,7 +105,7 @@ public class Trainer {
                 if (pokemon.equals(calledPokemon) &&
                         pokemon.getTerrain()!= null) {
                     calledPokemon.quitTerrain();
-                    System.out.println("#TRAINER# " + name + " send  " +
+                    System.out.println("#TRAINER# " + name + " recall  " +
                             calledPokemon.getName());
                     return;
                 }

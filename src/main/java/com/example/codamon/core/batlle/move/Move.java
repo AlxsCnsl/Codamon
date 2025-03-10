@@ -183,7 +183,7 @@ public class Move extends Action {
         if(this.category == Category.SPECIAL){
             atk = "SPA"; def = "SPD";
         }
-        int damage = (int) ((((((user.getLvl() * 0.4 + 2)
+        int damage = (int) ((((((user.getLevel() * 0.4 + 2)
                 * user.getCurrentState(atk) * this.getPower())
                 / target.getCurrentState(def))/50)+2)
                 * getStab(user)

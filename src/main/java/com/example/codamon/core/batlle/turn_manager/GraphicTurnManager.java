@@ -2,17 +2,13 @@ package com.example.codamon.core.batlle.turn_manager;
 import com.example.codamon.core.Trainer;
 import com.example.codamon.core.batlle.Battle;
 import com.example.codamon.core.batlle.Terrain;
-import com.example.codamon.core.batlle.effect.batlle_effect.status.Status;
 import com.example.codamon.core.batlle.move.Move;
 import com.example.codamon.core.pokemon.Pokemon;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.concurrent.CompletableFuture;
-
-import static com.example.codamon.core.GlobalTools.waitPressEnter;
 
 public class GraphicTurnManager implements Turn {
     private Stage stage;
@@ -148,7 +144,7 @@ public class GraphicTurnManager implements Turn {
             if (humanTrainer.getTerrain().getActivePokemons().isEmpty()) {
                 // The human needs to switch; wait for the switch to complete.
                 System.out.println("A switch is needed. Waiting for the player to select...");
-                return humanTrainer.getControl().switchBeforeKoAsync(humanTrainer)
+                return humanTrainer.getControl().switchBeforeKo(humanTrainer)
                         .thenApply(x -> null); // Chain to a Void future.
             } else {
                 // Otherwise, return a completed future so we continue immediately.
@@ -182,7 +178,7 @@ public class GraphicTurnManager implements Turn {
                     for (Pokemon pokemon : trainer.getPokemonsTeam().getPokemons()) {
                         if (pokemon.getIsAlive()) {
                             System.out.println("switchIfPokemonKoAsync: Requesting switch for trainer " + trainer);
-                            return trainer.getControl().switchBeforeKoAsync(trainer);
+                            return trainer.getControl().switchBeforeKo(trainer);
                         }
                     }
                 }

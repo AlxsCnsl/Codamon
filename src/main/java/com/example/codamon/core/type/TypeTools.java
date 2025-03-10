@@ -114,5 +114,29 @@ public class TypeTools {
             default -> null; // Ou tu peux lever une exception si la valeur est inconnue
         };
     }
+
+    public static String stringTypeToColor(String type) {
+        return switch (type) {
+            case "Normal" -> "#A8A878";
+            case "Fire" -> "#F08030";
+            case "Water" -> "#6890F0";
+            case "Grass" -> "#78C850";
+            case "Electric" -> "#F8D030";
+            case "Ice" -> "#98D8D8";
+            case "Fighting" -> "#C03028";
+            case "Poison" -> "#A040A0";
+            case "Ground" -> "#E0C068";
+            case "Flying" -> "#A890F0";
+            case "Psychic" -> "#F85888";
+            case "Bug" -> "#A8B820";
+            case "Rock" -> "#B8A038";
+            case "Ghost" -> "#705898";
+            case "Dragon" -> "#7038F8";
+            case "Dark" -> "#705848";
+            case "Steel" -> "#B8B8D0";
+            case "Fairy" -> "#EE99AC";
+            default -> "#FFFFFF";
+        };
+    }
 }
 

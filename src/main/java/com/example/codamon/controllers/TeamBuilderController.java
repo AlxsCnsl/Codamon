@@ -94,7 +94,7 @@ public class TeamBuilderController {
 
     private ImageView createTypeImageView(String typeName) {
         URL typeSpriteURL = getClass().getResource(
-                "/com/example/codamon/types/" +
+                "/com/example/codamon/sprites/types/" +
                         typeName + ".png");
         Image typeSprite = new Image(typeSpriteURL.toExternalForm());
 
@@ -249,7 +249,7 @@ public class TeamBuilderController {
 
     private Image getTypeSprite(String pokemonFirstType) {
         URL firstTypeSpriteURL = getClass().getResource(
-                "/com/example/codamon/types/" +
+                "/com/example/codamon/sprites/types/" +
                         pokemonFirstType.toLowerCase() + ".png");
 
         return new Image(
@@ -258,7 +258,7 @@ public class TeamBuilderController {
 
     private Image getNullTypeSprite() {
         URL nullTypeSpriteURL = getClass().getResource(
-                "/com/example/codamon/types/null.png");
+                "/com/example/codamon/sprites/types/null.png");
 
         return new Image(
                 nullTypeSpriteURL.toExternalForm());

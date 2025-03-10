@@ -11,7 +11,7 @@ public interface TrainerController {
 
     public CompletableFuture<Move> getMoveChoiceAsync(Pokemon pokemon);
 
-    public CompletableFuture<Void> switchBeforeKoAsync(Trainer trainer);
+    public CompletableFuture<Void> switchBeforeKo(Trainer trainer);
 
     void setStage(Stage stage) throws InterruptedException;
 
