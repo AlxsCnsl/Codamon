@@ -1,0 +1,23 @@
+{
+  "name" : "Lance-Flammes",
+  "type" : "Fire",
+  "category" : "Special",
+  "description" : "ULa cible reçoit un torrent de flammes qui peut aussi la brûler.",
+  "power": 90,
+  "accurate": 100,
+  "pp": 15,
+  "priority": 0,
+  "targetMode": "AdjacentTarget",
+  "effects" : [
+    {"type_effect" : "DamageApplicatorEffect"
+    },
+    {"type_effect" : "ProbabilityEffect",
+      "probability" : 0.1,
+      "effects" : [
+        {"type_effect": "StatusGiverEffect",
+          "status": "Burn"
+        }
+      ]
+    }
+  ]
+}

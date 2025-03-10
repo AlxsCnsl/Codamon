@@ -10,6 +10,9 @@
     "SPE": 80
   },
   "Ability": [],
-  "move": ["Feu-follet"]
+  "move": [
+    "Feu-follet",
+    "Lance-Flammes"
+  ]
 
 }
