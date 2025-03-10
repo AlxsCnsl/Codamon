@@ -11,10 +11,10 @@
   },
   "Ability": [],
   "move": [
-    "Eclair",
-    "Mimi-Queue",
     "Cage-Eclair",
+    "Charge",
+    "Eclair",
     "Fatal-Foudre",
-    "Charge"
+    "Mimi-Queue"
   ]
 }

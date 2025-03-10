@@ -38,7 +38,6 @@ public class PokeApp extends Application {
         stage.setTitle("MENU");
         stage.show();
 
-
     }
 
     public static Map<SceneName, Scene> getScenes() {
